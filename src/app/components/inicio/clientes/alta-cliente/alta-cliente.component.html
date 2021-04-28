@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <div class="formulario p-4">
+            <form (ngSubmit)="onSiguiente(f)"
+            #f="ngForm">
+                <legend>Datos personales</legend>
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="nombre">Nombre*:</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="cliente.nombre" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['nombre'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div>
+                    <!-- <div class="col-12 col-md-4">
+                        <label for="apat">Apellido Paterno*:</label>
+                        <input type="text" name="apat" id="apat" class="form-control" #apat="ngModel" [(ngModel)]="cliente.apat" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['apat'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div>
+                    <div class="col-12 col-md-4">
+                        <label for="amat">Apellido Materno*:</label>
+                        <input type="text" name="amat" id="amat" class="form-control" #amat="ngModel" [(ngModel)]="cliente.amat" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['amat'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div> -->
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                        <label for="correo">Correo*:</label>
+                        <input type="email" name="correo" id="correo" class="form-control" #correo="ngModel" [(ngModel)]="cliente.correo" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['correo'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div>
+                    <div class="col-12 col-md-4">
+                        <label for="telefono">Teléfono casa:</label>
+                        <input type="tel" name="telefono" id="telefono" class="form-control" #telefono="ngModel" [(ngModel)]="cliente.telefono" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['telefono'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div>
+                    <!-- <div class="col-12 col-md-4">
+                        <label for="celular">Teléfono celular:</label>
+                        <input type="tel" name="celular" id="celular" class="form-control" #celular="ngModel" [(ngModel)]="cliente.celular" required>
+                        <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['celular'].errors">
+                          Favor de ingresar cp
+                        </div>
+                      </div> -->
+                </div>
+                <legend>Domicilio</legend>
+                <div class="form-group row">
+                    <!-- <div class="col-12 col-md-4">
+                      <label for="cp">Código Postal:</label>
+                      <input type="text" name="cp" id="cp" class="form-control" #cp="ngModel" [(ngModel)]="cliente.direccion.cp" required>
+                      <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['cp'].errors">
+                        Favor de ingresar cp
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label for="colonia">Colonia:</label>
+                      <select name="colonia" id="colonia" class="form-control" #colonia="ngModel" [(ngModel)]="cliente.direccion.colonia" required>
+                          <option [value]="colonia" *ngFor="let colonia of colonias"> {{colonia}} </option>
+                      </select>
+                      <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['colonia'].errors">
+                        Favor de ingresar cp
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label for="calle">Calle:</label>
+                      <input type="text" name="calle" id="calle" class="form-control" #calle="ngModel" [(ngModel)]="cliente.direccion.calle" required>
+                      <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['calle'].errors">
+                        Favor de ingresar cp
+                      </div>
+                    </div> -->
+                </div>
+                <div class="form-group row">
+                  <!-- <div class="col-12 col-md-4">
+                    <label for="numero">Número:</label>
+                    <input type="text" name="numero" id="numero" class="form-control" #numero="ngModel" [(ngModel)]="cliente.direccion.numeroExt" required>
+                    <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['numero'].errors">
+                      Favor de ingresar cp
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label for="municipio">Municipio:</label>
+                    <input type="text" name="municipio" id="municipio" class="form-control" #municipio="ngModel" [(ngModel)]="cliente.direccion.delegacion" required>
+                    <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['municipio'].errors">
+                      Favor de ingresar cp
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label for="estado">Estado:</label>
+                    <input type="text" name="estado" id="estado" class="form-control" #estado="ngModel" [(ngModel)]="cliente.direccion.estado" required>
+                    <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['estado'].errors">
+                      Favor de ingresar cp
+                    </div>
+                  </div> -->
+                </div>
+                <ng-container *ngIf="tramiteBool; else personalTsmo">
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-danger" (click)="onAtras()">Atrás</button>
+                    <button class="btn btn-outline-info" type="sumbit">Pago</button>
+                  </div>
+                </ng-container>
+                <ng-template #personalTsmo>
+                  <button class="btn btn-info w-100" type="sumbit">Guardar</button>
+                </ng-template>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>

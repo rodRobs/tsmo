@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="mb-4">
+                <button class="btn btn-info w-100" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >
+                    Nueva cotizacion
+                </button>
+            </div>
+            <div class="formulario p-4">
+                <legend>
+                    Costo de la cotización
+                </legend>
+                <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Flete</th>
+                        <td> {{carga.flete | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Recolección</th>
+                        <td> {{carga.recoleccion | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Entrega a domicilio</th>
+                        <td> {{carga.domicilio | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Cargo por Combustible</th>
+                        <td> {{carga.cxc | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Utilidad</th>
+                        <td> {{carga.utilidad | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Precio</th>
+                        <td class="precio"> {{carga.precio | currency}} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Peso</th>
+                        <td> {{carga.peso}} kg </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="form-group row mt-4">
+                <div class="col-12 col-md-6">
+                    <div class="formulario p-4">
+                        <legend>Origen</legend>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="cp-origen">Código Postal:</label>
+                                <label for="" class="form-control"> {{origen.cp}} </label>
+                            </div>
+                            <div class="col-12">
+                                <label for="colonia-origen">Colonia:</label>
+                                <label for="" class="form-control"> {{origen.colonia}} </label>
+                            </div>
+                        <!-- </div> -->
+                        <!-- <div class="form-group row"> -->
+                            <div class="col-12">
+                                <label for="calle-origen">Calle:</label>
+                                <label for="" class="form-control"> {{origen.calle}} </label>
+                            </div>
+                            <div class="col-6">
+                                <label for="numero-origen">Número Exterior:</label> 
+                                <label for="" class="form-control"> {{origen.numeroExt}} </label>
+                            </div>
+                            <div class="col-6">
+                                <label for="numero-origen">Número Interior:</label> 
+                                <label for="" class="form-control"> {{origen.numeroInt}} </label>
+                            </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                            <div class="col-12">
+                                <label for="municipio-o">Delegación/Municipio:</label>
+                                <label for="" class="form-control"> {{origen.delegacion}} </label>
+                            </div>
+                            <div class="col-12">
+                                <label for="estado-o">Estado:</label>
+                                <label for="" class="form-control"> {{origen.estado}} </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-12 col-md-6">
+                    <div class="formulario p-4">
+                        <legend>Destino</legend>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="cp-origen">Código Postal:</label>
+                                <label for="" class="form-control"> {{destino.cp}} </label>
+                            </div>
+                            <div class="col-12">
+                                <label for="colonia-origen">Colonia:</label>
+                                <label for="" class="form-control"> {{destino.colonia}} </label>
+                            </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                            <div class="col-12">
+                                <label for="calle-origen">Calle:</label>
+                                <label for="" class="form-control"> {{destino.calle}} </label>
+                            </div>
+                            <div class="col-6">
+                                <label for="numero-exterior-destino">Número Exterior:</label> 
+                                <label for="" class="form-control"> {{destino.numeroExt}} </label>
+                            </div>
+                            <div class="col-6">
+                                <label for="numero-interior-destino">Número Interior:</label> 
+                                <label for="" class="form-control"> {{destino.numeroInt}} </label>
+                            </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                            <div class="col-12">
+                                <label for="municipio-o">Delegación/Municipio:</label>
+                                <label for="" class="form-control"> {{destino.delegacion}} </label>
+                            </div>
+                            <div class="col-12">
+                                <label for="estado-o">Estado:</label>
+                                <label for="" class="form-control"> {{destino.estado}} </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <button class="btn btn-info w-100" (click)="onNuevaCotizacion()">
+                    Nueva Cotizacion
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

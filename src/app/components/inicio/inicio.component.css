@@ -1,0 +1,10 @@
+/* main {
+    height: 90%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+} */
+
+.container {
+    background-color: #FF5A5F;
+}

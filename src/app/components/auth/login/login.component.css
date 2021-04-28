@@ -1,0 +1,24 @@
+.login {
+    margin: 10em 0;
+    font-family: 'Raleway', sans-serif;
+ }
+ 
+ form {
+     background-color: #BFD7EA;
+     border-radius: 10px;
+     box-shadow: black;
+     box-shadow: 15px 15px rgba(0,0,0,0.1);
+ }
+ 
+ form label {
+     color: #087E8B; 
+ }
+ 
+ .titulo {
+     color: #FF7075;
+     font-weight: 300;
+ }
+ 
+ .alert {
+     padding: .75rem .45rem;
+ }

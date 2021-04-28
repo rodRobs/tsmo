@@ -1,0 +1,15 @@
+.icono {
+  text-align: center;
+  font-size: 100px;
+}
+
+button {
+  border: none;
+  background-color: #FFF;
+}
+
+button div:hover {
+  color:aqua;
+}
+
+

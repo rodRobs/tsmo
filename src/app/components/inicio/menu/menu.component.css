@@ -1,0 +1,26 @@
+button p {
+    margin: 0;
+}
+
+.saludo {
+    padding: 20px 0;
+    color: #fff;
+}
+
+.saludo span {
+    text-transform: uppercase;
+}
+
+button {
+    color: #F9DCDE;
+    border: none;
+    padding-top: 1rem;
+    margin-top: 10px;
+    background-color: #FF5A5F;
+    margin-left: 1em;
+}
+
+button:hover {
+    color: ivory;
+    border-bottom: 1px solid ivory;
+}

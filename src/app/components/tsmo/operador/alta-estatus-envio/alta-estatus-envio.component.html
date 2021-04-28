@@ -1,0 +1,23 @@
+<main class="mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <app-buscar-guia (buscarEnvio)="buscarEnvio($event)"></app-buscar-guia>
+        <div *ngIf="botonerBoolean" class="mt-3">
+          <ng-container *ngIf="mostrar; else elseTemplate">
+            <button class="btn btn-link text-danger" type="button" (click)="onMostrarInformacion()"> - Ocultar información del envío </button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button class="btn btn-link" type="button" (click)="onMostrarInformacion()"> - Mostrar información del envío </button>
+          </ng-template>
+          <div *ngIf="mostrar">
+            <app-mostrar-informacion [envio]="envio" *ngIf="envio"></app-mostrar-informacion>
+          </div>
+          <div *ngIf="envio">
+            <app-actualizar-envio [envio]="envio" *ngIf="envio"></app-actualizar-envio>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

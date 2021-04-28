@@ -1,0 +1,13 @@
+.precio {
+    color: green;
+    font-size: 16px;
+}
+
+label {
+    color: #000;
+}
+
+.form-control {
+    color: #0C496E;
+    background-color: #EDF7FD;
+}

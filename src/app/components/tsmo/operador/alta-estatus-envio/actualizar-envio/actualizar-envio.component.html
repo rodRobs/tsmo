@@ -1,0 +1,29 @@
+<div class="formulario mt-2 p-4" >
+  <app-legend [lengenda]="legendaActualizar"></app-legend>
+  <form
+  [formGroup]="forma" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-12">
+        <label for="etapa">Etapa:</label>
+        <select name="etapa" id="etapa" class="form-control" formControlName="etapa" (change)="onSeleccionDescripcion()">
+          <option *ngFor="let etapa of etapas; index as i" [value]="i" > {{etapa}} </option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label for="descripcion">Descripción:</label>
+        <select name="descripcion" id="descripcion" class="form-control" formControlName="descripcion">
+          <option [value]="descripcion" *ngFor="let descripcion of descripcionMostrar"> {{descripcion}} </option>
+        </select>
+      </div>
+      <div class="col-12 mt-3">
+        <button class="btn btn-info w-100 boton" type="submit" [disabled]="desactivarBoton"> Actualizar envío </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="exitoBoolean" class="mt-5">
+  <div class="alert alert-success" role="alert">
+    {{exito}}
+  </div>
+</div>

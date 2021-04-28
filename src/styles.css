@@ -1,0 +1,208 @@
+/* You can add global styles to this file, and also import other style files */
+body, div, small, input {
+  font-family: 'Raleway', sans-serif;
+}
+.container {
+    /* width: 1000px; */
+    max-width: 95%;
+}
+
+header {
+    background-color: #1D3557;
+}
+
+.fondo-texto {
+  background-color: #000;
+}
+
+footer {
+    z-index: -100;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+main {
+  height: 90%;
+  /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+}
+
+
+.menu {
+  /* background-color: #FF5A5F; */
+  /* height: 100%; */
+  width: 100%;
+  color:darkgray;
+
+}
+
+.derecho {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.cajas-botones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cajas-botones .btn-caja {
+padding: 5px;
+}
+
+
+
+.cajas-botones .btn-caja button {
+  width: 60px;
+  height: 60px;
+  /* margin: 25px 0; */
+  background-color: rgb(0,0,0,0.4);
+  color: #F5B8BB;
+  border: none;
+  border-radius: 5px;
+  /* padding: 25px; */
+}
+
+/* .cajas-botones .btn-baja button span {
+    font-size: 12px;
+    text-align: justify;
+} */
+
+.cajas-botones .btn-caja button:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+  .cajas-botones .btn-caja button p {
+      font-size: 10px;
+    }
+
+    .cajas-botones .btn-caja button p i {
+      font-size: 30px;
+    }
+
+    .derecho {
+        display: flex;
+        align-items: center;
+    }
+
+.formulario {
+  background-color: #BFD7EA;
+  border-radius: 10px;
+  box-shadow: black;
+  box-shadow: 15px 15px rgba(0,0,0,0.1);
+  /* z-index: 100; */
+}
+
+.formulario label {
+  color: #087E8B;
+}
+
+.fondo-ciudad {
+  /* margin-top: 230px; */
+  height: 400px;
+  width: 100%;
+  background-image: url("assets/klipartz.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 0;
+
+}
+
+@media (max-width: 1812px) {
+  .fondo-ciudad {
+    height: 300px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .fondo-ciudad {
+    height: 200px;
+  }
+}
+
+/* @media (max-width: 1045px) {
+  .fondo-ciudad {
+    height: 230px;
+  }
+} */
+
+@media (max-width: 955px) {
+  .fondo-ciudad {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fondo-ciudad {
+    height: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fondo-ciudad {
+    height: 90px;
+  }
+  footer {
+    font-size: 12px;
+  }
+}
+
+
+/* Loading */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #17a2b8;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.titulo {
+  color: #FF7075;
+  font-weight: 300;
+}
+
+@media (max-height: 800px) {
+  footer {
+    position: relative;
+  }
+}
+
+@media (max-width: 400px) {
+  footer {
+    position: relative;
+  }
+}
+
+
+
+
+/* html, body { height: 100%; margin: 0 }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

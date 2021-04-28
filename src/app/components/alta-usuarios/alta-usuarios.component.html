@@ -1,0 +1,56 @@
+<main class="mt-5">
+  <section class="login">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex align-items-center justify-content-center align-content-center flex-wrap">
+            <div class="formulario">
+              <app-legend [lengenda]="altaUsuario"></app-legend>
+              <form class="p-4"
+              [formGroup]="forma" (ngSubmit)="oAltaUsuario()">
+              <div class="form-group row">
+                <div class="col-12">
+                  <label for="nombre">Nombre: </label>
+                  <input type="text" name="nombre" id="Nombre" class="form-control" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                  <small class="text-danger" *ngIf="nombreNoValido">Ingresa nombre</small>
+                </div>
+                <div class="col-12">
+                  <label for="correo">Correo:</label>
+                  <input type="text" name="correo" id="correo" class="form-control" formControlName="email" [class.is-invalid]="emailNoValido">
+                  <small class="text-danger" *ngIf="emailNoValido">Ingresa correo</small>
+                  <!-- <small class="text-danger" *ngIf="existeCorreo">Correo ya existe</small> -->
+                </div>
+                <div class="col-12">
+                  <label for="nombreUsuario">Nombre de usuario:</label>
+                  <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" formControlName="nombreUsuario" [class.is-invalid]="nombreUsuarioNoValido">
+                  <small class="text-danger" *ngIf="nombreUsuarioNoValido">Ingresa nombre de usuario</small>
+                  <!-- <small class="text-danger" *ngIf="existeNombreUsuraio">Nombre de Usuario ya existe</small> -->
+                </div>
+                <div class="col-12">
+                  <label for="contrasenia">Contraseña:</label>
+                  <input type="password" name="contrasenia" id="contrasenia" class="form-control" formControlName="password" [class.is-invalid]="passwordNoValido">
+                  <small class="text-danger" *ngIf="passwordNoValido">Ingresa contraseña</small>
+                </div>
+                <div class="col-12">
+                  <label for="contrasena2">Confirme Contraseña:</label>
+                  <input type="password" name="contrasena2" id="contrasena2" class="form-control" formControlName="password2" [class.is-invalid]="password2NoValido">
+                  <small class="text-danger" *ngIf="password2NoValido">Reingresa misma contraseña</small>
+                </div>
+                <div class="col-12">
+                  <label for="rol">Rol de usuario:</label>
+                  <select name="rol" id="rol" class="form-control" formControlName="rol">
+                    <option value="Operador">Operador</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <button class="btn btn-info col" type="submit">Enviar</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

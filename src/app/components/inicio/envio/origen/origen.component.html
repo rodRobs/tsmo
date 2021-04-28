@@ -1,0 +1,127 @@
+<div class="container-sm">
+    <div class="row">
+        <div class="col">
+          <app-legend [lengenda]="legenda"></app-legend>
+          <app-parrafo [parrafo]="parrafo"></app-parrafo>
+          <div class="mb-4">
+            <!-- <button class="btn btn-info w-100" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >
+                Nueva cotizacion
+            </button> -->
+           </div>
+            <div class="formulario p-4">
+              <div>
+                <app-legend [lengenda]="legend"></app-legend>
+              </div>
+                <form
+                [formGroup]="forma" (ngSubmit)="onSiguiente()"
+                >
+                    <fieldset>
+
+                      <legend>Origen</legend>
+                      <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                          <label for="remitente">Remitente:</label>
+                          <input type="text" name="remitente" id="remitente" class="form-control" formControlName="remitente" [class.is-invalid]="remitenteNoValido">
+                          <small class="text-danger" *ngIf="remitenteNoValido">
+                            Ingresa remitente
+                          </small>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="email">Email:</label>
+                          <input type="text" name="email" id="email" class="form-control" formControlName="email" [class.is-invalid]="estadoNovalido" [class.is-invalid]="emailNoValido">
+                          <small class="text-danger" *ngIf="emailNoValido">
+                            Ingresa email
+                          </small>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                          <label for="cp-origen">Código Postal:</label>
+                          <input type="text" minlength="5" maxlength="5" name="cp-origen" id="cp-origen" class="form-control" (change)="onBuscarCP()" formControlName="cp" [class.is-invalid]="cpNovalido">
+                          <small class="text-danger" *ngIf="cpNovalido">
+                            Ingresa código postal
+                          </small>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="colonia-origen">Colonia:</label>
+                          <ng-container *ngIf="coloniaBoolean; else coloniaList">
+                            <input type="text" name="colonia" id="colonia" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaNovalido">
+                            <small class="text-danger" *ngIf="coloniaNovalido">
+                              Ingresa colonia
+                            </small>
+                          </ng-container>
+                          <ng-template #coloniaList>
+                            <select name="colonia-origen" id="colonia-origen" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaNovalido">
+                              <!-- <option [value]="colonia" > {{colonia}} </option> -->
+                              <option [value]="colonia" *ngFor="let colonia of colonias"> {{colonia}} </option>
+                            </select>
+                            <small class="text-danger" *ngIf="coloniaNovalido">
+                              Ingresa colonia
+                            </small>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                          <label for="calle-origen">Calle:</label>
+                          <input type="text" name="calle-origen" id="calle-origen" class="form-control" formControlName="calle" [class.is-invalid]="calleNovalido">
+                          <small class="text-danger" *ngIf="calleNovalido">
+                            Ingresa calle
+                          </small>
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label for="numero-exterior-origen">Número Exterior: </label>
+                          <input type="text" name="numero-exterior-origen" id="numero-exterior-origen" class="form-control" formControlName="numeroExt" [class.is-invalid]="numeroExtNovalido">
+                          <small class="text-danger" *ngIf="numeroExtNovalido">
+                            Ingresa número interior
+                          </small>
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <label for="numero-interior-origen">Número Interior:</label>
+                          <input type="text" name="numero-interior-origen" id="numero-interior-origen" class="form-control" formControlName="numeroInt" [class.is-invalid]="numeroIntNovalido">
+                          <small class="text-danger" *ngIf="numeroIntNovalido">
+                            Ingresa número interior
+                          </small>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                          <label for="municipio-o">Ciudad:</label>
+                          <input type="text" name="municipio-o" id="municipio-o" class="form-control" formControlName="ciudad" [class.is-invalid]="ciudadNovalido">
+                          <small class="text-danger" *ngIf="ciudadNovalido">
+                            Ingresa ciudad
+                          </small>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="estado-o">Estado:</label>
+                          <input type="text" name="estado-o" id="estado-o" class="form-control" formControlName="estado" [class.is-invalid]="estadoNovalido">
+                          <small class="text-danger" *ngIf="estadoNovalido">
+                            Ingresa estado
+                          </small>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-12 col-md-6">
+                          <label for="telefono">Teléfono:</label>
+                          <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono" [class.is-invalid]="telefonoNoValido">
+                          <small class="text-danger" *ngIf="telefonoNoValido">
+                            Ingresa teléfono
+                          </small>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="referencia">Referencia:</label>
+                          <input type="text" name="referencia" id="referencia" class="form-control" formControlName="referencia" [class.is-invalid]="referenciaNoValido">
+                          <small class="text-danger" *ngIf="referenciaNoValido">
+                            Ingresa referencia
+                          </small>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-dark" type="submit">Siguiente</button>
+                      </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

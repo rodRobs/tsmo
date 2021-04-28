@@ -1,0 +1,56 @@
+<!-- <nav>
+  <div class="container">
+    <div class="menu">
+      <ul>
+        <li><button [routerLink]="['/cotizacion']" routerLinkActive="router-link-active" >Cotizador</button></li>
+        <li><button [routerLink]="['/rastrear']" routerLinkActive="router-link-active">Rastrear</button></li>
+        <li><button [routerLink]="['/cobertura']" routerLinkActive="router-link-active">Cobertura</button></li>
+        <li><button [routerLink]="['/envio']" routerLinkActive="router-link-active" >Contratar Envio</button></li>
+        <li><button [routerLink]="['/cancelacion']" routerLinkActive="router-link-active" >Cancelación</button></li>
+        <li><button [routerLink]="['/login']" routerLinkActive="router-link-active" >Inicio de Sesión</button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu> -->
+
+
+    <!-- Code here -->
+      <mat-toolbar>
+        <div class="icono-menu" fxHide.gt-xs>
+          <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <!-- <div>
+          <a [routerLink]="['/cotizacion']" routerLinkActive="router-link-active" >Cotizador</a>
+        </div> -->
+        <div class="botones" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+          <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+            <li>
+              <button [routerLink]="['/cotizacion']" routerLinkActive="router-link-active">Cotizacion</button>
+            </li>
+            <li>
+              <button [routerLink]="['/rastrear']" routerLinkActive="router-link-active">Rastrear</button>
+            </li>
+            <li>
+              <button [routerLink]="['/cobertura']" routerLinkActive="router-link-active">Cobertura</button>
+            </li>
+            <li>
+              <button [routerLink]="['/cancelacion']" routerLinkActive="router-link-active">Cancelación</button>
+            </li>
+            <li>
+              <button [routerLink]="['/login']" routerLinkActive="router-link-active">Iniciar Sesión</button>
+            </li>
+            <!-- <li>
+              <button [routerLink]="['/cobertura']" routerLinkActive="router-link-active">Cobertura</button>
+            </li> -->
+          </ul>
+        </div>
+      </mat-toolbar>
+    <!-- End code -->

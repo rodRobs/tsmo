@@ -1,0 +1,19 @@
+.valor {
+  /* margin-left: 5rem; */
+  color: #457B9D;
+  /* border-bottom: 1px solid #E63746; */
+  padding: 0 5px;
+}
+
+.etiqueta {
+  width: 40%;
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.formulario {
+  padding-bottom: 1rem;
+}
+

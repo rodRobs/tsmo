@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <legend>Cancelación</legend>
+      <div class="parrafo">
+        <p class="text-justify">
+          Indicanos los motivos de cancelación de la guía.
+        </p>
+      </div>
+      <!-- Formulario -->
+      <div class="formulario p-4">
+        <div class="d-flex align-items-center justify-content-center align-content-center flex-wrap">
+          <form class="p-4"
+          [formGroup]="forma"
+          (ngSubmit)="onCancelar()">
+            <fieldset>
+              <div>
+                <h1 class="text-center titulo">
+                  CANCELAR
+                </h1>
+              </div>
+              <div class="form-group row" >
+                <label for="guia" class="col-sm-12 col-form-label">Número de Guía:</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" id="guia" name="guia" formControlName="guia"  [class.is-invalid]="guiaNoValido">
+                  <small class="text-danger" *ngIf="guiaNoValido">
+                    Favor de ingresar número de guía
+                  </small>
+                </div>
+                <label for="guia" class="col-sm-12 col-form-label">Descripción de la cancelación:</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" id="descripcion" name="descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValido">
+                  <small class="text-danger" *ngIf="descripcionNoValido">
+                    Favor de ingresar descripcion de la cancelación
+                  </small>
+                </div>
+              </div>
+              <button class="mt-2 btn btn-danger w-100" type="submit">
+                  Cancelar guía
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+      <div class="alert alert-success mt-5" role="alert" *ngIf="exitoBool">
+        {{exito}}
+      </div>
+
+      <div class="alert alert-danger mt-5" role="alert" *ngIf="errorBool">
+        {{error}}
+      </div>
+
+
+    </div>
+  </div>
+</div>

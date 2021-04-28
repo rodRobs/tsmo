@@ -1,0 +1,15 @@
+.cob {
+  padding: 1rem;
+  border: 3px solid #E63946;
+  border-radius: 10px;
+  color: #457B9D;
+}
+
+.btn {
+  height:3rem;
+}
+
+div {
+  font-family: 'Raleway', sans-serif;
+}
+

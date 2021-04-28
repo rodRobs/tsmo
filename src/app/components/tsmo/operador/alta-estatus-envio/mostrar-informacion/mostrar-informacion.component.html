@@ -1,0 +1,142 @@
+<div class="formulario mt-2 p-4" >
+  <app-legend [lengenda]="legenda"></app-legend>
+  <div class="form-group row">
+    <div class="col-12 col-md-6">
+      <app-legend [lengenda]="origenLegenda"></app-legend>
+      <div class="col-12">
+        <label for="remitente" class="etiqueta">Remitente:</label>
+        <label for="remitente" class="valor"> {{envio.documentacion.cotizacion.origen.remitente}} </label>
+      </div>
+      <div class="col-12">
+        <label for="calle" class="etiqueta">Calle:</label>
+        <label for="calle" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.calle}} </label>
+      </div>
+      <div class="col-12">
+        <label for="numeroExt" class="etiqueta">Número Exterior: </label>
+        <label for="numeroExt" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.numeroExt}} </label>
+      </div>
+      <div class="col-12">
+        <label for="numeroInt" class="etiqueta">Número Interior:</label>
+        <label for="numeroInt" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.numeroInt}} </label>
+      </div>
+      <div class="col-12">
+        <label for="colonia" class="etiqueta">Colonia:</label>
+        <label for="colonia" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.colonia}} </label>
+      </div>
+      <div class="col-12">
+        <label for="cp" class="etiqueta">Código Postal</label>
+        <label for="cp" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.codigoPostal}} </label>
+      </div>
+      <div class="col-12">
+        <label for="ciudad" class="etiqueta">Ciudad:</label>
+        <label for="ciudad" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.ciudad}} </label>
+      </div>
+      <div class="col-12">
+        <label for="estado" class="etiqueta">Estado:</label>
+        <label for="estado" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.estado}} </label>
+      </div>
+      <div class="col-12">
+        <label for="pais" class="etiqueta">Pais:</label>
+        <label for="pais" class="valor"> {{envio.documentacion.cotizacion.origen.domicilio.pais}} </label>
+      </div>
+      <div class="col-12">
+        <label for="telefono" class="etiqueta">Teléfono:</label>
+        <label for="telefono" class="valor"> {{envio.documentacion.cotizacion.origen.telefonos[0].numeroTelefono}} </label>
+      </div>
+      <div class="col-12">
+        <label for="correo" class="etiqueta">Correo:</label>
+        <label for="correo" class="valor"> {{envio.documentacion.cotizacion.origen.email}} </label>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <app-legend [lengenda]="destinoLegenda"></app-legend>
+      <div class="col-12">
+        <label for="destinatario" class="etiqueta">Destinatario:</label>
+        <label for="destinatario" class="valor"> {{envio.documentacion.cotizacion.destino.destinatario}} </label>
+      </div>
+      <div class="col-12">
+        <label for="destinatario2" class="etiqueta">Destinatario 2:</label>
+        <label for="destinatario2" class="valor"> {{envio.documentacion.cotizacion.destino.destinatario2}} </label>
+      </div>
+      <div class="col-12">
+        <label for="calle" class="etiqueta">Calle:</label>
+        <label for="calle" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.calle}} </label>
+      </div>
+      <div class="col-12">
+        <label for="numeroExt" class="etiqueta">Número Exterior:</label>
+        <label for="numeroExt" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.numeroExt}} </label>
+      </div>
+      <div class="col-12">
+        <label for="numeroInt" class="etiqueta">Número Interior:</label>
+        <label for="numeroInt" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.numeroInt}} </label>
+      </div>
+      <div class="col-12">
+        <label for="colonia" class="etiqueta">Colonia:</label>
+        <label for="colonia" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.colonia}} </label>
+      </div>
+      <div class="col-12">
+        <label for="cp" class="etiqueta"> Código Postal:</label>
+        <label for="cp" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.codigoPostal}} </label>
+      </div>
+      <div class="col-12">
+        <label for="ciudad" class="etiqueta">Ciudad:</label>
+        <label for="ciudad" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.ciudad}} </label>
+      </div>
+      <div class="col-12">
+        <label for="estado" class="etiqueta">Estado:</label>
+        <label for="estado" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.estado}} </label>
+      </div>
+      <div class="col-12">
+        <label for="pais" class="etiqueta">País:</label>
+        <label for="pais" class="valor"> {{envio.documentacion.cotizacion.destino.domicilio.pais}} </label>
+      </div>
+      <div class="col-12">
+        <label for="telefono" class="etiqueta">Teléfono:</label>
+        <label for="telefono" class="valor"> {{envio.documentacion.cotizacion.destino.telefonos[0].numeroTelefono}} </label>
+      </div>
+      <div class="col-12">
+        <label for="correo" class="etiqueta">Correo:</label>
+        <label for="correo" class="valor"> {{envio.documentacion.cotizacion.destino.email}} </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-12 col-md-6">
+      <app-legend [lengenda]="paqueteLegenda"></app-legend>
+      <div class="col-12">
+        <div class="col">
+          <label for="largo" class="etiqueta">Largo: </label>
+          <label for="largo" class="valor"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.largo}} </label>
+        </div>
+        <div class="col">
+          <label for="ancho" class="etiqueta">Ancho:</label>
+          <label for="ancho" class="valor"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.ancho}} </label>
+        </div>
+        <div class="col">
+          <label for="alto" class="etiqueta">Alto:</label>
+          <label for="alto" class="valor"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.alto}} </label>
+        </div>
+        <div class="col">
+          <label for="peso" class="etiqueta">Peso:</label>
+          <label for="peso" class="valor"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.peso}} </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <app-legend [lengenda]="opcionesLegenda"></app-legend>
+      <div class="col">
+        <label for="tipoEntrega" class="etiqueta">Tipo de entrega:</label>
+        <label for="tipoEntrega" *ngIf="envio.documentacion.cotizacion.opciones.tipoEntrega == 'D'" class="valor"> Domicilio</label>
+        <label for="tipoEntrega" *ngIf="envio.documentacion.cotizacion.opciones.tipoEntrega == 'O'" class="valor"> Ocurre</label>
+      </div>
+      <div class="col">
+        <label for="tipoEnvio" class="etiqueta">Tipo de envío:</label>
+        <label for="tipoEnvio" class="valor" *ngIf="envio.documentacion.cotizacion.opciones.tipoEnvio == 'P'"> Paquete </label>
+        <label for="tipoEnvio" class="valor" *ngIf="envio.documentacion.cotizacion.opciones.tipoEnvio == 'S'"> Sobre </label>
+        <label for="tipoEnvio" class="valor" *ngIf="envio.documentacion.cotizacion.opciones.tipoEnvio == 'V'"> Valija </label>
+      </div>
+
+    </div>
+  </div>
+
+</div>

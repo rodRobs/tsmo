@@ -1,0 +1,55 @@
+.botones ul {
+  display: flex;
+}
+
+.botones ul li {
+  margin-left: 5rem;
+}
+
+button {
+  border: none;
+  background-color: #1D3557;
+  color: #e63946;
+  padding: 6px;
+}
+
+button:hover {
+  color: #f1faee;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f1faee;
+}
+
+/*  */
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar {
+  background:#1D3557;
+  /* border-radius: 3px; */
+}
+
+.icono-menu {
+  display: none;
+}
+
+@media(max-width: 1000px) {
+  mat-toolbar {
+    border-radius: 0px;
+  }
+
+  .botones {
+    display: none;
+  }
+
+  .icono-menu {
+    display: unset;
+  }
+}
+
+
+
+
+

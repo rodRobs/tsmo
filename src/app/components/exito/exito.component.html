@@ -1,0 +1,170 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+
+      <div>
+        Hola
+        <strong>
+          {{clienteDto.nombre | uppercase}},
+        </strong>
+      </div>
+      <br>
+      <div>
+        Se ha enviado un correo de confirmación al correo electrónico <strong> {{clienteDto.correo}} </strong> con el número de guía <strong>{{guia}}</strong> para su rastreo del envio.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="mb-4">
+      </div>
+      <div class="formulario">
+        <app-legend [lengenda]="legenda"></app-legend>
+        <div class="form-group row">
+          <div class="col-12 col-md-6">
+            <app-legend [lengenda]="legendaOrigen"></app-legend>
+            <div class="col-12">
+              <label for="remitente" class="etiqueta">Remitente:</label>
+              <label for="remitente" class="valor"> {{documentacionDto.origen.remitente}} </label>
+            </div>
+            <div class="col-12">
+              <label for="calle" class="etiqueta">Calle:</label>
+              <label for="calle" class="valor"> {{documentacionDto.origen.domicilio.calle}} </label>
+            </div>
+            <div class="col-12">
+              <label for="numeroExt" class="etiqueta">Número Exterior: </label>
+              <label for="numeroExt" class="valor"> {{documentacionDto.origen.domicilio.numeroExt}} </label>
+            </div>
+            <div class="col-12">
+              <label for="numeroInt" class="etiqueta">Número Interior:</label>
+              <label for="numeroInt" class="valor"> {{documentacionDto.origen.domicilio.numeroInt}} </label>
+            </div>
+            <div class="col-12">
+              <label for="colonia" class="etiqueta">Colonia:</label>
+              <label for="colonia" class="valor"> {{documentacionDto.origen.domicilio.colonia}} </label>
+            </div>
+            <div class="col-12">
+              <label for="cp" class="etiqueta">Código Postal</label>
+              <label for="cp" class="valor"> {{documentacionDto.origen.domicilio.codigoPostal}} </label>
+            </div>
+            <div class="col-12">
+              <label for="ciudad" class="etiqueta">Ciudad:</label>
+              <label for="ciudad" class="valor"> {{documentacionDto.origen.domicilio.ciudad}} </label>
+            </div>
+            <div class="col-12">
+              <label for="estado" class="etiqueta">Estado:</label>
+              <label for="estado" class="valor"> {{documentacionDto.origen.domicilio.estado}} </label>
+            </div>
+            <div class="col-12">
+              <label for="pais" class="etiqueta">Pais:</label>
+              <label for="pais" class="valor"> {{documentacionDto.origen.domicilio.pais}} </label>
+            </div>
+            <div class="col-12">
+              <label for="telefono" class="etiqueta">Teléfono:</label>
+              <label for="telefono" class="valor"> {{documentacionDto.origen.telefonos[0].numeroTelefono}} </label>
+            </div>
+            <div class="col-12">
+              <label for="correo" class="etiqueta">Correo:</label>
+              <label for="correo" class="valor"> {{documentacionDto.origen.email}} </label>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-legend [lengenda]="legendaDestino"></app-legend>
+            <div class="col-12">
+              <label for="destinatario" class="etiqueta">Destinatario:</label>
+              <label for="destinatario" class="valor"> {{documentacionDto.destino.destinatario}} </label>
+            </div>
+            <div class="col-12">
+              <label for="destinatario2" class="etiqueta">Destinatario 2:</label>
+              <label for="destinatario2" class="valor"> {{documentacionDto.destino.destinatario2}} </label>
+            </div>
+            <div class="col-12">
+              <label for="calle" class="etiqueta">Calle:</label>
+              <label for="calle" class="valor"> {{documentacionDto.destino.domicilio.calle}} </label>
+            </div>
+            <div class="col-12">
+              <label for="numeroExt" class="etiqueta">Número Exterior:</label>
+              <label for="numeroExt" class="valor"> {{documentacionDto.destino.domicilio.numeroExt}} </label>
+            </div>
+            <div class="col-12">
+              <label for="numeroInt" class="etiqueta">Número Interior:</label>
+              <label for="numeroInt" class="valor"> {{documentacionDto.destino.domicilio.numeroInt}} </label>
+            </div>
+            <div class="col-12">
+              <label for="colonia" class="etiqueta">Colonia:</label>
+              <label for="colonia" class="valor"> {{documentacionDto.destino.domicilio.colonia}} </label>
+            </div>
+            <div class="col-12">
+              <label for="cp" class="etiqueta"> Código Postal:</label>
+              <label for="cp" class="valor"> {{documentacionDto.destino.domicilio.codigoPostal}} </label>
+            </div>
+            <div class="col-12">
+              <label for="ciudad" class="etiqueta">Ciudad:</label>
+              <label for="ciudad" class="valor"> {{documentacionDto.destino.domicilio.ciudad}} </label>
+            </div>
+            <div class="col-12">
+              <label for="estado" class="etiqueta">Estado:</label>
+              <label for="estado" class="valor"> {{documentacionDto.destino.domicilio.estado}} </label>
+            </div>
+            <div class="col-12">
+              <label for="pais" class="etiqueta">País:</label>
+              <label for="pais" class="valor"> {{documentacionDto.destino.domicilio.pais}} </label>
+            </div>
+            <div class="col-12">
+              <label for="telefono" class="etiqueta">Teléfono:</label>
+              <label for="telefono" class="valor"> {{documentacionDto.destino.telefonos[0].numeroTelefono}} </label>
+            </div>
+            <div class="col-12">
+              <label for="correo" class="etiqueta">Correo:</label>
+              <label for="correo" class="valor"> {{documentacionDto.destino.email}} </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-12 col-md-6">
+            <app-legend [lengenda]="legendaPaquete"></app-legend>
+            <div class="col-12">
+              <div class="col">
+                <label for="largo" class="etiqueta">Largo: </label>
+                <label for="largo" class="valor"> {{documentacionDto.detalle[0].dimensiones.largo}} </label>
+              </div>
+              <div class="col">
+                <label for="ancho" class="etiqueta">Ancho:</label>
+                <label for="ancho" class="valor"> {{documentacionDto.detalle[0].dimensiones.ancho}} </label>
+              </div>
+              <div class="col">
+                <label for="alto" class="etiqueta">Alto:</label>
+                <label for="alto" class="valor"> {{documentacionDto.detalle[0].dimensiones.alto}} </label>
+              </div>
+              <div class="col">
+                <label for="peso" class="etiqueta">Peso:</label>
+                <label for="peso" class="valor"> {{documentacionDto.detalle[0].dimensiones.peso}} </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <app-legend [lengenda]="legendaOpciones"></app-legend>
+            <div class="col">
+              <label for="tipoEntrega" class="etiqueta">Tipo de entrega:</label>
+              <label for="tipoEntrega" *ngIf="documentacionDto.opciones.tipoEntrega == 'D'" class="valor"> Domicilio</label>
+              <label for="tipoEntrega" *ngIf="documentacionDto.opciones.tipoEntrega == 'O'" class="valor"> Ocurre</label>
+            </div>
+            <div class="col">
+              <label for="tipoEnvio" class="etiqueta">Tipo de envío:</label>
+              <label for="tipoEnvio" class="valor" *ngIf="documentacionDto.opciones.tipoEnvio == 'P'"> Paquete </label>
+              <label for="tipoEnvio" class="valor" *ngIf="documentacionDto.opciones.tipoEnvio == 'S'"> Sobre </label>
+              <label for="tipoEnvio" class="valor" *ngIf="documentacionDto.opciones.tipoEnvio == 'V'"> Valija </label>
+            </div>
+            <div class="col">
+              <label for="tipoServicio" class="etiqueta">Tipo de servicio:</label>
+              <label for="tipoServicio" class="valor"> {{tipoServicio}} </label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+

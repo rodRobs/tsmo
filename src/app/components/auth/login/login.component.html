@@ -1,0 +1,50 @@
+<main>
+    <section class="login">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex align-items-center justify-content-center align-content-center flex-wrap">
+                        <form class="p-4"
+                        (ngSubmit)="login(f)"
+                        #f="ngForm">
+                          <fieldset>
+                            <div>
+                              <h1 class="text-center titulo">
+                                INICIO DE SESIÓN
+                              </h1>
+                            </div>
+                            <div class="form-group row" >
+                              <label for="username" class="col-sm-12 col-form-label">Nombre de Usuario:</label>
+                              <div class="col-sm-12">
+                                <input type="text" class="form-control" id="username" name="username" [(ngModel)]="usuario.nombreUsuario" required>
+                                <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['username'].errors">
+                                  Favor de ingresar nombre de usuario
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label for="password" class="col-sm-12 col-form-label">Contraseña:</label>
+                              <div class="col-sm-12">
+                                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="usuario.password" required>
+                                <div class="alert alert-danger w-100" *ngIf="f.submitted && f.controls['password'].errors">
+                                  Favor de ingresar contraseña
+                                </div>
+                                <!-- <span class="text-danger" *ngIf="f.submitted && f.controls['password'].errors"> Favor de ingresar contraseña</span> -->
+                              </div>
+                            </div>
+                            <button class="mt-2 btn btn-info w-100" type="submit">
+                                Ingresar
+                            </button>
+                          </fieldset>
+                        </form>
+                    </div>
+                    <div class="p-4 d-flex justify-content-center">
+                      <div class="alert alert-danger w-50" role="alert" *ngIf="error">
+                        {{mensaje}}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

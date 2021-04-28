@@ -1,0 +1,28 @@
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="menu d-flex justify-content-between">
+        <div class="saludo">
+          ¡Hola <span>{{userName}}</span>!
+        </div>
+        <div class="nav">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="menu">
+                  <button [routerLink]="['/inicio/envio']" routerLinkActive="router-link-active" ><i class="fas fa-cash-register"></i> Cotización</button>
+                  <button [routerLink]="['/inicio/clientes']" routerLinkActive="router-link-active" ><i class="fas fa-users"></i>Clientes</button>
+                  <button [routerLink]="['/inicio/status']" routerLinkActive="router-link-active" ><i class="far fa-compass"></i>Status Envio </button>
+                  <button (click)="onLogout()"><i class="fas fa-sign-out-alt"></i>Salir</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+    </div>
+  </div>
+</div>

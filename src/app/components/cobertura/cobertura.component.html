@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <app-legend [lengenda]="legend"></app-legend>
+      <app-parrafo [parrafo]="parrafo"></app-parrafo>
+        <div class="formulario p-4">
+          <form
+          [formGroup]="forma" (ngSubmit)="onCobertura()"
+          >
+            <app-instrucciones [instrucciones]="instrucciones"></app-instrucciones>
+            <!-- <div class="p-4"> -->
+              <div class="form-group row">
+                <div class="col-12 col-md-6">
+                  <label for="origen">Origen</label>
+                  <input type="text" name="origen" id="origen" minlength="5" maxlength="5" class="form-control" formControlName="origen" placeholder="Código Postal" [class.is-invalid]="origenNoValido">
+                  <small class="text-danger" *ngIf="origenNoValido">Ingresa código postal de origen</small>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="destino">Destino</label>
+                  <input type="text" name="destino" id="destino" minlength="5" maxlength="5" class="form-control" formControlName="destino" placeholder="Código Postal" [class.is-invalid]="destinoNoValido">
+                  <small class="text-danger" *ngIf="destinoNoValido">Ingresa código postal de destino</small>
+                </div>
+              </div>
+            <!-- </div> -->
+            <div class="">
+              <ng-container *ngIf="!loading; else loadingTemplate">
+                <button type="submit" class="btn btn-info w-100">Comprobar</button>
+              </ng-container>
+              <ng-template #loadingTemplate>
+                <div class="d-flex justify-content-center">
+                  <div class="loader"></div>
+                </div>
+              </ng-template>
+
+
+            </div>
+          </form>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="resultado">
+  <div class="row">
+    <div class="col">
+      <div class="formulario p-4">
+        <div class="">
+          <legend class="text-center">Cobertura</legend>
+        </div>
+        <div class="">
+          <div class="d-flex justify-content-center">
+            <div class="cob w-50">
+              <div class="text-center">Origen</div>
+              <div class="text-center"> CP: {{coberturaDto.cpOrigen}} </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <div class="cob w-50">
+              <div class="text-center">Destino</div>
+              <div class="text-center">CP: {{coberturaDto.cpDestino}}</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <div class="cob w-50">
+              <div class="text-center">Tipo de Cobertura:</div>
+              <!-- <input type="text" name="tipoServicio" id="tipoServicio" class="form-control" [(ngModel)]="coberturaResponse[0].tipoServicio"> -->
+              <div class="text-center"> {{coberturaResponse[0].tipoServicio}}  </div>
+              <div class="text-center" *ngIf="coberturaResponse[0].domicilio"> DOMICILIO </div>
+              <div class="text-center" *ngIf="coberturaResponse[0].ocurre"> OCURRE </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-between">
+          <div class="cob d-flex justify-content-center">
+            <div class="text-center">Origen</div>
+            <div class="text-center"> CP: 07010 - GAM - CDMX </div>
+          </div>
+          <div class="cob">
+            <div class="text-center">Destino</div>
+            <div class="text-center">CP: 97000 - Mérida - Yucatán</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="cob">
+            <div class="text-center">Tipo de Cobertura:</div>
+            <div class="text-center">Domicilio</div>
+          </div>
+        </div> -->
+        <div class="container mt-4">
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-primary" [routerLink]="['/cotizacion']" routerLinkActive="router-link-active" > Cotizar </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

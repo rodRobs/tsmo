@@ -1,0 +1,11 @@
+.container {
+    font-family: 'Raleway', sans-serif;
+}
+.form-control {
+    color: #0C496E;
+    background-color: #EDF7FD;
+}
+.precio {
+    font-size: 1.5rem;
+    color: #0B3954;
+}
