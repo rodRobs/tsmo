@@ -1,5 +1,8 @@
 <div class="formulario mt-2 p-4" >
   <app-legend [lengenda]="legenda"></app-legend>
+  <div class="text-center font-weight-bold">
+    {{envio.guiaTsmo}}
+  </div>
   <div class="form-group row">
     <div class="col-12 col-md-6">
       <app-legend [lengenda]="origenLegenda"></app-legend>
@@ -46,6 +49,9 @@
       <div class="col-12">
         <label for="correo" class="etiqueta">Correo:</label>
         <label for="correo" class="valor"> {{envio.documentacion.cotizacion.origen.email}} </label>
+      </div>
+      <div class="text-center" *ngIf="usuario === ''">
+        <button type="button" class="btn btn-dark" (click)="googleMapsOrigen()">Mostrar en Mapa</button>
       </div>
     </div>
     <div class="col-12 col-md-6">
@@ -97,6 +103,9 @@
       <div class="col-12">
         <label for="correo" class="etiqueta">Correo:</label>
         <label for="correo" class="valor"> {{envio.documentacion.cotizacion.destino.email}} </label>
+      </div>
+      <div class="text-center" *ngIf="usuario === ''">
+        <button type="button" class="btn btn-dark" (click)="googleMapsDestino()">Mostrar en Mapa</button>
       </div>
     </div>
   </div>

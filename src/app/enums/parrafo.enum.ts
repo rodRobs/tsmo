@@ -6,6 +6,7 @@ export enum ParrafoType {
   EnvioOrigen = 'Ingresa datos de origen del envio a realizar',
   EnvioDestino = 'Ingresa datos de destino del envio a realizar',
   EnvioPaquete = 'Ingresa datos de paquete y tipos de envio a realizar',
-  Cancelacion = 'Indicanos los motivos de cancelación de la guía.'
+  Cancelacion = 'Indicanos los motivos de cancelación de la guía.',
+  Envios = 'Realiza búsqueda de los envíos realizados'
 
 }

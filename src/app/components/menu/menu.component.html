@@ -22,18 +22,39 @@
 
     <!-- Code here -->
       <mat-toolbar>
-        <div class="icono-menu" fxHide.gt-xs>
-          <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
+
         <!-- <div>
           <a [routerLink]="['/cotizacion']" routerLinkActive="router-link-active" >Cotizador</a>
         </div> -->
-        <div class="botones" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+
+        <mat-toolbar-row>
+          <div class="col-3 p-3">
+            <img src="assets/logo-white.png" alt="TSMO" width="200px">
+          </div>
+          <span class="example-spacer"></span>
+          <div class="icono-menu" fxHide.gt-xs>
+            <button mat-icon-button (click)="onToggleSidenav()">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+          <div class="botones mr-5" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+            <button mat-button [routerLink]="['/cotizacion']" routerLinkActive="router-link-active"><mat-icon>monetization_on</mat-icon>Cotización</button>
+            <button mat-button [routerLink]="['/envio']" routerLinkActive="router-link-active"><mat-icon>local_shipping</mat-icon>Envio</button>
+            <button mat-button [routerLink]="['/rastrear']" routerLinkActive="router-link-active"><mat-icon>place</mat-icon>Rastrear</button>
+            <button mat-button [routerLink]="['/cobertura']" routerLinkActive="router-link-active"><mat-icon>map</mat-icon>Cobertura</button>
+            <button mat-button [routerLink]="['/cancelacion']" routerLinkActive="router-link-active"><mat-icon>cancel_schedule_send</mat-icon>Cancelación</button>
+            <button mat-button [routerLink]="['/login']" routerLinkActive="router-link-active"><mat-icon>login</mat-icon>Iniciar Sesión</button>
+          </div>
+        </mat-toolbar-row>
+
+
+        <!-- <div class="botones" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
           <ul fxLayout fxLayoutGap="15px" class="navigation-items">
             <li>
-              <button [routerLink]="['/cotizacion']" routerLinkActive="router-link-active">Cotizacion</button>
+              <button [routerLink]="['/cotizacion']" routerLinkActive="router-link-active">Cotización Prueba</button>
+            </li>
+            <li>
+              <button [routerLink]="['/envio']" routerLinkActive="router-link-active">Envio</button>
             </li>
             <li>
               <button [routerLink]="['/rastrear']" routerLinkActive="router-link-active">Rastrear</button>
@@ -47,10 +68,8 @@
             <li>
               <button [routerLink]="['/login']" routerLinkActive="router-link-active">Iniciar Sesión</button>
             </li>
-            <!-- <li>
-              <button [routerLink]="['/cobertura']" routerLinkActive="router-link-active">Cobertura</button>
-            </li> -->
+
           </ul>
-        </div>
+        </div> -->
       </mat-toolbar>
     <!-- End code -->

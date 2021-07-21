@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { CancelacionDto } from 'src/app/models/dto/cancelacion.model';
 import { PostCancelacionDto } from 'src/app/models/dto/postCancelacion.model';
 
-const URL = 'http://localhost:8080/';
+const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+// const URL = 'http://localhost:8080/';
 const CANCELACION = 'cancelacion';
 @Injectable({
   providedIn: 'root'

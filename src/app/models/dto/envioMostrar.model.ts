@@ -1,3 +1,4 @@
+import { UsuarioModel } from './../usuario.model';
 import { RastreoDto } from './rastreo.model';
 import { ClienteDto } from './clienteDto.model';
 import { DocumentacionEnvio } from "./documentacionEnvio.model";
@@ -16,8 +17,9 @@ export class EnvioMostrar {
     public estadoEnvio: string,
     public pago: string,
     public entrega: EntregaDto,
-    public rastreos: RastreoDto,
-    public etapa: number
+    public rastreos: RastreoDto[],
+    public etapa: number,
+    public usuario: UsuarioModel
   ) {}
 
 }

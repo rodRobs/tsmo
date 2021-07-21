@@ -27,7 +27,7 @@ export class OrigenComponent implements OnInit {
 
   colonias: string[] = [];
   colonia: string = '';
-  coloniaBoolean: boolean = false;
+  coloniaBoolean: boolean = true;
 
   origen: OrigenDto = new OrigenDto('', new DomicilioDto('', '', '', '', '', '', '', ''), [new TelefonosDto('')], '', '', new Date());
   cotizacion: number = 0;
@@ -49,8 +49,6 @@ export class OrigenComponent implements OnInit {
 
   ngOnInit(): void {
     // Revisamos Path; Si es Para clientes externos o usuarios
-    this.cotizacion = (window.location.pathname == '/envio') ? COTIZACION.Clientes : COTIZACION.PersonalTSMO;
-
   }
 
   crearFormulario() {
@@ -62,8 +60,8 @@ export class OrigenComponent implements OnInit {
       calle: ['', Validators.required],
       numeroExt: ['', Validators.required],
       numeroInt: [''],
-      ciudad: [{value: '', disabled: true}, Validators.required],
-      estado: [{value: '', disabled: true}, Validators.required],
+      ciudad: [{value: '', disabled: false}, Validators.required],
+      estado: [{value: '', disabled: false}, Validators.required],
       telefono: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       referencia: ['', Validators.required]
     });
@@ -120,6 +118,10 @@ export class OrigenComponent implements OnInit {
       this.forma.get('ciudad').setValue(response['response'].ciudad);
       this.forma.get('estado').setValue(response['response'].estado);
       this.origenService.setPais(response['response'].pais);
+    },
+    error => {
+      this.coloniaBoolean = true;
+      this.origenService.setPais('México');
     })
   }
 
@@ -127,11 +129,19 @@ export class OrigenComponent implements OnInit {
   onSiguiente() {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
-    if(this.cotizacion == COTIZACION.PersonalTSMO) {
-      this.router.navigate([Vista.DESTINO]);
-    } else if (this.cotizacion == COTIZACION.Clientes) {
-      this.router.navigate([Vista.DESTINO_CLIENTE])
+    switch(window.location.pathname) {
+      case '/envio':
+        this.router.navigate(['/envio/destino']);
+        break;
+      case '/dashboard/envio':
+        this.router.navigate(['/dashboard/envio/destino']);
+        break;
     }
+    // if(this.cotizacion == COTIZACION.PersonalTSMO) {
+    //   this.router.navigate([Vista.DESTINO]);
+    // } else if (this.cotizacion == COTIZACION.Clientes) {
+    //   this.router.navigate([Vista.DESTINO_CLIENTE])
+    // }
   }
 
   guardarValoresService() {

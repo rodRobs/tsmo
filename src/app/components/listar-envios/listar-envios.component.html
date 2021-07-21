@@ -1,0 +1,199 @@
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <app-legend [lengenda]="legend"></app-legend>
+      <app-parrafo [parrafo]="parrafo"></app-parrafo>
+        <div class="formulario p-4">
+          <form
+          [formGroup]="forma" (ngSubmit)="onBuscar()"
+          >
+            <app-instrucciones [instrucciones]="instrucciones"></app-instrucciones>
+
+            <!-- Fila de periodo y estado del envío -->
+            <div class="form-group row">
+
+              <div class="col-12 col-md-6">
+                <label for="periodo">Periodo de Envío</label>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="periodoBusqueda" formControlName="periodoBusqueda" (change)="onActivarPeriodo()">
+                  <label class="custom-control-label" for="periodoBusqueda">Buscar por periodo de fecha</label>
+                </div>
+                <div class="form-group row">
+                  <div class="col-12 col-md-6">
+                    <label for="inicial">Inicial:</label>
+                    <input type="date" name="periodoInicial" id="periodoInicial" class="form-control" formControlName="periodoInicial">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="final">Final:</label>
+                    <input type="date" name="periodoFinal" id="periodoFinal" class="form-control" formControlName="periodoFinal">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <br>
+                <div class="form-group row">
+                  <div class="col-12">
+                    <label for="estadoEnvio">Estado del envío:</label>
+                    <select name="estadoEnvio" id="estadoEnvio" class="form-control" formControlName="estadoEnvio">
+                      <option value="">Todos</option>
+                      <option value="PENDIENTE">Pendiente</option>
+                      <option value="CAMINO">Camino</option>
+                      <option value="CANCELADO">Cancelado</option>
+                      <option value="ENTREGADO">Entregado</option>
+                      <option value="DEVUELTO">Devuelto</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+            <!-- </div> -->
+
+            <!-- Fila estado de pago, cliente quien realizo -->
+            <!-- <div class="form-group row"> -->
+
+              <div class="col-12 col-md-6">
+                <label for="estadoPago">Estado de Pago:</label>
+                <select name="estadoPago" id="estadoPago" class="form-control" formControlName="estadoPago">
+                  <option value="">Todos</option>
+                  <option value="APROBADO">Aprobado</option>
+                  <option value="PENDIENTE">Pendiente</option>
+                  <option value="RECHAZADO">Rechazado</option>
+                </select>
+              </div>
+
+              <div class="col-12 col-md-6" *ngIf="perfil == 5">
+                <label for="cliente">Cliente:</label>
+                <select name="cliente" id="cliente" class="form-control" formControlName="cliente">
+                  <option value="">Todos</option>
+                  <option [value]="cliente.id" *ngFor="let cliente of clientes"> {{cliente.nombre}} </option>
+                </select>
+              </div>
+            <!-- </div> -->
+
+            <!-- Ciudad Origen y Ciudad Destino -->
+            <div class="col-12 col-md-6">
+              <label for="origen">Origen:</label>
+              <select name="origen" id="origen" class="form-control" formControlName="origen">
+                <option value="">Todos</option>
+                <option [value]="ciudad" *ngFor="let ciudad of ciudades"> {{ciudad}} </option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="destino">Destino:</label>
+              <select name="destino" id="destino" class="form-control" formControlName="destino">
+                <option value="">Todos</option>
+                <option [value]="ciudad" *ngFor="let ciudad of ciudades"> {{ciudad}} </option>
+              </select>
+            </div>
+
+            <!-- Filas Proveedor y Ciudad -->
+            <!-- <div class="form-group row"> -->
+
+              <div class="col-12 col-md-6">
+                <label for="proveedor">Proveedor:</label>
+                <select name="proveedor" id="proveedor" class="form-control" formControlName="proveedor">
+                  <option value="">Todos</option>
+                  <option value="TSMO">TSMO</option>
+                  <option value="TSME">Envia</option>
+                </select>
+              </div>
+              <!-- <div class="col-12 col-md-6">
+                <label for="estadoDestino">Estado de Destino:</label>
+                <select name="estadoDestino" id="estadoDestino" class="form-control" formControlName="estadoDestino">
+                  <option value="">Todos</option>
+                  <option [value]="estado" *ngFor="let estado of estados"> {{estado}} </option>
+                </select>
+              </div> -->
+            </div>
+
+            <div class="col">
+              <button type="submit" class="btn btn-outline-info col">Buscar Envios</button>
+              <div class="alert alert-danger mt-4" role="alert" *ngIf="forma.invalid">
+                Ingresa ambos datos de periodo de fecha
+              </div>
+            </div>
+          </form>
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="mt-3">
+  <mat-progress-bar mode="indeterminate" *ngIf="pogressBoolean"></mat-progress-bar>
+</div>
+
+<ng-container *ngIf="mensajeBusquedaVaciaBoolean; else elseTemplate">
+  <div class="alert alert-danger mt-4" role="alert">
+    {{mensajeBusquedaVacia}}
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <!-- <div class="container mt-4" *ngIf="resultado"> -->
+    <div class="mt-5">
+      <app-legend [lengenda]="'Lista de envios'"></app-legend>
+    </div>
+    <div class="table-responsive mt-4 mb-4">
+      <table class="table table-striped ">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Guia</th>
+            <th scope="col" class="text-center">Fecha y hora de solicitud</th>
+            <th scope="col" class="text-center">Estado del envio</th>
+            <th scope="col" class="text-center">Estado del pago</th>
+            <th scope="col" class="text-center">Cliente</th>
+            <th scope="col" class="text-center">Origen</th>
+            <th scope="col" class="text-center">Destino</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let envio of envios | paginate: { itemsPerPage: 10, currentPage: p}; let i = index">
+            <td scope="row"> {{ ((p-1)*10)+i+1 }}</td>
+            <!-- <ng-container *ngIf="i<9; else decimos">
+              <td scope="row"> {{(p-1)*10+i+1}}</td>
+            </ng-container>
+            <ng-template #decimos>
+              <td scope="row"> {{p*(i+1)}}</td>
+            </ng-template> -->
+
+            <td [class.par]="i%2==0">{{envio.guiaTsmo}}</td>
+            <!-- <td><button class="btn-row" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0">{{envio.guiaTsmo}}</button></td> -->
+            <!-- <td><button class="btn-row"> {{(envio.cliente != null) ? envio.cliente.nombre : null}} </button></td> -->
+
+            <td class="text-center"><button class="btn-row" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0"> {{(envio.cliente != null) ? (envio.createAt | date: 'd/MM/yy, h:mm a') : null}} </button></td>
+            <td class="text-center"><button class="btn-row text-center" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0">{{(envio.cliente != null) ? envio.estadoEnvio : null}}</button></td>
+            <td class="text-center"><button class="btn-row text-center" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0">{{(envio.cliente != null) ? envio.estadoPago : null}}</button></td>
+            <td class="text-center"><button class="btn-row text-center" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0">{{(envio.cliente != null) ? envio.cliente.nombre : null}}</button></td>
+            <td class="text-center"><button class="btn-row text-center" (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0"> {{(envio.cliente != null) ? envio.documentacion.cotizacion.origen.domicilio.ciudad : null}} </button></td>
+            <td class="text-center"><button class="btn-row " (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0"> {{(envio.cliente != null) ? envio.documentacion.cotizacion.destino.domicilio.ciudad : null}} </button></td>
+
+            <td> <button class="btn btn-primary" (click)="onBuscarEnvio(envio.guiaTsmo)" title="Ver envio"> <i class="far fa-eye"></i> </button> </td>
+            <td> <button class="btn btn-info" (click)="onImprimirGuia(envio.guiaTsmo)" title="Imprimir guia"> <i class="fas fa-print"></i> </button> </td>
+
+            <!-- <td>@mdo</td> -->
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+                          (pageChange)="p = $event"
+                          previousLabel="Anterior"
+                          nextLabel="Siguiente"
+                          responsinve="true">
+      </pagination-controls>
+      <div class="text-left mb-5" *ngIf="envios != null">
+        <button class="btn btn-outline-info" (click)="exportarEnviosExcel()"><i class="fas fa-file-excel"></i> Exportar Excel de {{envios.length}} envios</button>
+      </div>
+    </div>
+  <!-- </div> -->
+
+</ng-template>
+
+
+
+
+
+

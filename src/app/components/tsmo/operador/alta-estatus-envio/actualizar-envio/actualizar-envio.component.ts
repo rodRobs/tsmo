@@ -54,7 +54,7 @@ export class ActualizarEnvioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocalizacion();
+    // this.getLocalizacion();
     this.onMostrarEtapas();
   }
 
@@ -66,12 +66,12 @@ export class ActualizarEnvioComponent implements OnInit {
   }
 
   getLocalizacion() {
-    // Obtener
+    // Obtener coordenadas
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         if (position) {
-          console.log("Latitude: " + position.coords.latitude +
-            "Longitude: " + position.coords.longitude);
+          // console.log("Latitude: " + position.coords.latitude +
+            // "Longitude: " + position.coords.longitude);
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
         }
@@ -108,14 +108,14 @@ export class ActualizarEnvioComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Entra a actualizar status del envio");
-    console.log(this.forma);
+    // console.log("Entra a actualizar status del envio");
+    // console.log(this.forma);
     if (this.forma.invalid) { this.markAllAsTouched(); return; }
     this.rastreoService.onActualizarRastreo(this.envio.id, this.asignarValores())
     .subscribe(rastreo => {
       this.desactivarBoton = true;
       this.exitoBoolean = true;
-      console.log(rastreo);
+      // console.log(rastreo);
     }, error => {
       this.desactivarBoton = false;
       this.exitoBoolean = false;

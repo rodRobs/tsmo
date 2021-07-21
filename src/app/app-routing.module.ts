@@ -1,3 +1,6 @@
+import { MostrarEnvioComponent } from './components/mostrar-envio/mostrar-envio.component';
+import { ListarEnviosComponent } from './components/listar-envios/listar-envios.component';
+import { RxjsComponent } from './components/rxjs/rxjs.component';
 import { GraphicsComponent } from './components/graphics/graphics.component';
 import { Error404Component } from './components/error404/error404.component';
 import { ProgressComponent } from './components/progress/progress.component';
@@ -29,6 +32,8 @@ import { VerClienteComponent } from './components/inicio/clientes/ver-cliente/ve
 import { CotizacionClientesComponent } from './components/cotizacion-clientes/cotizacion-clientes.component';
 import { CostosClientesComponent } from './components/cotizacion-clientes/costos-clientes/costos-clientes.component';
 import { EnvioComponent } from './components/inicio/envio/envio.component';
+import { PagosComponent } from './components/tsmo/pagos/pagos.component';
+
 
 // import { EnvioComponent } from './components/inicio/envio/envio.component';
 
@@ -82,25 +87,31 @@ const routes: Routes = [
   {path: 'operador', component: OperadorComponent},
   {path: 'menu/operador', component: MenuOperadorComponent},
   {path: 'alta/status/envio', component: AltaEstatusEnvioComponent},
-  {path: 'dashboard', component: DashboardComponent,
+  {path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' },
     children: [
-      {path: 'progress', component: ProgressComponent},
-      {path: 'graphs', component: GraphicsComponent},
-      {path: 'cotizacion', component: CotizacionComponent},
-      {path: 'envio', component: EnvioComponent,
+      {path: 'progress', component: ProgressComponent, data: {titulo: 'Progress Bar'}},
+      {path: 'inicio', component: GraphicsComponent, data: {titulo: 'Inicio'}},
+      {path: 'cotizacion', component: CotizacionComponent, data: {titulo: 'Cotización'}},
+      {path: 'envio', component: EnvioComponent, data: {titulo: 'Envio'},
       children: [
-        {path: '', component: OrigenComponent},
-        {path: 'destino', component: DestinoComponent},
-        {path: 'paquete', component: PaqueteComponent},
-        {path: 'costos', component: CostosClientesComponent},
-        {path: 'resumen', component: DatosPedidoComponent},
-        {path: 'pago', component: PagoComponent},
-        {path: 'exito', component: ExitoComponent}
+        {path: '', component: OrigenComponent, data: {titulo: 'Origen'}},
+        {path: 'destino', component: DestinoComponent, data: {titulo: 'Destino'}},
+        {path: 'paquete', component: PaqueteComponent, data: {titulo: 'Paquete'}},
+        {path: 'costos', component: CostosClientesComponent, data: {titulo: 'Costos'}},
+        {path: 'resumen', component: DatosPedidoComponent, data: {titulo: 'Datos del Pedido'}},
+        {path: 'pago', component: PagoComponent, data: {titulo: 'Contratación'}},
+        {path: 'exito', component: ExitoComponent, data: {titulo: ''}}
       ]},
-     {path: 'cobertura', component: CoberturaComponent},
-     {path: 'cancelacion', component: CancelacionComponent},
-     {path: 'rastrear', component: RastreoComponent},
-     {path: '*', component: Error404Component}
+    {path: 'cobertura', component: CoberturaComponent, data: {titulo: 'Cobertura'}},
+    {path: 'cancelacion', component: CancelacionComponent, data: {titulo: 'Cancelación'}},
+    {path: 'rastrear', component: RastreoComponent, data: {titulo: 'Rastrear'}},
+    {path: 'menu/status', component: MenuOperadorComponent, data: {titulo: 'Menu Actualización de Envío'}},
+    {path: 'status', component: AltaEstatusEnvioComponent, data: {titulo: 'Actualizar Estatus Envío'}},
+    {path: 'rxjs', component: RxjsComponent, data: {titulo: 'RXJS'}},
+    {path: '*', component: Error404Component, data: {titulo: 'Error 404'}},
+    {path: 'envios', component: ListarEnviosComponent, data: {titulo: 'Envios'}},
+    {path: 'ver/envio', component: MostrarEnvioComponent, data: {titulo: 'Envio'}},
+    {path: 'pagos', component: PagosComponent, data: {titulo: 'Actualizar Pago Envío'}}
     ]},
   {path: '**', component: Error404Component}
 ];

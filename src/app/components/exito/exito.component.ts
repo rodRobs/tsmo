@@ -22,7 +22,7 @@ import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
 })
 export class ExitoComponent implements OnInit {
 
-  clienteDto: ClienteDto = new ClienteDto(null, null, null, null);
+  clienteDto: ClienteDto = new ClienteDto(null, null, null, null, null);
   costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null);
   guia: string = '';
 
@@ -59,7 +59,7 @@ export class ExitoComponent implements OnInit {
   }
 
   recuperarDatosClienteService() {
-    this.clienteDto = new ClienteDto(null, this.clienteService.getNombre(), this.clienteService.getCorreo(), this.clienteService.getTelCasa());
+    this.clienteDto = new ClienteDto(null, this.clienteService.getNombre(), this.clienteService.getCorreo(), this.clienteService.getTelCasa(), null);
   }
 
 

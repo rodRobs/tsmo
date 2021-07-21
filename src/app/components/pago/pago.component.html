@@ -169,54 +169,117 @@
         </div>
 
           <ng-container *ngIf="!guiaBoolean; else guia">
-            <div class="d-flex justify-content-center mt-4">
-              <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest" class="tarjeta">
-                <legend class="text-center">Datos de Pago</legend>
-                <div class="form-group row">
-                  <!-- <div class="w-100">
-                    <label for="datos">Datos del cliente:</label>
-                  </div> -->
-                  <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="datos" id="remitente" value="1" formControlName="datos" (change)="asignarDatos()">
-                    <label class="form-check-label seleccion" for="remitente">Remitente</label>
+            <ng-container *ngIf="pagoBool; else contratacionUsuario">
+              <div class="d-flex justify-content-center mt-4">
+                <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest" class="tarjeta">
+                  <legend class="text-center">Datos de Pago</legend>
+                  <div class="form-group row">
+                    <!-- <div class="w-100">
+                      <label for="datos">Datos del cliente:</label>
+                    </div> -->
+                    <div class="form-check form-check-inline ml-5">
+                      <input class="form-check-input" type="radio" name="datos" id="remitente" value="1" formControlName="datos" (change)="asignarDatos()">
+                      <label class="form-check-label seleccion" for="remitente">Remitente</label>
+                    </div>
+                    <div class="form-check form-check-inline ml-5">
+                      <input class="form-check-input" type="radio" name="datos" id="destinatario" value="2" formControlName="datos" (change)="asignarDatos()">
+                      <label class="form-check-label seleccion" for="destinatario">Destinatario</label>
+                    </div>
+                    <div class="form-check form-check-inline ml-5">
+                      <input class="form-check-input" type="radio" name="datos" id="ninguno" value="0" formControlName="datos" (change)="asignarDatos()">
+                      <label class="form-check-label seleccion" for="ninguno">Ninguno</label>
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="datos" id="destinatario" value="2" formControlName="datos" (change)="asignarDatos()">
-                    <label class="form-check-label seleccion" for="destinatario">Destinatario</label>
+                  <input type="text" class="nombre" formControlName="name" placeholder="Ingresa Nombre:" [class.is-invalid]="nombreNoValido">
+                  <small class="text-danger" *ngIf="nombreNoValido"> Ingresa nombre </small>
+                  <input type="tel" class="nombre mt-3" formControlName="telefono" placeholder="Ingresa Teléfono:" [class.is-invalid]="telefonoNoValido">
+                  <small class="text-danger" *ngIf="telefonoNoValido"> Ingresa teléfono </small>
+                  <input type="text" class="nombre mt-3" formControlName="email" placeholder="Ingresa Correo:" [class.is-invalid]="emailNoValido">
+                  <small class="text-danger" *ngIf="emailNoValido"> Ingresa correo </small>
+                  <div class="mb-3"></div>
+                  <ngx-stripe-card
+                    [options]="cardOptions"
+                    [elementsOptions]="elementsOptions"
+                  ></ngx-stripe-card>
+                  <div *ngIf="error != ''">
+                    <div class="alert alert-danger mt-3" role="alert">
+                      {{error}}
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="datos" id="ninguno" value="0" formControlName="datos" (change)="asignarDatos()">
-                    <label class="form-check-label seleccion" for="ninguno">Ninguno</label>
-                  </div>
+                  <ng-container *ngIf="!loadingPago; else elseTemplate">
+                    <button type="submit" class="btn btn-outline-primary w-100 mt-4">
+                      <i class="far fa-credit-card"></i>Pagar
+                    </button>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <div class="d-flex justify-content-center">
+                      <div class="loader-pago"></div>
+                    </div>
+                  </ng-template>
+                </form>
+              </div>
+            </ng-container>
+            <ng-template #contratacionUsuario>
+              <!-- <form
+              [formCliente]="formSelecCliente">
+
+              </form> -->
+              <div class="form-group row mt-5" *ngIf="perfil == 'ROL_TSMO'">
+                <div class="col-12 col-md-6" >
+                  <label for="clientes">Selecciona Cliente:</label>
+                  <select name="clientes" id="clientes" class="form-control" [(ngModel)]="clienteInput" (change)="clienteSeleccionado()">
+                    <option value="0" selected> Seleccione cliente </option>
+                    <option [value]="cliente.id" *ngFor="let cliente of clientes"> {{cliente.nombre}} </option>
+                  </select>
                 </div>
-                <input type="text" class="nombre" formControlName="name" placeholder="Ingresa Nombre:" [class.is-invalid]="nombreNoValido">
-                <small class="text-danger" *ngIf="nombreNoValido"> Ingresa nombre </small>
-                <input type="tel" class="nombre mt-3" formControlName="telefono" placeholder="Ingresa Teléfono:" [class.is-invalid]="telefonoNoValido">
-                <small class="text-danger" *ngIf="telefonoNoValido"> Ingresa teléfono </small>
-                <input type="text" class="nombre mt-3" formControlName="email" placeholder="Ingresa Correo:" [class.is-invalid]="emailNoValido">
-                <small class="text-danger" *ngIf="emailNoValido"> Ingresa correo </small>
-                <div class="mb-3"></div>
-                <ngx-stripe-card
-                  [options]="cardOptions"
-                  [elementsOptions]="elementsOptions"
-                ></ngx-stripe-card>
-                <div *ngIf="error != ''">
-                  <div class="alert alert-danger mt-3" role="alert">
-                    {{error}}
+              </div>
+
+                <ng-container *ngIf="mostrarFormCliente; else formaCliente">
+                  <div class="mt-4">
+                    <button class="btn btn-link text-danger" (click)="mostrarFormularioCliente()">- No mostrar formulario </button>
+                    <form
+                    [formGroup]="formCliente"
+                    (ngSubmit)="onGuardarCliente()">
+                      <div class="form-group row">
+                        <div class="col-12 col-md-4">
+                          <label for="nombreCliente">Nombre:</label>
+                          <input type="text" name="nombreCliente" id="nombreCliente" class="form-control" formControlName="nombreCliente" [class.is-invalid]="nombreClienteNoValido">
+                          <small class="text-danger" *ngIf="nombreClienteNoValido">Ingresa nombre del cliente</small>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <label for="telefonoCliente">Teléfono:</label>
+                          <input type="tel" name="telefonoCliente" id="telefonoCliente" class="form-control" formControlName="telefonoCliente" [class.is-invalid]="telefonoClienteNoValido">
+                          <small class="text-danger" *ngIf="telefonoClienteNoValido">Ingresa teléfono del cliente</small>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <label for="correoCliente">Correo:</label>
+                          <input type="text" name="correoCliente" id="correoCliente" class="form-control" formControlName="correoCliente" [class.is-invalid]="correoClienteNoValido">
+                          <small class="text-danger" *ngIf="correoClienteNoValido">Ingresa correo del cliente</small>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <label for="descuentoCliente">Descuento:</label>
+                          <input type="number" name="descuentoCliente" id="descuentoCliente" class="form-control" formControlName="descuentoCliente" [class.is-invalid]="descuentoClienteNoValido">
+                          <small class="text-danger" *ngIf="descuentoClienteNoValido">Ingresa descuento del cliente</small>
+                        </div>
+                        <div class="col-12 col-md-4 mt-4">
+                          <button type="submit" class="btn btn-outline-primary form-control"> Guardar Cliente</button>
+                        </div>
+                      </div>
+
+                    </form>
                   </div>
-                </div>
-                <ng-container *ngIf="!loadingPago; else elseTemplate">
-                  <button type="submit" class="btn btn-outline-primary w-100 mt-4">
-                    <i class="far fa-credit-card"></i>Pagar
-                  </button>
                 </ng-container>
-                <ng-template #elseTemplate>
-                  <div class="d-flex justify-content-center">
-                    <div class="loader-pago"></div>
-                  </div>
+                <ng-template #formaCliente>
+                  <button class="btn btn-link" (click)="mostrarFormularioCliente()" *ngIf="perfil == 'ROL_TSMO'">+ Agregar nuevo cliente</button>
                 </ng-template>
-              </form>
-            </div>
+              <div *ngIf="mostrarErrorSeleccionarCliente">
+                <div class="alert alert-warning" role="alert">
+                  Seleccione un cliente para continuar
+                </div>
+              </div>
+              <button class="btn btn-info col mt-4" (click)="contratarEnvio()"> Contratar envio </button>
+            </ng-template>
+
           </ng-container>
           <ng-template #guia>
             <div class="d-flex justify-content-center mt-4">
@@ -227,9 +290,6 @@
             </div>
           </ng-template>
 
-
-
-
           <div class="d-flex justify-content-center mt-4">
             <button class="btn btn-outline-danger w-50" (click)="onRegresar()"> Regresar </button>
           </div>
@@ -238,8 +298,13 @@
     </div>
   </div>
 
-  <div class="alert alert-danger" role="alert" *ngIf="errorCotBool">
-    {{ errorCotizacion }}
+  <div *ngIf="errorCotBool">
+    <div class="alert alert-danger" role="alert" >
+      {{ errorCotizacion }}
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onRegresar()">Regresar</button>
+    </div>
   </div>
 
 

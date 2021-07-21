@@ -1,3 +1,7 @@
+mat-tool-bar {
+  z-index: 1;
+}
+
 .botones ul {
   display: flex;
 }
@@ -9,8 +13,9 @@
 button {
   border: none;
   background-color: #1D3557;
-  color: #e63946;
+  color: #f1faee;
   padding: 6px;
+  margin-left: 20px;
 }
 
 button:hover {
@@ -49,7 +54,13 @@ mat-toolbar {
   }
 }
 
+.example-spacer {
+  flex: 1 1 auto;
+}
 
-
+mat-icon {
+  color: #f1faee;
+  margin-right: 5px;
+}
 
 

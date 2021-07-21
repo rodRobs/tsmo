@@ -1,3 +1,4 @@
+import { UsuarioModel } from 'src/app/models/usuario.model';
 import { ClienteDto } from './clienteDto.model';
 import { DocumentacionDto } from './documentacionDto.model';
 
@@ -11,6 +12,7 @@ export class EnvioDto {
     public cliente: ClienteDto,
     public createAt: Date,
     public pago: string,
-    public rastreos: string[]
+    public rastreos: string[],
+    public usuario: UsuarioModel
   ) {}
 }

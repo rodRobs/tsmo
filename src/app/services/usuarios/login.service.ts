@@ -6,9 +6,10 @@ import { JwtDTO } from 'src/app/models/dto/JwtDTO.model';
 import { Observable } from 'rxjs';
 import { TokenService } from './token.service';
 
-const URLPATH = 'http://localhost:8080/auth/';
+const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+// const URL = 'http://localhost:8080/';
 const LOGIN = 'login';
-
+const AUTH = 'auth';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,11 @@ export class LoginService {
     ) { }
 
   public onLogin(usuarioLogin: UsuarioLoginModel): Observable<JwtDTO>  {
-    return this.http.post<JwtDTO>(`${URLPATH}${LOGIN}`, usuarioLogin);
+    console.log(`${URL}${LOGIN}`);
+    return this.http.post<JwtDTO>(`${URL}${AUTH}/${LOGIN}`, usuarioLogin);
   }
 
-  public onLogout() { 
-    return 
+  public onLogout() {
+    return;
   }
 }

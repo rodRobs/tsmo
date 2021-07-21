@@ -13,7 +13,7 @@ export class OperadorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('Entra a operador component');
+    // console.log('Entra a operador component');
   }
 
 }

@@ -15,7 +15,8 @@ const NUMERO = "numero";
 const MUNICIPIO = "municipio";
 const ESTADO = "estado";
 
-const URL = 'http://localhost:8080/';
+const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+// const URL = 'http://localhost:8080/';
 const CLIENTES = 'clientes';
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class ClienteService {
   ) { }
 
   public guardarCliente(cliente: ClienteDto) {
-    return this.http.post<number>(`${URL}${CLIENTES}`, cliente);
+    return this.http.post<ClienteDto>(`${URL}${CLIENTES}`, cliente);
   }
 
   public getNombre(): string {
@@ -126,6 +127,9 @@ export class ClienteService {
     localStorage.setItem(ESTADO, estado);
   }
 
-
+  public buscarTodosClientes() {
+    // console.log(`${URL}${CLIENTES}`);
+    return this.http.get<ClienteDto[]>(`${URL}${CLIENTES}`);
+  }
 
 }

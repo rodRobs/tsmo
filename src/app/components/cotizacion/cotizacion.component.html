@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
   <div class="row">
     <div class="col">
       <app-legend [lengenda]="legenda"></app-legend>
@@ -32,15 +32,15 @@
         </div>
         <div class="form-group row pl-5">
           <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio" (click)="actualizarForm('P')">
             <label class="form-check-label" for="paquete">Paquete</label>
           </div>
           <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio" (click)="actualizarForm('S')">
             <label class="form-check-label" for="sobre">Sobre</label>
           </div>
           <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio" (click)="actualizarForm('V')">
             <label class="form-check-label" for="valija">Valija</label>
           </div>
           <small class="text-danger" *ngIf="tipoEnvioNoValido">
@@ -131,22 +131,36 @@
         <div class="form-group row">
           <div class="col-12 col-md-6">
             <label for="origen">Código Postal de Origen:</label>
-            <input type="text" name="origen" id="origen" class="form-control" formControlName="origen" [class.is-invalid]="origenNoValido" (change)="onBuscarCPOrigen()">
-            <small class="text-danger" *ngIf="origenNoValido">
-              Ingresa código postal de origen
-            </small>
+            <input type="text" name="origen" id="origen" class="form-control" formControlName="origen" [class.is-invalid]="origenNoValido" (change)="onBuscarCPOrigen()" maxlength="5">
+            <div *ngIf="origenNoValido">
+              <small class="text-danger">
+                Ingresa código postal de origen
+              </small>
+            </div>
+            <div *ngIf="origenPatternNoValido">
+              <small class="text-danger">
+                Ingresa solo números
+              </small>
+            </div>
           </div>
           <div class="col-12 col-md-6">
             <label for="destino">Código Postal de Destino:</label>
-            <input type="text" name="destino" id="destino" class="form-control" formControlName="destino" [class.is-invalid]="destinoNoValido" (change)="onBuscarCPDestino()">
-            <small class="text-danger" *ngIf="destinoNoValido">
-              Ingresa código postal de destino
-            </small>
+            <input type="text" name="destino" id="destino" class="form-control" formControlName="destino" [class.is-invalid]="destinoNoValido" (change)="onBuscarCPDestino()" maxlength="5">
+            <div *ngIf="destinoNoValido">
+              <small class="text-danger">
+                Ingresa código postal de destino
+              </small>
+            </div>
+            <div *ngIf="destinoPatternNoValido">
+              <small class="text-danger">
+                Ingresa solo números
+              </small>
+            </div>
           </div>
         </div>
 
-        <legend>Tamaño del Paquete</legend>
-        <div class="form-group row">
+        <legend *ngIf="forma.get('tipoEnvio').value == 'P'">Tamaño del Paquete</legend>
+        <div class="form-group row" *ngIf="forma.get('tipoEnvio').value == 'P'">
             <!-- <div class="col-12 d-flex justify-content-center">
 
             </div> -->
@@ -172,7 +186,7 @@
               </small>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row d-flex justify-content-center">
             <div class="col-12 col-md-6">
               <legend>Peso del Paquete</legend>
               <label for="peso">Peso (kg):</label>
@@ -181,14 +195,14 @@
                 Ingresa medida de peso
               </small>
             </div>
-            <div class="col-12 col-md-6">
+            <!-- <div class="col-12 col-md-6">
               <legend>Valor del Paquete:</legend>
               <label for="largo">Valor ($ MXN):</label>
               <input type="number" step="1" min="0" name="valor" id="valor" class="form-control" formControlName="valor" [class.is-invalid]="valorNoValido">
               <small class="text-danger" *ngIf="valorNoValido">
                 Ingresa valor del paquete
               </small>
-            </div>
+            </div> -->
         </div>
 
         <ng-container *ngIf="loading; else botonCotizar">
@@ -217,7 +231,7 @@
           {{ servicio }}
         </div>
         <div class="d-flex justify-content-center mt-4">
-          <button class="btn btn-outline-primary" [routerLink]="['/envio']" routerLinkActive="router-link-active"  >Relizar envío</button>
+          <button class="btn btn-outline-primary" (click)="onRouter()" >Relizar envío</button>
         </div>
       </div>
     </div>

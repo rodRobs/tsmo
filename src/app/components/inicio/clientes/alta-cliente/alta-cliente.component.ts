@@ -16,7 +16,7 @@ export class AltaClienteComponent implements OnInit {
 
 
 
-  cliente: ClienteDto = new ClienteDto(0,'','','');
+  cliente: ClienteDto = new ClienteDto(0,'','','', null);
 
   colonias: string[] = [];
 
@@ -39,12 +39,12 @@ export class AltaClienteComponent implements OnInit {
 
   onSiguiente(form: NgForm) {
     if (form.invalid) { return; }
-    console.log('Entra en siguiente');
+    // console.log('Entra en siguiente');
     this.guardarLocalStorage();
     if(this.tramiteBool) {
       this.router.navigate([Vista.PAGO_CLIENTE]);
     } else {
-        console.log("Entra desde Usuario TSMO");
+        // console.log("Entra desde Usuario TSMO");
     }
   }
 

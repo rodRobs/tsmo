@@ -1,0 +1,19 @@
+<ng-container *ngIf="!mostrarEnvioBoolean; else elseTemplate">
+  <div class="mt-5">
+    Buscando envio...
+  </div>
+
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="mt-5">
+    <app-mostrar-informacion [envio]="envio" *ngIf="envio"></app-mostrar-informacion>
+  </div>
+  <div class="mt-4">
+  <!-- <div> -->
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="onRegresar()">Regresar</button>
+    </div>
+  </div>
+</ng-template>
+
+

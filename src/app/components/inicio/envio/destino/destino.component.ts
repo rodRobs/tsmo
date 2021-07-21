@@ -58,8 +58,8 @@ export class DestinoComponent implements OnInit {
       calle: ['', Validators.required],
       numeroExt: ['', Validators.required],
       numeroInt: [''],
-      ciudad: [{value: '', disabled: true}, Validators.required],
-      estado: [{value: '', disabled: true}, Validators.required],
+      ciudad: [{value: '', disabled: false}, Validators.required],
+      estado: [{value: '', disabled: false}, Validators.required],
       telefono: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       referencia: ['', Validators.required]
     })
@@ -118,6 +118,10 @@ export class DestinoComponent implements OnInit {
       this.forma.get('ciudad').setValue(response['response'].ciudad);
       this.forma.get('estado').setValue(response['response'].estado);
       this.destinoService.setPais(response['response'].pais);
+    },
+    error => {
+      this.coloniaBoolean = true;
+      this.destinoService.setPais('México');
     })
   }
 
@@ -138,20 +142,26 @@ export class DestinoComponent implements OnInit {
 
   onAtras() {
     this.guardarValoresService()
-    if (this.cotizacion == COTIZACION.PersonalTSMO) {
-      this.router.navigate([Vista.ORIGEN]);
-    } else {
-      this.router.navigate([Vista.ORIGEN_CLIENTE]);
+    switch(window.location.pathname) {
+      case '/envio/destino':
+        this.router.navigate(['/envio']);
+        break;
+      case '/dashboard/envio/destino':
+        this.router.navigate(['/dashboard/envio']);
+        break;
     }
   }
 
   onSiguiente() {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
-    if(this.cotizacion == COTIZACION.PersonalTSMO) {
-      this.router.navigate([Vista.PAQUETE]);
-    } else if (this.cotizacion == COTIZACION.Clientes) {
-      this.router.navigate([Vista.PAQUETE_CLIENTE])
+    switch(window.location.pathname) {
+      case '/envio/destino':
+        this.router.navigate(['/envio/paquete']);
+        break;
+      case '/dashboard/envio/destino':
+        this.router.navigate(['/dashboard/envio/paquete']);
+        break;
     }
   }
 

@@ -1,5 +1,84 @@
-@media (max-width: 959px) {
+@media (max-width: 960px) {
+  .fondo-ciudad {
+    display: none;
+  }
+
+  footer {
+    position: relative;
+    /* margin-top: 20px; */
+  }
+}
+
+@media (max-height: 1100px) {
   .fondo-ciudad {
     display: none;
   }
 }
+
+.fondo-ciudad {
+  /* margin-top: 100px; */
+  display: none;
+}
+
+footer {
+  /* margin-top: 500px; */
+  z-index: 1;
+}
+
+.red-social {
+  padding-top: 0.5rem;
+}
+
+/* .red-social button {
+  border: none;
+  background-color: black;
+  margin-left: 1rem;
+  color: #fff;
+} */
+
+.h5 {
+  padding-top: 1rem;
+  font-size: 14px;
+}
+
+/* .red-social button:hover {
+  background-color: #fff;
+  color: darkcyan;
+  cursor: pointer;
+} */
+
+.btn-rs {
+  z-index: 100;
+  border: none;
+  background-color: #000;
+  /* padding: 5px 7px; */
+  border-radius: 100%;
+  color: #fff;
+  font-size: 22px;
+}
+
+/* .btn-rs:hover {
+ color: cadetblue;
+} */
+
+.facebook:hover {
+  color: #3b5998;
+}
+
+.twitter:hover {
+  color: #1da1f2;
+}
+
+.instagram:hover {
+  color: #c32aa3;
+}
+
+.linkedin:hover {
+  color: #007bb5;
+}
+
+.youtube:hover {
+  color: #ff0000;
+}
+
+

@@ -70,12 +70,12 @@ export class AltaUsuariosComponent implements OnInit {
   }
 
   oAltaUsuario() {
-    console.log(this.forma);
-    console.log(this.asignarValores());
+    // console.log(this.forma);
+    // console.log(this.asignarValores());
     if (this.forma.invalid) { this.markAllTouched(); return; }
     this.usuarioService.onAltaUsuario(this.asignarValores())
     .subscribe(usuario => {
-      console.log(usuario);
+      // console.log(usuario);
       this.enviarCorreo(usuario);
     })
 
@@ -98,7 +98,7 @@ export class AltaUsuariosComponent implements OnInit {
   enviarCorreo(usuario: UsuarioNuevoModel) {
     this.notificacionService.enviarCorreoDeAltaUusarioTSMO(usuario)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
     })
   }
 

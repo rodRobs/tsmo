@@ -1,1 +1,76 @@
-<p>graphics works!</p>
+<div>
+  <div class="form-group row">
+    <label for="mesResumen" class="col-sm-3 col-form-label">Visualizar resumen del mes:</label>
+    <div class="col-sm-3">
+      <select name="mesResumen" id="mesResumen" class="form-control" [(ngModel)]="mesSelect" (change)="cambiarGraficas($event)">
+        <option [value]="mes" *ngFor="let mes of meses"> {{mes}} </option>
+      </select>
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <div class="col-3">
+      Visualizar resumen del mes:
+      <select name="resumen" id="resumen" class="form-control" [(ngModel)]="mesSelect" (change)="cambiarGraficas($event)">
+        <option [value]="mes" *ngFor="let mes of meses"> {{mes}} </option>
+      </select>
+    </div>
+  </div> -->
+</div>
+<legend class="text-center"> Resumen del mes de {{mes}} </legend>
+
+<ng-container *ngIf="perfil == 5; else elseTemplate">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Envios -->
+      <app-dona [titulo]="tituloEnvios" [labels]="subtitulosEnvios" [valorGraficas]="valoresEnvios" [coloresGraficas]="coloresEnvios" *ngIf="contadorEnvios == 2"></app-dona>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Facturas -->
+      <app-dona [titulo]="tituloFacturas" [labels]="subtituloFacturas" [valorGraficas]="valoresFacturas" [coloresGraficas]="coloresFacturas" *ngIf="contadorFacturas == 4"></app-dona>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <!-- Gráfica TSMO -->
+      <app-dona [titulo]="tituloTSMO" [labels]="subtitulosTSMO" [valorGraficas]="valoresTSMO" [coloresGraficas]="coloresTSMO" *ngIf="contadorProvEdoEnvioTSMO >= 5 "></app-dona>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Envia -->
+      <app-dona [titulo]="tituloENVIA" [labels]="subtitulosENVIA" [valorGraficas]="valoresENVIA" [coloresGraficas]="coloresENVIA" *ngIf="contadorProvEdoEnvioENVIA >= 5"></app-dona>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Clientes -->
+      <app-dona [titulo]="tituloClientes" [labels]="subtitulosClientes" [valorGraficas]="valoresClientes" [coloresGraficas]="coloresClientes" *ngIf="limiteClientes > 0 && banderaMostrarCliente"></app-dona>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Destinos -->
+      <app-dona [titulo]="tituloDestinos" [labels]="subtituloDestinos" [valorGraficas]="valoresDestinos" [coloresGraficas]="coloresDestinos" *ngIf="banderaDestino"></app-dona>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-12 col-md-6">
+      <app-dona [titulo]="tituloClientes" [labels]="tituloGraficas5" [valorGraficas]="valoresGraficas5" [coloresGraficas]="coloresGraficas5" *ngIf="limiteClientes > 0 && banderaMostrarCliente"></app-dona>
+    </div>
+    <div class="col-12 col-md-6">
+      <app-dona [titulo]="titulo6" [labels]="tituloGraficas6" [valorGraficas]="valoresGraficas6" [coloresGraficas]="coloresGraficas6" *ngIf=""></app-dona>
+    </div>
+  </div> -->
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="row mb-5">
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Envios Cliente -->
+      <app-dona [titulo]="tituloEnviosCliente" [labels]="subtitulosEnviosCliente" [valorGraficas]="valoresEnviosCliente" [coloresGraficas]="coloresEnviosCliente" *ngIf="limiteEnviosCliente > 0 && contadorClienteEstadoEnvio == limiteEnviosCliente"></app-dona>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- Gráfica Facturas Clientes -->
+      <app-dona [titulo]="tituloFacturasCliente" [labels]="subtitulosFacturasCliente" [valorGraficas]="valoresFacturasCliente" [coloresGraficas]="coloresFacturasCliente" *ngIf="limiteFacturasCliente > 0 && contadorClienteFactura == limiteFacturasCliente"></app-dona>
+    </div>
+  </div>
+</ng-template>
+
+

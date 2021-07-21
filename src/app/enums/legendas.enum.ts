@@ -16,6 +16,7 @@ export enum LegendaType {
   AltaUsuario = 'Alta Usuario',
   MenuOperador = 'Menu',
   BuscarGuia = 'Buscar Guía',
-  ActualizacionEnvio = 'Actualización de Envío'
+  ActualizacionEnvio = 'Actualización de Envío',
+  Envios = 'Envios'
 
 }

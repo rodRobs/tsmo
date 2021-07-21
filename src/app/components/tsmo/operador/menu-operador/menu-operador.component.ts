@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { LegendaType } from 'src/app/enums/legendas.enum';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,9 +11,16 @@ export class MenuOperadorComponent implements OnInit {
 
   menuOperador: string = LegendaType.MenuOperador;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onMenu(opcion: number) {
+    localStorage.setItem('opcion', opcion.toString());
+    this.router.navigate(['dashboard/status']);
   }
 
 }

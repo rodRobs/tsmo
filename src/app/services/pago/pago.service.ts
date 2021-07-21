@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const HEADERS = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-const URL = 'http://localhost:8080/stripe';
+const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+// const URL = 'http://localhost:8080/';
 const PAYMENT = '/paymentIntent';
 const CONFIRM = '/confirm/';
 const CANCEL = '/cancel/';
