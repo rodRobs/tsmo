@@ -21,6 +21,8 @@ import { TelefonosDto } from 'src/app/models/dto/telefonosDto.model';
 })
 export class OrigenComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   legend: string = LegendaType.Envio;
   legenda: string = LegendaType.TituloEnvio;
   parrafo: string = ParrafoType.EnvioOrigen;
@@ -130,10 +132,10 @@ export class OrigenComponent implements OnInit {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
     switch(window.location.pathname) {
-      case '/envio':
+      case '/app/app/envio':
         this.router.navigate(['/envio/destino']);
         break;
-      case '/dashboard/envio':
+      case '/app/app/dashboard/envio':
         this.router.navigate(['/dashboard/envio/destino']);
         break;
     }

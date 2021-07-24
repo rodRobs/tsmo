@@ -33,6 +33,8 @@ import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
 })
 export class PaqueteComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   perfil: number;
 
   legend: string = LegendaType.Envio.toString();
@@ -158,10 +160,10 @@ export class PaqueteComponent implements OnInit {
   onAtras() {
     this.guardarValoresService()
     switch(window.location.pathname) {
-      case '/envio/paquete':
+      case '/app/app/envio/paquete':
         this.router.navigate(['/envio/destino']);
         break;
-      case '/dashboard/envio/paquete':
+      case '/app/app/dashboard/envio/paquete':
         this.router.navigate(['/dashboard/envio/destino']);
         break;
     }
@@ -172,10 +174,10 @@ export class PaqueteComponent implements OnInit {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.onCotizar(); // Guardar valores para realizar cotizacion en componente pago
     switch(window.location.pathname) {
-      case '/envio/paquete':
+      case '/app/app/envio/paquete':
         this.router.navigate(['/envio/pago']);
         break;
-      case '/dashboard/envio/paquete':
+      case '/app/app/dashboard/envio/paquete':
         this.router.navigate(['/dashboard/envio/pago']);
         break;
     }

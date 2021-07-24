@@ -17,6 +17,8 @@ import { DestinoService } from 'src/app/services/cotizacion/destino.service';
 })
 export class DestinoComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   lengend: string = LegendaType.Envio;
   legenda: string = LegendaType.TituloEnvio;
   parrafo: string = ParrafoType.EnvioDestino;
@@ -143,10 +145,10 @@ export class DestinoComponent implements OnInit {
   onAtras() {
     this.guardarValoresService()
     switch(window.location.pathname) {
-      case '/envio/destino':
+      case '/app/app//envio/destino':
         this.router.navigate(['/envio']);
         break;
-      case '/dashboard/envio/destino':
+      case '/app/app//dashboard/envio/destino':
         this.router.navigate(['/dashboard/envio']);
         break;
     }
@@ -156,10 +158,10 @@ export class DestinoComponent implements OnInit {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
     switch(window.location.pathname) {
-      case '/envio/destino':
+      case '/app/app/envio/destino':
         this.router.navigate(['/envio/paquete']);
         break;
-      case '/dashboard/envio/destino':
+      case '/app/app/dashboard/envio/destino':
         this.router.navigate(['/dashboard/envio/paquete']);
         break;
     }

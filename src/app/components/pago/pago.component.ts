@@ -40,6 +40,8 @@ import { NotificacionService } from 'src/app/services/notifacion/notificacion.se
 })
 export class PagoComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   // Leyendas
   legenda: string = LegendaType.DatosPedido;
   origenLegenda: string = LegendaType.Origen;
@@ -153,7 +155,7 @@ export class PagoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tipoCotizacion = (window.location.pathname == '/envio/pago') ? COTIZACION.Clientes : COTIZACION.PersonalTSMO;
+    this.tipoCotizacion = (window.location.pathname == `${this.path}/envio/pago`) ? COTIZACION.Clientes : COTIZACION.PersonalTSMO;
     this.onCotizar();
     this.seleccionarPerfil();
     // this.clienteProm = this.promesaGuardarCliente(this.clienteDto);
@@ -401,10 +403,10 @@ export class PagoComponent implements OnInit {
   // Regresar
   onRegresar() {
     switch(window.location.pathname) {
-      case '/envio/pago':
+      case `${this.path}/envio/pago`:
         this.router.navigate(['/envio/paquete']);
         break;
-      case '/dashboard/envio/pago':
+      case `${this.path}/dashboard/envio/pago`:
         this.router.navigate(['/dashboard/envio/paquete']);
         break;
     }

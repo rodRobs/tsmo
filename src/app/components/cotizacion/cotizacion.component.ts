@@ -27,6 +27,8 @@ const URL_CP = 'https://api-sepomex.hckdrk.mx/query/info_cp/';
 })
 export class CotizacionComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   legenda: string = LegendaType.Cotizacion;
   legendaCosto: string = LegendaType.CostoCotizacion;
   parrafo: string = ParrafoType.Cotizar;
@@ -43,6 +45,7 @@ export class CotizacionComponent implements OnInit {
   mostrarPrecio: boolean = false;
   precio: number = 0;
   servicio: string = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -247,12 +250,15 @@ export class CotizacionComponent implements OnInit {
   }
 
   onRouter() {
+    console.log(window.location.pathname);
     switch(window.location.pathname) {
-      case '/cotizacion':
+      case '/app/app/cotizacion':
+        console.log(`Entra a ${this.path}/cotizacion`);
         this.router.navigate(['/envio']);
         break;
-      case '/dashboard/cotizacion':
-        this.router.navigate(['/dashboard/envio']);
+      case '/app/app/dashboard/cotizacion':
+        console.log(`Entra a ${this.path}/dashboard/cotizacion`);
+        this.router.navigate([`/dashboard/envio`]);
         break;
     }
   }
