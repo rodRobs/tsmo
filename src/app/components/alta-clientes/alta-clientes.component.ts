@@ -10,7 +10,7 @@ import { DireccionDto } from 'src/app/models/dto/direccionDto.model';
 })
 export class AltaClientesComponent implements OnInit {
 
-  cliente: ClienteDto = new ClienteDto(0,'','','');
+  cliente: ClienteDto = new ClienteDto(0,'','','', null);
 
   colonias: string[] = [];
 

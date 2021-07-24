@@ -1,0 +1,45 @@
+
+<div class="card">
+  <div class="card-body">
+
+    <h3> {{titulo}} </h3>
+    <div style="display: block">
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [colors]="colors"
+        [chartType]="doughnutChartType">
+      </canvas>
+      <!-- <div class="text-center" style="font-size: 20px;">Total: {{total}} </div>
+      <div class="text-right"  *ngFor="let porcentaje of porcentajes; index as i"> {{doughnutChartLabels[i.toString()]}} {{porcentaje | percent}} </div> -->
+    </div>
+
+  </div>
+</div>
+
+<!-- <div>
+  <div>
+    <div class="chart">
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [chartType]="pieChartType"
+        [colors]="colors"
+        [legend]="true"
+      >
+      </canvas>
+    </div>
+  </div>
+</div> -->
+
+<!--
+
+  data]="doughnutChartData"
+  [labels]="doughnutChartLabels"
+  [chartType]="doughnutChartType"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [colors]="piecolorsChartColors"
+  [legend]="pieChartLegend">
+
+ -->

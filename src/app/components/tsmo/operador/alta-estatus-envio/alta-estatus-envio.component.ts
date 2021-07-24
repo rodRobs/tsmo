@@ -10,13 +10,17 @@ export class AltaEstatusEnvioComponent implements OnInit {
 
   envio: EnvioDto;
 
+  // opcion de status
+  opcion: number;
+
   mostrar: boolean = false;
   botonerBoolean: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
-
+    this.opcion = +localStorage.getItem('opcion');
+    // console.log(this.opcion);
   }
 
   buscarEnvio(envio: EnvioDto) {
@@ -38,6 +42,26 @@ export class AltaEstatusEnvioComponent implements OnInit {
       document.getElementById('footer').style.position = 'relative';
     } else {
       document.getElementById('footer').style.position = 'absolute';
+    }
+  }
+
+  identificarOpcion(opcion: number) {
+    switch(opcion) {
+      case 1: // Recolección
+        break;
+      case 2: // Almacén
+        break;
+      case 3: // En tránsito
+        break;
+      case 4: // Entregado
+        break;
+      case 5: // Entrega sin éxito
+        break;
+      case 6: // Devuelto
+        break;
+      case 7: // Cancelado
+        break;
+
     }
   }
 

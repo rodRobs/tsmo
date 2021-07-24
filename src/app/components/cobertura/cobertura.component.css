@@ -1,6 +1,6 @@
 .cob {
   padding: 1rem;
-  border: 3px solid #E63946;
+  border: 1px solid #0531c4bd;
   border-radius: 10px;
   color: #457B9D;
 }
@@ -13,3 +13,6 @@ div {
   font-family: 'Raleway', sans-serif;
 }
 
+.formulario {
+  margin-bottom: 5rem;
+}

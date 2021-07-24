@@ -1,4 +1,4 @@
-.icono {
+/* .icono {
   text-align: center;
   font-size: 100px;
 }
@@ -10,6 +10,19 @@ button {
 
 button div:hover {
   color:aqua;
+} */
+.botones {
+  padding: 3rem;
+}
+button {
+  font-size: 28px;
 }
 
-
+@media(max-width: 768px) {
+  button {
+    height: 100px;
+  }
+  .botones {
+    padding: 0;
+  }
+}

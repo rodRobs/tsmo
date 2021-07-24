@@ -5,6 +5,7 @@ export class ClienteDto {
         public id: number,
         public nombre: string,
         public correo: string,
-        public telefono: string
+        public telefono: string,
+        public descuento: string
     ) {}
 }

@@ -1,0 +1,9 @@
+export enum ConteoFacturasType {
+
+  APROBADO = 'APROBADO',
+  PENDIENTE = 'PENDIENTE',
+  RECHAZADO = 'RECHAZADO',
+  CANCEALDO = 'CANCELADO',
+  REEMBOLSO = 'REEMBOLSO'
+
+}

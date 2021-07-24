@@ -1,4 +1,4 @@
-<div class="container-sm">
+<div class="container-sm mb-5">
     <div class="row">
         <div class="col">
           <div class="mb-4">
@@ -11,7 +11,8 @@
                 <app-legend [lengenda]="legend"></app-legend>
               </div>
               <form
-                [formGroup]="forma" (ngSubmit)="onCotizar()"
+                [formGroup]="forma"
+                (ngSubmit)="onSiguiente()"
                 >
                 <div class="form-group row">
                   <div class="w-100">
@@ -34,92 +35,107 @@
                     <label for="tipoEnvio">Tipo de envío:</label>
                   </div>
                   <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio">
+                    <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio" (change)="asignarValidaciones()">
                     <label class="form-check-label" for="paquete">Paquete</label>
                   </div>
                   <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio">
+                    <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio" (change)="asignarValidaciones()">
                     <label class="form-check-label" for="sobre">Sobre</label>
                   </div>
                   <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio">
+                    <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio" (change)="asignarValidaciones()">
                     <label class="form-check-label" for="valija">Valija</label>
                   </div>
                 </div>
                 <small class="text-danger" *ngIf="tipoEnvioNoValido">
                   Selecciona un tipo de envío
                 </small>
-                <fieldset>
-                    <legend>Tamaño del Paquete</legend>
-                    <div class="form-group row">
-                        <!-- <div class="col-12 d-flex justify-content-center">
 
-                        </div> -->
-                        <div class="col-12 col-md-4">
-                          <label for="largo">Largo (cm):</label>
-                          <input type="number" step="1" min="0" name="largo" id="largo" class="form-control" formControlName="largo" [class.is-invalid]="largoNoValido">
-                          <small class="text-danger" *ngIf="largoNoValido">
-                            Ingresa medida de largo
-                          </small>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label for="ancho">Ancho (cm):</label>
-                          <input type="number" step="1" min="0" name="ancho" id="ancho" class="form-control" formControlName="ancho" [class.is-invalid]="anchoNoValido">
-                          <small class="text-danger" *ngIf="anchoNoValido">
-                            Ingresa medida de ancho
-                          </small>
-                        </div>
-                        <div class="col-12 col-md-4">
-                          <label for="alto">Alto (cm):</label>
-                          <input type="number" step="1" min="0" name="alto" id="alto" class="form-control" formControlName="alto" [class.is-invalid]="altoNoValido">
-                          <small class="text-danger" *ngIf="altoNoValido">
-                            Ingresa medida de alto
-                          </small>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-md-6">
-                          <legend>Peso del Paquete</legend>
-                          <label for="peso">Peso (kg):</label>
-                          <input type="number" step="0.1" min="0" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
-                          <small class="text-danger" *ngIf="pesoNoValido">
-                            Ingresa medida de peso
-                          </small>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <legend>Valor del Paquete:</legend>
-                          <label for="largo">Valor ($ MXN):</label>
-                          <input type="number" step="1" min="0" name="valor" id="valor" class="form-control" formControlName="valor" [class.is-invalid]="valorNoValido">
-                          <small class="text-danger" *ngIf="valorNoValido">
-                            Ingresa valor del paquete
-                          </small>
-                        </div>
-                    </div>
-                    <legend>Contenido del Paquete:</legend>
-                    <div class="form-group row d-flex justify-content-center">
-                        <div class="col-12">
-                          <label for="largo">Contenido:</label>
-                          <input type="text" name="contenido" id="contenido" class="form-control" formControlName="contenido" [class.is-invalid]="contenidoNoValido">
-                          <small class="text-danger" *ngIf="contenidoNoValido">
-                            Ingresa contenido del paquete
-                          </small>
-                        </div>
-                    </div>
-                    <!-- <legend>Valor del Paquete:</legend>
-                    <div class="form-group row d-flex justify-content-center">
-                        <div class="col-12 col-md-4">
-                            <label for="largo">Valor ($ MXN):</label>
-                                <input type="number" step="1" name="valor" id="valor" class="form-control" [(ngModel)]="paquete.valor" required>
-                                <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['valor'].errors">
-                                    Favor de ingresar valor
-                                </div>
-                        </div>
-                    </div> -->
-                    <div class="d-flex justify-content-between mt-3">
-                        <button class="btn btn-outline-danger" (click)="onAtras()">Atrás</button>
-                        <button class="btn btn-info" type="submit">Pago</button>
-                    </div>
+                <fieldset *ngIf="forma.get('tipoEnvio').value == 'P'">
+                  <legend>Tamaño del Paquete</legend>
+                  <div class="form-group row">
+                      <!-- <div class="col-12 d-flex justify-content-center">
+
+                      </div> -->
+                      <div class="col-12 col-md-4">
+                        <label for="largo">Largo (cm):</label>
+                        <input type="number" step="1" min="0" name="largo" id="largo" class="form-control" formControlName="largo" [class.is-invalid]="largoNoValido">
+                        <small class="text-danger" *ngIf="largoNoValido">
+                          Ingresa medida de largo
+                        </small>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="ancho">Ancho (cm):</label>
+                        <input type="number" step="1" min="0" name="ancho" id="ancho" class="form-control" formControlName="ancho" [class.is-invalid]="anchoNoValido">
+                        <small class="text-danger" *ngIf="anchoNoValido">
+                          Ingresa medida de ancho
+                        </small>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="alto">Alto (cm):</label>
+                        <input type="number" step="1" min="0" name="alto" id="alto" class="form-control" formControlName="alto" [class.is-invalid]="altoNoValido">
+                        <small class="text-danger" *ngIf="altoNoValido">
+                          Ingresa medida de alto
+                        </small>
+                      </div>
+                  </div>
                 </fieldset>
+                  <div class="form-group row">
+                      <div class="col-12 col-md-6">
+                        <legend>Peso del Paquete</legend>
+                        <label for="peso">Peso (kg):</label>
+                        <input type="number" step="0.1" min="0" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
+                        <small class="text-danger" *ngIf="pesoNoValido">
+                          Ingresa medida de peso
+                        </small>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <legend>Contenido del Paquete:</legend>
+                        <label for="largo">Contenido:</label>
+                        <input type="text" name="contenido" id="contenido" class="form-control" formControlName="contenido" [class.is-invalid]="contenidoNoValido">
+                        <small class="text-danger" *ngIf="contenidoNoValido">
+                          Ingresa contenido del paquete
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6">
+                        <legend>Valor del Paquete:</legend>
+                        <label for="largo">Valor ($ MXN):</label>
+                        <input type="number" step="1" min="0" name="valor" id="valor" class="form-control" formControlName="valor" [class.is-invalid]="valorNoValido">
+                        <small class="text-danger" *ngIf="valorNoValido">
+                          Ingresa valor del paquete
+                        </small>
+                      </div> -->
+                  </div>
+                  <!-- <legend>Contenido del Paquete:</legend>
+                  <div class="form-group row d-flex justify-content-center">
+                      <div class="col-12">
+                        <label for="largo">Contenido:</label>
+                        <input type="text" name="contenido" id="contenido" class="form-control" formControlName="contenido" [class.is-invalid]="contenidoNoValido">
+                        <small class="text-danger" *ngIf="contenidoNoValido">
+                          Ingresa contenido del paquete
+                        </small>
+                      </div>
+                  </div> -->
+                  <!-- <legend>Valor del Paquete:</legend>
+                  <div class="form-group row d-flex justify-content-center">
+                      <div class="col-12 col-md-4">
+                          <label for="largo">Valor ($ MXN):</label>
+                              <input type="number" step="1" name="valor" id="valor" class="form-control" [(ngModel)]="paquete.valor" required>
+                              <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['valor'].errors">
+                                  Favor de ingresar valor
+                              </div>
+                      </div>
+                  </div> -->
+
+                <div class="d-flex justify-content-between mt-3">
+                  <button class="btn btn-outline-danger" (click)="onAtras()">Atrás</button>
+                  <ng-container *ngIf="perfil == 5 || perfil == 4; else elseTemplate">
+                    <button class="btn btn-info" type="submit">Contratar</button>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <button class="btn btn-info" type="submit">Pago</button>
+                  </ng-template>
+                </div>
               </form>
               <!-- <ng-template #elseTemplate>
                 <div class="d-flex justify-content-between mt-3">

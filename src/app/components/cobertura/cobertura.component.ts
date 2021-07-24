@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DestinoService } from './../../services/cotizacion/destino.service';
 import { OrigenService } from './../../services/cotizacion/origen.service';
 import { InstruccionesType } from './../../enums/instrucciones.enum';
@@ -28,17 +29,21 @@ export class CoberturaComponent implements OnInit {
   loading: boolean = false;
   resultado: boolean = false;
 
+  sinServicio: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private coberturaService: CoberturaService,
     private origenService: OrigenService,
-    private destinoService: DestinoService
+    private destinoService: DestinoService,
+    private router: Router
   ) {
     this.crearFormulario();
   }
 
   ngOnInit(): void {
     this.cargarValoresService();
+    // console.log(window.location.pathname);
   }
 
   crearFormulario() {
@@ -74,6 +79,14 @@ export class CoberturaComponent implements OnInit {
     .subscribe(response => {
 
       this.coberturaResponse = response;
+      // console.log(response);
+      // console.log(response.length == 0);
+      // console.log(typeof response[0] === undefined || response[0] == undefined);
+      this.sinServicio = false;
+      if (response[0] != undefined) {
+        this.sinServicio = response[0].isDomicilio || response[0].isOcurre;
+      }
+
       // this.coberturaResponse = new CoberturaResponseModel(response.clave, response.domicilio, response.ocurre, response.tipoServicio, response.zona)
       this.loading = false;
       this.resultado = true;
@@ -101,6 +114,18 @@ export class CoberturaComponent implements OnInit {
   cargarValoresService() {
     this.forma.get('origen').setValue(this.origenService.getCPOrigen());
     this.forma.get('destino').setValue(this.destinoService.getCPDestino());
+  }
+
+  onRouter() {
+    switch(window.location.pathname) {
+      case '/cobertura':
+        this.router.navigate(['/cotizacion']);
+        break;
+      case '/dashboard/cobertura':
+        // console.log('Dashboard');
+        this.router.navigate(['/dashboard/cotizacion']);
+        break;
+    }
   }
 
 }

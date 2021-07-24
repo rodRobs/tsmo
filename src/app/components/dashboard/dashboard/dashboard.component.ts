@@ -10,7 +10,8 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('Prueba DashBoard');
+    // console.log('Prueba DashBoard');
+    // document.getElementById('footer').style.color = '#000';
   }
 
 }

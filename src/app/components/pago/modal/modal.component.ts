@@ -42,9 +42,10 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('Entra a ventana de modal');
-    console.log(this.documentacion);
-    console.log(this.proveedor);
+    // console.log('Entra a ventana de modal');
+    // console.log(this.documentacion);
+    // console.log(this.proveedor);
+    // console.log(window.location.pathname);
   }
 
   confirmar(id: string): void {
@@ -58,7 +59,7 @@ export class ModalComponent implements OnInit {
         this.activeModal.close();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.activeModal.close();
       }
     )
@@ -72,7 +73,7 @@ export class ModalComponent implements OnInit {
         this.activeModal.close();
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.activeModal.close();
       }
     )
@@ -84,11 +85,11 @@ export class ModalComponent implements OnInit {
     if (this.proveedor == 'ENVIA') {
       this.documentacionService.obtenerGuiaProveedor(this.documentacion)
       .subscribe(guia => {
-        console.log("Guia: ",guia);
+        // console.log("Guia: ",guia);
         this.envio.guiaProveedor = guia;
         this.envio.pago = this.id;
         this.envioService.setGuia(guia);
-        console.log(this.envio);
+        // console.log(this.envio);
         this.cambiarEstadoPago(APROBADO, this.envio)
       }, error => {
         this.envio.pago = this.id;
@@ -103,21 +104,21 @@ export class ModalComponent implements OnInit {
   cambiarEstadoEnvio(estadoEnvio: string, envio: EnvioDto) {
     this.envioService.actualizarEstado(estadoEnvio, envio)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
     }, error => {
       alert(error['error']);
     } )
   }
 
   cambiarEstadoPago(estadoPago: string, envio: EnvioDto) {
-    console.log(envio)
+    // console.log(envio)
     this.envioService.actualizarEstadoPago(estadoPago, envio)
     .subscribe(envio => {
-      console.log("Resposne CambiarEstado Pago: ",envio);
+      // console.log("Resposne CambiarEstado Pago: ",envio);
       if (estadoPago == APROBADO) {
         this.notificarCorreo(envio);
       }
-      console.log(envio);
+      // console.log(envio);
     }, error => {
       alert(error['error']);
     } )

@@ -33,17 +33,17 @@
           [formGroup]="forma" (ngSubmit)="onRastrear()"
           >
             <fieldset>
-              <div>
+              <!-- <div>
                 <h1 class="text-center titulo">
                   RASTREAR
                 </h1>
-              </div>
+              </div> -->
               <div class="form-group row" >
                 <label for="guia" class="col-sm-12 col-form-label">Número de Guía:</label>
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" formControlName="guia">
+                  <input type="text" class="form-control" formControlName="guia" [class.is-invalid]="guiaNovalido" (change)="markTouch()">
                   <small class="text-danger" *ngIf="guiaNovalido">
-                    Ingresar número de guía
+                    Ingresar número de guía de 11 carácteres
                   </small>
                 </div>
               </div>
@@ -57,6 +57,11 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-5" *ngIf="envio">
+  <app-mostrar-informacion [envio]="envio"></app-mostrar-informacion>
+</div>
+
 
 <div *ngIf="mostrarResultado">
   <ng-container *ngIf="mostrarResultado; else error">
@@ -90,9 +95,17 @@
           </div>
         </div> -->
         <div class="col-12 d-flex justify-content-center">
-          <ul>
-            <li *ngFor="let rastreo of envio.rastreos, index as i"> {{rastreo['createAt'] | date : 'short'}} - {{rastreo['descripcion']}} </li>
-          </ul>
+          <ng-container *ngIf="envio.rastreos.length>0; else elseTemplate">
+            <ul>
+              <li *ngFor="let rastreo of envio.rastreos, index as i"> {{rastreo['createAt'] | date : 'd/M/yy, h:mm a'}} - {{rastreo['descripcion']}} </li>
+            </ul>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div class="alert alert-primary" role="alert">
+              Aún no hay actualizaciones en los estados de seguimientos del envio
+            </div>
+          </ng-template>
+
         </div>
         <!-- <div class="form-group row" *ngIf="i < (envio.rastreos.length - 1)">
           <div class="col-12 col-md-5">

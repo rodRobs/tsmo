@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tsmo';
+
+  onRedSocial(link: string) {
+    console.log(link);
+    window.open(link, '_blank');
+  }
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DetalleDto } from './../../models/dto/detalleDto.model';
 import { TelefonosDto } from './../../models/dto/telefonosDto.model';
 import { PrecioService } from './../../services/precio/precio.service';
@@ -26,6 +27,8 @@ const URL_CP = 'https://api-sepomex.hckdrk.mx/query/info_cp/';
 })
 export class CotizacionComponent implements OnInit {
 
+  path: string = '/app/app/';
+
   legenda: string = LegendaType.Cotizacion;
   legendaCosto: string = LegendaType.CostoCotizacion;
   parrafo: string = ParrafoType.Cotizar;
@@ -43,6 +46,7 @@ export class CotizacionComponent implements OnInit {
   precio: number = 0;
   servicio: string = '';
 
+
   constructor(
     private fb: FormBuilder,
     private origenService: OrigenService,
@@ -50,7 +54,8 @@ export class CotizacionComponent implements OnInit {
     private paqueteService: PaqueteService,
     private cpService: CpService,
     private cotizacionService: CotizacionService,
-    private precioService: PrecioService
+    private precioService: PrecioService,
+    private router: Router
   ) {
     this.crearFormulario();
     this.cargarValoresService();
@@ -64,11 +69,11 @@ export class CotizacionComponent implements OnInit {
 
   crearFormulario() {
     this.forma = this.fb.group({
-      origen: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-      destino: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+      origen: [{value: ''}, [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
+      destino: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
       tipoEntrega: ['', Validators.required],
       tipoEnvio: ['', Validators.required],
-      valor: ['', Validators.required],
+      // valor: ['', Validators.required],
       largo: ['', Validators.required],
       alto: ['', Validators.required],
       ancho: ['', Validators.required],
@@ -80,11 +85,14 @@ export class CotizacionComponent implements OnInit {
   get destinoNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').touched; }
   get tipoEntregaNoValido() { return this.forma.get('tipoEntrega').invalid && this.forma.get('tipoEntrega').touched; }
   get tipoEnvioNoValido() { return this.forma.get('tipoEnvio').invalid && this.forma.get('tipoEnvio').touched; }
-  get valorNoValido() { return this.forma.get('valor').invalid && this.forma.get('valor').touched; }
+  // get valorNoValido() { return this.forma.get('valor').invalid && this.forma.get('valor').touched; }
   get largoNoValido() { return this.forma.get('largo').invalid && this.forma.get('largo').touched; }
   get altoNoValido() { return this.forma.get('alto').invalid && this.forma.get('alto').touched; }
   get anchoNoValido() { return this.forma.get('ancho').invalid && this.forma.get('ancho').touched; }
   get pesoNoValido() { return this.forma.get('peso').invalid && this.forma.get('peso').touched; }
+
+  get origenPatternNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').errors['pattern']; };
+  get destinoPatternNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').errors['pattern']; };
 
   // activarValidaciones() {
   //   this.paquete = true;
@@ -113,12 +121,13 @@ export class CotizacionComponent implements OnInit {
   }
 
   onCotizar() {
+    // console.log(this.forma);
     localStorage.clear();
     this.loading = true;
     // console.log("Entra a boton cotizar");
     // console.log(this.forma);
     if ( this.forma.invalid ) {
-      console.log('Invalido');
+      // console.log('Invalido');
       this.allTouched();
       this.loading = false;
       return;
@@ -133,7 +142,7 @@ export class CotizacionComponent implements OnInit {
       this.precioService.setCosto(costo.costoTotal.toString());
       this.precio = costo.costoTotal;
       this.servicio = costo.tipoServicio;
-      console.log(costo);
+      // console.log(costo);
     }, error => {
       this.loading = false;
     })
@@ -152,7 +161,7 @@ export class CotizacionComponent implements OnInit {
     this.paqueteService.setAncho(this.forma.get('ancho').value);
     this.paqueteService.setLargo(this.forma.get('largo').value);
     this.paqueteService.setPeso(this.forma.get('peso').value);
-    this.paqueteService.setValor(this.forma.get('valor').value);
+    // this.paqueteService.setValor(this.forma.get('valor').value);
     this.paqueteService.setTipoEntrega(this.forma.get('tipoEntrega').value);
     this.paqueteService.setTipoEnvio(this.forma.get('tipoEnvio').value);
     this.paqueteService.setTipoServicio(this.servicio);
@@ -174,33 +183,39 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('largo').setValue(this.paqueteService.getLargo());
     this.forma.get('ancho').setValue(this.paqueteService.getAncho());
     this.forma.get('peso').setValue(this.paqueteService.getPeso());
-    this.forma.get('valor').setValue(this.paqueteService.getValor());
+    // this.forma.get('valor').setValue(this.paqueteService.getValor());
   }
 
   onBuscarCPOrigen() {
-    if(this.forma.get('origen').value.length < 5) { return; }
-    this.cpService.consultarCP(this.forma.get('origen').value)
-    .subscribe(response => {
-      console.log(response);
-      this.cotizacion.origen.domicilio.ciudad = response['response'].ciudad;
-      this.cotizacion.origen.domicilio.estado = response['response'].estado;
-      this.cotizacion.origen.domicilio.pais = response['response'].pais;
-      // this.cotizacion.origen.domicilio. = response['response'].municipio;
-      this.cotizacion.origen.domicilio.codigoPostal = this.forma.get('origen').value;
-    })
+    // console.log(this.forma.controls);
+    // if(this.forma.get('origen').invalid) { return; }
+    // this.cpService.consultarCP(this.forma.get('origen').value)
+    // .subscribe(response => {
+    //   // console.log(response);
+    //   this.cotizacion.origen.domicilio.ciudad = response['response'].ciudad;
+    //   this.cotizacion.origen.domicilio.estado = response['response'].estado;
+    //   this.cotizacion.origen.domicilio.pais = response['response'].pais;
+    //   // this.cotizacion.origen.domicilio. = response['response'].municipio;
+    //   this.cotizacion.origen.domicilio.codigoPostal = this.forma.get('origen').value;
+    // }, error => {
+    //   // console.log(error);
+    // })
   }
 
   onBuscarCPDestino() {
-    if(this.forma.get('destino').value.length < 5) { return; }
-    this.cpService.consultarCP(this.forma.get('destino').value)
-    .subscribe(response => {
-      console.log(response);
-      this.cotizacion.destino.domicilio.ciudad = response['response'].ciudad;
-      this.cotizacion.destino.domicilio.estado = response['response'].estado;
-      this.cotizacion.destino.domicilio.pais = response['response'].pais;
-      // this.cotizacion.delegacionDestino = response['response'].municipio;
-      this.cotizacion.destino.domicilio.codigoPostal = this.forma.get('destino').value;
-    })
+    // console.log(this.forma.controls);
+    // if(this.forma.get('destino').invalid) { return; }
+    // this.cpService.consultarCP(this.forma.get('destino').value)
+    // .subscribe(response => {
+    //   // console.log(response);
+    //   this.cotizacion.destino.domicilio.ciudad = response['response'].ciudad;
+    //   this.cotizacion.destino.domicilio.estado = response['response'].estado;
+    //   this.cotizacion.destino.domicilio.pais = response['response'].pais;
+    //   // this.cotizacion.delegacionDestino = response['response'].municipio;
+    //   this.cotizacion.destino.domicilio.codigoPostal = this.forma.get('destino').value;
+    // }, error => {
+    //   // console.log(error);
+    // })
   }
 
   asignarACotizacion() {
@@ -213,7 +228,7 @@ export class CotizacionComponent implements OnInit {
     this.detalle.dimensiones.ancho = this.forma.get('ancho').value;
     this.detalle.dimensiones.alto = this.forma.get('alto').value;
     this.detalle.dimensiones.peso = this.forma.get('peso').value;
-    this.detalle.valorDeclarado = this.forma.get('valor').value;
+    // this.detalle.valorDeclarado = this.forma.get('valor').value;
     this.cotizacion.detalle.push(this.detalle);
     // this.cotizacion.detalle[0].dimensiones.largo = this.forma.get('largo').value;
     // this.cotizacion.detalle[0].dimensiones.ancho = this.forma.get('ancho').value;
@@ -232,6 +247,43 @@ export class CotizacionComponent implements OnInit {
     if (this.forma.get('destino').value != '') {
       this.onBuscarCPDestino();
     }
+  }
+
+  onRouter() {
+    console.log(window.location.pathname);
+    switch(window.location.pathname) {
+      case '/app/app/cotizacion':
+        console.log(`Entra a ${this.path}/cotizacion`);
+        this.router.navigate(['/envio']);
+        break;
+      case '/app/app/dashboard/cotizacion':
+        console.log(`Entra a ${this.path}/dashboard/cotizacion`);
+        this.router.navigate([`/dashboard/envio`]);
+        break;
+    }
+  }
+
+  actualizarForm(tipo: string) {
+    this.forma.get('tipoEnvio').setValue(tipo);
+    if (tipo == 'P') {
+      // console.log('Paquete');
+      this.validarFormPaquete();
+    } else {
+      // console.log('Otro a paquete');
+      this.invalidarFormPaquete();
+    }
+  }
+
+  validarFormPaquete() {
+    this.forma.get('largo').enable();
+    this.forma.get('ancho').enable();
+    this.forma.get('alto').enable();
+  }
+
+  invalidarFormPaquete() {
+    this.forma.get('largo').disable();
+    this.forma.get('ancho').disable();
+    this.forma.get('alto').disable();
   }
 
 }

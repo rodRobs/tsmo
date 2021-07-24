@@ -1,0 +1,9 @@
+.ancho {
+  width: 50%;
+}
+
+@media(max-width: 768px) {
+  .ancho{
+    width: 100%;
+  }
+}

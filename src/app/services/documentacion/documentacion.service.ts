@@ -11,7 +11,8 @@ import { OpcionesDto } from 'src/app/models/dto/opcionesDto.model';
 import { DetalleDto } from 'src/app/models/dto/detalleDto.model';
 import { DimensionesDto } from 'src/app/models/dto/dimensionesDto.model';
 
-const URL = 'http://localhost:8080/';
+const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+// const URL = 'http://localhost:8080/';
 const DOCUMENTACION_URL = 'documentacion';
 const COTIZACION = 'cotizacionDto';
 const DOCUMENTACION = 'documentacionDto';
@@ -25,7 +26,7 @@ export class DocumentacionService {
   ) { }
 
   guardarPreDocumentacion(pre_doc: DocumentacionDto, proveedor: string, cotizacion: number) {
-    return this.http.post(`${URL}${DOCUMENTACION_URL}/${proveedor}/${cotizacion}`, pre_doc);
+    return this.http.post<DocumentacionDto>(`${URL}${DOCUMENTACION_URL}/${proveedor}/${cotizacion}`, pre_doc);
   }
 
   getCotizacionDto(): CotizacionDto {

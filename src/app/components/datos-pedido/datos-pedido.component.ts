@@ -46,8 +46,8 @@ export class DatosPedidoComponent implements OnInit {
   ngOnInit(): void {
     this.cotizacionDto = this.documentacionService.getCotizacionDto();
     this.documentacionDto = this.documentacionService.getDocumentacion();
-    console.log(this.documentacionDto);
-    console.log(this.cotizacionDto);
+    // console.log(this.documentacionDto);
+    // console.log(this.cotizacionDto);
     this.path = window.location.pathname;
     this.tipoServicio = this.paqueteService.getTipoServicio();
 

@@ -1,10 +1,11 @@
 export class UsuarioModel {
-    
+
     constructor(
         public id: number,
-        public nombre: string, 
-        public apat: string,
-        public amat: string,
-        public rol: string
+        public nombre: string,
+        public nombreUsuario: string,
+        public email: string,
+        public password: string,
+        public roles: string[]
         ) {}
 }

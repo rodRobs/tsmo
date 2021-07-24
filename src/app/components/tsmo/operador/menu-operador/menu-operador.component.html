@@ -1,11 +1,11 @@
-<main>
+<!-- <main>
   <div class="container mt-5">
     <div class="row">
       <div class="col">
         <app-legend [lengenda]="menuOperador"></app-legend>
         <div class="form-group row">
 
-          <!-- <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6">
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
               <div class="card-header">Header</div>
               <div class="card-body">
@@ -13,7 +13,7 @@
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="col-12 col-md-6">
             <button [routerLink]="['/alta/status/envio']" routerLinkActive="router-link-active" >
               <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
@@ -26,6 +26,26 @@
             </button>
           </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+</main> -->
+
+<main class="mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="botones">
+          <button class="mt-5 btn btn-primary btn-lg btn-block" (click)="onMenu(1)"><i class="fas fa-truck-loading"></i> Recolección</button>
+          <button class="mt-5 btn btn-secondary btn-lg btn-block" (click)="onMenu(2)"><i class="fas fa-boxes"></i> Almacén</button>
+          <button class="mt-5 btn btn-info btn-lg btn-block" (click)="onMenu(3)"><i class="fas fa-shipping-fast"></i> En tránsito</button>
+          <button class="mt-5 btn btn-success btn-lg btn-block" (click)="onMenu(4)"><i class="fas fa-people-carry"></i> Entregado</button>
+          <button class="mt-5 btn btn-warning btn-lg btn-block" (click)="onMenu(5)"><i class="fas fa-door-closed"></i> Primera Entrega sin éxito</button>
+          <button class="mt-5 btn btn-warning btn-lg btn-block" (click)="onMenu(6)"><i class="fas fa-door-closed"></i> Segunda Entrega sin éxito</button>
+          <button class="mt-5 btn btn-warning btn-lg btn-block" (click)="onMenu(7)"><i class="fas fa-door-closed"></i> Tercera Entrega sin éxito</button>
+          <button class="mt-5 btn btn-dark btn-lg btn-block" (click)="onMenu(8)"><i class="fas fa-undo"></i> Devuelto</button>
+          <button class="mt-5 btn btn-danger btn-lg btn-block" (click)="onMenu(9)"><i class="far fa-times-circle"></i> Cancelado</button>
         </div>
       </div>
     </div>

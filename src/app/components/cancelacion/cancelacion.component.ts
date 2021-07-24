@@ -46,7 +46,7 @@ export class CancelacionComponent implements OnInit {
     .subscribe(cancelacion => {
       this.errorBool = false;
       this.exitoBool = true;
-      console.log(cancelacion);
+      // console.log(cancelacion);
     }, error => {
       error = error['error'].message;
       this.errorBool = true;
