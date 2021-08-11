@@ -1,3 +1,4 @@
+import { SwitchType } from 'src/app/enums/switch.enum';
 import { PerfilType } from './../../../../enums/perfil.enum';
 import { TokenService } from 'src/app/services/usuarios/token.service';
 import { DocumentacionService } from './../../../../services/documentacion/documentacion.service';
@@ -77,7 +78,7 @@ export class PaqueteComponent implements OnInit {
     let path = window.location.pathname;
     // console.log(path);
     // console.log(path == '/paquete');
-    this.servicio = (path == '/envio/paquete') ? COTIZACION.Clientes : COTIZACION.PersonalTSMO;
+    this.servicio = (path == SwitchType.PAQUETE) ? COTIZACION.Clientes : COTIZACION.PersonalTSMO;
     // this.paquete.largo = this.paqueteService.getLargo();
     // this.paquete.ancho = this.paqueteService.getAncho();
     // this.paquete.alto = this.paqueteService.getAlto();
@@ -107,11 +108,11 @@ export class PaqueteComponent implements OnInit {
     this.forma = this.fb.group({
       tipoEntrega: ['', Validators.required],
       tipoEnvio: ['', Validators.required],
-      largo: ['', Validators.required],
-      ancho: ['', Validators.required],
-      alto: ['', Validators.required],
+      largo: ['', /*Validators.required*/],
+      ancho: ['', /*Validators.required*/],
+      alto: ['', /*Validators.required*/],
       peso: ['', Validators.required],
-      // valor: ['', Validators.required],
+      // valor: ['', Validators.required*/],
       contenido: ['', Validators.required]
     });
   }
@@ -160,27 +161,20 @@ export class PaqueteComponent implements OnInit {
   onAtras() {
     this.guardarValoresService()
     switch(window.location.pathname) {
-      case '/app/app/envio/paquete':
-        this.router.navigate(['/envio/destino']);
+      case SwitchType.PAQUETE:
+        this.router.navigate([Vista.DESTINO]);
         break;
-      case '/app/app/dashboard/envio/paquete':
-        this.router.navigate(['/dashboard/envio/destino']);
+      case SwitchType.PAQUETE_DASHBOARD:
+        this.router.navigate([Vista.DESTINO_DASHBOARD]);
         break;
     }
   }
 
   onSiguiente() {
-    // console.log(this.forma);
+    console.log(this.forma);
     if (this.forma.invalid) { this.allTouched(); return; }
     this.onCotizar(); // Guardar valores para realizar cotizacion en componente pago
-    switch(window.location.pathname) {
-      case '/app/app/envio/paquete':
-        this.router.navigate(['/envio/pago']);
-        break;
-      case '/app/app/dashboard/envio/paquete':
-        this.router.navigate(['/dashboard/envio/pago']);
-        break;
-    }
+
   }
 
   crearObjetoCotizacion(): CotizacionDto{
@@ -246,7 +240,8 @@ export class PaqueteComponent implements OnInit {
   // }
 
   onCotizar() {
-    // console.log(this.forma);
+    console.log('On Cotizar');
+    console.log(this.forma);
     this.guardarValoresService();
     this.crearOpciones();
     this.crearOrigen();
@@ -255,8 +250,16 @@ export class PaqueteComponent implements OnInit {
     this.crearDocumentacion();
     this.documentacionService.setCotizacionDto(this.crearObjetoCotizacion());
     this.documentacionService.setDocumentacion(this.documentacionDto);
-    // console.log(this.documentacionDto);
-    this.router.navigate([Vista.PAGO_CLIENTE]);
+    console.log(this.documentacionDto);
+    // this.router.navigate([Vista.PAGO_CLIENTE]);
+    switch(window.location.pathname) {
+      case SwitchType.PAQUETE:
+        this.router.navigate([Vista.PAGO_CLIENTE]);
+        break;
+      case SwitchType.PAQUETE_DASHBOARD:
+        this.router.navigate([Vista.PAGO_DASHBOARD]);
+        break;
+    }
     // this.cotizacionService.onSolicitarCotizacionClientes(this.crearObjetoCotizacion())
     // .subscribe(carga => {
 
@@ -281,11 +284,11 @@ export class PaqueteComponent implements OnInit {
     this.crearDestino();
     this.crearDetalle();
     this.crearDocumentacion();
-    // console.log(this.documentacionDto);
-    this.envioService.documentacion(this.documentacionDto)
-    .subscribe(response => {
-      // console.log(response);
-    })
+    console.log(this.documentacionDto);
+    // this.envioService.documentacion(this.documentacionDto)
+    // .subscribe(response => {
+    //   // console.log(response);
+    // })
     // console.log(this.opciones);
     // console.log(this.origenDto);
     // console.log(this.destinoDto);
@@ -298,7 +301,7 @@ export class PaqueteComponent implements OnInit {
     this.opciones.tipoCobro = '';
     this.opciones.tipoEntrega = this.forma.get('tipoEntrega').value;
     this.opciones.tipoEnvio = this.forma.get('tipoEnvio').value;
-    this.opciones.tipoServicio = '3';
+    // this.opciones.tipoServicio = '3';
   }
 
   crearOrigen() {
@@ -345,11 +348,12 @@ export class PaqueteComponent implements OnInit {
   }
 
   crearDocumentacion() {
-    // console.log('Crea Documentacion');
+    console.log('Crea Documentacion');
     this.documentacionDto.opciones = this.opciones;
     this.documentacionDto.origen = this.origenDto;
     this.documentacionDto.destino = this.destinoDto;
     this.documentacionDto.detalle.push(this.detalle);
+
   }
 
   contratar() {
@@ -402,6 +406,7 @@ export class PaqueteComponent implements OnInit {
     this.forma.get('alto').updateValueAndValidity();
     this.forma.get('peso').setValidators(Validators.required);
     this.forma.get('peso').updateValueAndValidity();
+    this.forma.get('peso').enable();
     this.forma.get('contenido').setValidators(Validators.required);
     this.forma.get('contenido').updateValueAndValidity();
   }
@@ -418,14 +423,14 @@ export class PaqueteComponent implements OnInit {
     this.forma.get('peso').updateValueAndValidity();
     this.forma.get('contenido').setValidators(Validators.required);
     this.forma.get('contenido').updateValueAndValidity();
-    this.forma.get('largo').setValidators(Validators.required);
-    this.forma.get('largo').setValue(1);
+    // this.forma.get('largo').setValidators(Validators.required);
+    this.forma.get('largo').setValue(0);
     this.forma.get('largo').updateValueAndValidity();
-    this.forma.get('ancho').setValidators(Validators.required);
-    this.forma.get('ancho').setValue(1);
+    // this.forma.get('ancho').setValidators(Validators.required);
+    this.forma.get('ancho').setValue(0);
     this.forma.get('ancho').updateValueAndValidity();
-    this.forma.get('alto').setValidators(Validators.required);
-    this.forma.get('alto').setValue(1);
+    // this.forma.get('alto').setValidators(Validators.required);
+    this.forma.get('alto').setValue(0);
     this.forma.get('alto').updateValueAndValidity();
   }
 

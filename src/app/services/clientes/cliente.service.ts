@@ -1,6 +1,7 @@
 import { ClienteDto } from './../../models/dto/clienteDto.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HostType } from 'src/app/enums/host.enum';
 
 const NOMBRE = "nombre";
 const APAT = "apar";
@@ -15,8 +16,8 @@ const NUMERO = "numero";
 const MUNICIPIO = "municipio";
 const ESTADO = "estado";
 
-const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
-// const URL = 'http://localhost:8080/';
+// const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+const URL = 'http://localhost:8080/';
 const CLIENTES = 'clientes';
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class ClienteService {
   ) { }
 
   public guardarCliente(cliente: ClienteDto) {
-    return this.http.post<ClienteDto>(`${URL}${CLIENTES}`, cliente);
+    return this.http.post<ClienteDto>(`${HostType.HOST}${CLIENTES}`, cliente);
   }
 
   public getNombre(): string {

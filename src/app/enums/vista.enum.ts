@@ -1,11 +1,14 @@
 export enum Vista {
     LOGIN = 'login',
     // PUBLICO GENERAL
-    INICIO = 'inicio',
-    ORIGEN = 'inicio',
-    DESTINO = 'inicio/destino',
-    PAQUETE = 'inicio/paquete',
-    COTIZACION = 'inicio/cotizacion',
+    INICIO = '',
+    ORIGEN = 'envio',
+    DESTINO = 'envio/destino',
+    PAQUETE = 'envio/paquete',
+    COTIZACION = 'cotizacion',
+    RASTREO = 'rastreo',
+    COBERTURA = 'cobertura',
+    CANCELACION = 'cancelacion',
     //
     ORIGEN_CLIENTE = "envio",
     DESTINO_CLIENTE = "envio/destino",
@@ -28,5 +31,6 @@ export enum Vista {
     CANCELACION_DASHBOARD = 'dashboard/cancelacion',
     RASTREAR_DASHBOARD = 'dashboard/rastrear',
     STATUS_DASHBOARD = 'dashboard/status'
+
 
 }

@@ -183,6 +183,7 @@ export class ListarEnviosComponent implements OnInit {
   }
 
   buscarClienteBD() {
+    console.log('BuscarCliente');
     this.usuarioService.clientePorNombreUsuario(this.tokenService.getUserName())
     .subscribe(cliente => {
       // console.log(cliente);

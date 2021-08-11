@@ -9,7 +9,11 @@ export class AppComponent {
   title = 'tsmo';
 
   onRedSocial(link: string) {
-    console.log(link);
+    // console.log(link);
     window.open(link, '_blank');
+  }
+
+  politica() {
+    window.open('https://tsmo.com.mx/politica.html', '_blank');
   }
 }

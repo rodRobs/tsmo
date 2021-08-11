@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const URL_CP = 'https://api.copomex.com/query/info_cp/';
-const TOKEN = '3bdd101b-fa69-4ca2-b1c0-16cbbf051bdf';
+// const TOKEN = '3bdd101b-fa69-4ca2-b1c0-16cbbf051bdf';
+const TOKEN = 'prueba';
 @Injectable({
   providedIn: 'root'
 })
