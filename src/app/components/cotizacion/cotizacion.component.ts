@@ -1,3 +1,5 @@
+import { SwitchType } from 'src/app/enums/switch.enum';
+import { Vista } from './../../enums/vista.enum';
 import { Router } from '@angular/router';
 import { DetalleDto } from './../../models/dto/detalleDto.model';
 import { TelefonosDto } from './../../models/dto/telefonosDto.model';
@@ -252,13 +254,16 @@ export class CotizacionComponent implements OnInit {
   onRouter() {
     console.log(window.location.pathname);
     switch(window.location.pathname) {
-      case '/app/app/cotizacion':
-        console.log(`Entra a ${this.path}/cotizacion`);
-        this.router.navigate(['/envio']);
+      case SwitchType.COTIZACION_:
+        this.router.navigate([Vista.ORIGEN]);
         break;
-      case '/app/app/dashboard/cotizacion':
+      case SwitchType.COTIZACION:
+        console.log(`Entra a ${this.path}/cotizacion`);
+        this.router.navigate([Vista.ORIGEN]);
+        break;
+      case SwitchType.COTIZACION_DASHBOARD:
         console.log(`Entra a ${this.path}/dashboard/cotizacion`);
-        this.router.navigate([`/dashboard/envio`]);
+        this.router.navigate([Vista.ORIGEN_DASHBOARD]);
         break;
     }
   }
@@ -284,6 +289,74 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('largo').disable();
     this.forma.get('ancho').disable();
     this.forma.get('alto').disable();
+  }
+
+  asignarValidaciones() {
+    if (this.forma.get('tipoEnvio').value == 'P') {
+      // console.log('Validaciones paquete');
+      this.validacionesPaquete();
+    } else {
+      // console.log('Validaciones para sobre y valija');
+      this.validacionesSobreValija();
+    }
+    // console.log(this.forma);
+  }
+
+  validacionesPaquete() {
+    this.limpiarValidaciones();
+    this.forma.get('tipoEntrega').setValidators(Validators.required);
+    this.forma.get('tipoEntrega').updateValueAndValidity();
+    this.forma.get('tipoEnvio').setValidators(Validators.required);
+    this.forma.get('tipoEnvio').updateValueAndValidity();
+    this.forma.get('largo').setValidators(Validators.required);
+    this.forma.get('largo').setValue('');
+    this.forma.get('largo').updateValueAndValidity();
+    this.forma.get('ancho').setValidators(Validators.required);
+    this.forma.get('ancho').setValue('');
+    this.forma.get('ancho').updateValueAndValidity();
+    this.forma.get('alto').setValidators(Validators.required);
+    this.forma.get('alto').setValue('');
+    this.forma.get('alto').updateValueAndValidity();
+    // this.forma.get('peso').setValue(0);
+    this.forma.get('peso').enable();
+    this.forma.get('peso').setValidators(Validators.required);
+    this.forma.get('peso').updateValueAndValidity();
+  }
+
+  validacionesSobreValija() {
+    this.limpiarValidaciones();
+    this.forma.get('tipoEntrega').setValidators(Validators.required);
+    this.forma.get('tipoEntrega').updateValueAndValidity();
+    this.forma.get('tipoEnvio').setValidators(Validators.required);
+    this.forma.get('tipoEnvio').updateValueAndValidity();
+    this.forma.get('peso').setValidators(Validators.required);
+    this.forma.get('peso').setValue(1);
+    this.forma.get('peso').disable();
+    this.forma.get('peso').updateValueAndValidity();
+    // this.forma.get('largo').setValidators(Validators.required);
+    this.forma.get('largo').setValue(0);
+    this.forma.get('largo').updateValueAndValidity();
+    // this.forma.get('ancho').setValidators(Validators.required);
+    this.forma.get('ancho').setValue(0);
+    this.forma.get('ancho').updateValueAndValidity();
+    // this.forma.get('alto').setValidators(Validators.required);
+    this.forma.get('alto').setValue(0);
+    this.forma.get('alto').updateValueAndValidity();
+  }
+
+  limpiarValidaciones() {
+    Object.values( this.forma.controls ).forEach(control => {
+      control.clearValidators();
+      control.updateValueAndValidity();
+    })
+    // this.forma.get('tipoEntrega').clearValidators();
+
+    // this.forma.get('tipoEnvio').clearValidators();
+    // this.forma.get('largo').clearValidators();
+    // this.forma.get('ancho').clearValidators();
+    // this.forma.get('alto').clearValidators();
+    // this.forma.get('peso').clearValidators();
+    // this.forma.get('contenido').clearValidators();
   }
 
 }

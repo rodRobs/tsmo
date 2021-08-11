@@ -31,6 +31,7 @@ import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { NotificacionService } from 'src/app/services/notifacion/notificacion.service';
+import { SwitchType } from 'src/app/enums/switch.enum';
 
 
 @Component({
@@ -203,7 +204,7 @@ export class PagoComponent implements OnInit {
     // console.log(this.documentacionService.getCotizacionDto());
     this.cotizacionService.onSolicitarCotizacionEnvio(this.documentacionService.getCotizacionDto())
     .subscribe(costo => {
-      // console.log('Ceosto (Response): ',costo);
+      // console.log('Costo (Response): ',costo);
       document.getElementById('footer').style.position = 'relative';
       this.documentacionDto = this.documentacionService.getDocumentacion();
       this.formulario = true;
@@ -220,6 +221,7 @@ export class PagoComponent implements OnInit {
       // this.precio = carga.precio;
       // console.log(costo);
     }, error => {
+      console.log(error);
       this.loading = false;
       this.errorCotBool = true;
       // console.log(error);
@@ -235,12 +237,15 @@ export class PagoComponent implements OnInit {
             error['error'].forEach(element => {
               this.errorCotizacion = this.errorCotizacion + element['msg'];
             })
+          } else {
+            this.errorCotizacion = (error['status'] === 400) ? `ERROR: Servidor falló ${error['error']['message']}` : error['error'];
           }
 
         } else {
           // console.log('No Undefined');
           // console.log(error);
           this.errorCotizacion = (error['status'] === 500) ? 'ERROR: Servidor falló' : error['error'];
+          this.errorCotizacion = (error['status'] === 400) ? 'ERROR: Servidor falló' : error['error'];
         }
         // if (error['error'].isArray()) {
         //   error['error'].forEach(element => {
@@ -248,8 +253,8 @@ export class PagoComponent implements OnInit {
         //   })
         // }
       } else {
-        // console.log('ERROR: ', error);
-
+        console.log('ERROR: ', error);
+        this.errorCotizacion = (error['status'] === 400) ? 'ERROR: Servidor falló' : error['error'];
         this.errorCotizacion = (error['status'] === 500) ? 'ERROR: Servidor falló' : error['error'];
       }
 
@@ -275,7 +280,7 @@ export class PagoComponent implements OnInit {
             token: result.token.id,
             amount: this.precio * 100,
             currency: 'MXN',
-            description: 'Envio de Pedido'
+            description: 'Solicitud de envio'
           }
           // console.log(paymentIntentDto);
           this.guardarCliente(paymentIntentDto);
@@ -349,32 +354,32 @@ export class PagoComponent implements OnInit {
     this.clienteService.guardarCliente(this.clienteDto)
     .subscribe(cliente => {
       this.envioDto.cliente.id = cliente.id;
-      // console.log('EnvioDto agrega cliente.id: ',this.envioDto);
+      console.log('EnvioDto agrega cliente.id: ',this.envioDto);
       this.guardarDocumentacion()
       .subscribe(data => {
-        // console.log('data guardar Documentación: ',data);
+        console.log('data guardar Documentación: ',data);
         this.envioDto.documentacion.id = data['id'];
         this.envioDto.guiaProveedor = data['guia'];
-        // console.log('Envio Dto (antes): ',this.envioDto);
+        console.log('Envio Dto (antes): ',this.envioDto);
         this.guardarEnvio(this.envioDto)
         .subscribe(data => {
-          // console.log('Data (despues): ',data);
+          console.log('Data (despues): ',data);
           this.envioDto = data;
           this.envioService.setGuia(this.envioDto.guiaTsmo);
           this.realizarPago(paymentIntentDto);
         }, error => {
-          // console.log(error);
+          console.log(error);
         })
       }, error => {
-        // console.log(error);
+        console.log(error);
       })
     }, error => {
-      // console.log(error);
+      console.log(error);
     })
   }
 
   guardarDocumentacion() {
-    // console.log('Documentacion (guardar): ',this.documentacionDto);
+    console.log('Documentacion (guardar): ',this.documentacionDto);
     // console.log(this.proveedor);
     // console.log(this.cotizacion);
     return this.documentacionService.guardarPreDocumentacion(this.documentacionDto, this.proveedor, this.cotizacion);
@@ -403,11 +408,11 @@ export class PagoComponent implements OnInit {
   // Regresar
   onRegresar() {
     switch(window.location.pathname) {
-      case `${this.path}/envio/pago`:
-        this.router.navigate(['/envio/paquete']);
+      case SwitchType.PAGO:
+        this.router.navigate([Vista.PAQUETE]);
         break;
-      case `${this.path}/dashboard/envio/pago`:
-        this.router.navigate(['/dashboard/envio/paquete']);
+      case SwitchType.PAGO_DASHBOARD:
+        this.router.navigate([Vista.PAQUETE_DASHBOARD]);
         break;
     }
   }

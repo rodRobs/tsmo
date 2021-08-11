@@ -117,7 +117,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
     ContratarEnvioUsuarioComponent,
     PagosComponent,
     ActualizarPagoComponent,
-    FooterComponent,
+    FooterComponent
 
     // ProgressComponent,
     // GraphicsComponent,

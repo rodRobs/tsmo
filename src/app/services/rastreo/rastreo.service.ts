@@ -4,9 +4,10 @@ import { EnvioDto } from './../../models/dto/EnvioDto.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RastreoDto } from 'src/app/models/dto/rastreo.model';
+import { HostType } from 'src/app/enums/host.enum';
 
-const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
-// const URL = 'http://localhost:8080/';
+// const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
+const URL = 'http://localhost:8080/';
 const ACTUALIZAR = '/actualizar/';
 const RASTREO = 'rastreo';
 @Injectable({
@@ -19,21 +20,21 @@ export class RastreoService {
   ) { }
 
   onRastrear(guia: string) {
-    console.log(`${URL}${RASTREO}/${guia}`);
-    return this.http.get<EnvioMostrar>(`${URL}${RASTREO}/${guia}`);
+    console.log(`${HostType.HOST}${RASTREO}/${guia}`);
+    return this.http.get<EnvioMostrar>(`${HostType.HOST}${RASTREO}/${guia}`);
   }
 
   onRastrearCliente(guia: string, cliente: number) {
-    console.log(`${URL}${RASTREO}/${guia}?cte=${cliente}`);
-    return this.http.get<EnvioMostrar>(`${URL}${RASTREO}/${guia}?cte=${cliente}`);
+    console.log(`${HostType.HOST}${RASTREO}/${guia}?cte=${cliente}`);
+    return this.http.get<EnvioMostrar>(`${HostType.HOST}${RASTREO}/${guia}?cte=${cliente}`);
   }
 
   onActualizarRastreo(envio: number, rastreo: RastreoDto) {
-    return this.http.post<EnvioDto>(`${URL}${RASTREO}/${ACTUALIZAR}${envio}`, rastreo);
+    return this.http.post<EnvioDto>(`${HostType.HOST}${RASTREO}/${ACTUALIZAR}${envio}`, rastreo);
   }
 
   actualizarRastreoEtapas(rastreo: PostActualizacionStatusType) {
-    return this.http.post<string>(`${URL}${RASTREO}/${ACTUALIZAR}${RASTREO}`, rastreo);
+    return this.http.post<string>(`${HostType.HOST}${RASTREO}/${ACTUALIZAR}${RASTREO}`, rastreo);
   }
 
 

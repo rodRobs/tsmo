@@ -1,3 +1,4 @@
+import { DomicilioService } from './../../../../services/domicilio/domicilio.service';
 import { ParrafoType } from 'src/app/enums/parrafo.enum';
 import { CpService } from './../../../../services/codigo-postal/cp.service';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +10,7 @@ import { LegendaType } from 'src/app/enums/legendas.enum';
 import { Vista } from 'src/app/enums/vista.enum';
 import { DireccionDto } from 'src/app/models/dto/direccionDto.model';
 import { DestinoService } from 'src/app/services/cotizacion/destino.service';
+import { SwitchType } from 'src/app/enums/switch.enum';
 
 @Component({
   selector: 'app-destino',
@@ -38,7 +40,8 @@ export class DestinoComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private fb: FormBuilder,
-    private cpService: CpService
+    private cpService: CpService,
+    private domicilioService: DomicilioService
   ) {
     this.crearFormulario();
     this.cargarValoresDesdeService();
@@ -54,7 +57,7 @@ export class DestinoComponent implements OnInit {
     this.forma = this.fb.group({
       destinatario: ['', Validators.required],
       destinatario_dos: [''],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       cp: ['', Validators.required],
       colonia: ['', Validators.required],
       calle: ['', Validators.required],
@@ -113,13 +116,25 @@ export class DestinoComponent implements OnInit {
     // console.log("Entra a buscar CP");
     if(this.forma.get('cp').value.length < 5) { return; }
     // this.http.get<any>(`${URL_CP}${this.forma.get('cp').value}?type=simplified`)
-    this.cpService.consultarCP(this.forma.get('cp').value)
+    // this.cpService.consultarCP(this.forma.get('cp').value)
+    // .subscribe(response => {
+    //   this.coloniaBoolean = false;
+    //   this.colonias = response['response'].asentamiento;
+    //   this.forma.get('ciudad').setValue(response['response'].ciudad);
+    //   this.forma.get('estado').setValue(response['response'].estado);
+    //   this.destinoService.setPais(response['response'].pais);
+    // },
+    // error => {
+    //   this.coloniaBoolean = true;
+    //   this.destinoService.setPais('MÚxico');
+    // })
+    this.domicilioService.buscarCP(this.forma.get('cp').value)
     .subscribe(response => {
       this.coloniaBoolean = false;
-      this.colonias = response['response'].asentamiento;
-      this.forma.get('ciudad').setValue(response['response'].ciudad);
-      this.forma.get('estado').setValue(response['response'].estado);
-      this.destinoService.setPais(response['response'].pais);
+      this.colonias = response['asentamiento'];
+      this.forma.get('ciudad').setValue(response['ciudad']);
+      this.forma.get('estado').setValue(response['estado']);
+      this.destinoService.setPais(response['pais']);
     },
     error => {
       this.coloniaBoolean = true;
@@ -145,11 +160,11 @@ export class DestinoComponent implements OnInit {
   onAtras() {
     this.guardarValoresService()
     switch(window.location.pathname) {
-      case '/app/app//envio/destino':
-        this.router.navigate(['/envio']);
+      case SwitchType.DESTINO:
+        this.router.navigate([Vista.ORIGEN]);
         break;
-      case '/app/app//dashboard/envio/destino':
-        this.router.navigate(['/dashboard/envio']);
+      case SwitchType.DESTINO_DASHBOARD:
+        this.router.navigate([Vista.ORIGEN_DASHBOARD]);
         break;
     }
   }
@@ -158,11 +173,11 @@ export class DestinoComponent implements OnInit {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
     switch(window.location.pathname) {
-      case '/app/app/envio/destino':
-        this.router.navigate(['/envio/paquete']);
+      case SwitchType.DESTINO:
+        this.router.navigate([Vista.PAQUETE]);
         break;
-      case '/app/app/dashboard/envio/destino':
-        this.router.navigate(['/dashboard/envio/paquete']);
+      case SwitchType.DESTINO_DASHBOARD:
+        this.router.navigate([Vista.PAQUETE_DASHBOARD]);
         break;
     }
   }

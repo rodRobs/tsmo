@@ -1,3 +1,5 @@
+import { DomicilioService } from './../../../../services/domicilio/domicilio.service';
+import { Vista } from './../../../../enums/vista.enum';
 import { ParrafoType } from './../../../../enums/parrafo.enum';
 import { CpService } from './../../../../services/codigo-postal/cp.service';
 import { LegendaType } from 'src/app/enums/legendas.enum';
@@ -7,12 +9,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COTIZACION } from 'src/app/enums/cotizacion.enum';
-import { Vista } from 'src/app/enums/vista.enum';
 import { DireccionDto } from 'src/app/models/dto/direccionDto.model';
 import { DomicilioDto } from 'src/app/models/dto/domicilioDto.model';
 import { OrigenDto } from 'src/app/models/dto/origenDto.model';
 import { OrigenService } from 'src/app/services/cotizacion/origen.service';
 import { TelefonosDto } from 'src/app/models/dto/telefonosDto.model';
+import { SwitchType } from 'src/app/enums/switch.enum';
 
 @Component({
   selector: 'app-origen',
@@ -41,7 +43,8 @@ export class OrigenComponent implements OnInit {
     private origenService: OrigenService,
     private router: Router,
     private fb: FormBuilder,
-    private cpService: CpService
+    private cpService: CpService,
+    private domicilioService: DomicilioService
     ) {
       this.crearFormulario();
       this.cargarValoresDesdeService();
@@ -56,7 +59,7 @@ export class OrigenComponent implements OnInit {
   crearFormulario() {
     this.forma = this.fb.group({
       remitente: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       cp: ['', Validators.required],
       colonia: ['', Validators.required],
       calle: ['', Validators.required],
@@ -113,13 +116,25 @@ export class OrigenComponent implements OnInit {
     // console.log("Entra a buscar CP");
     if(this.forma.get('cp').value.length < 5) { return; }
     // this.http.get<any>(`${URL_CP}${this.forma.get('cp').value}?type=simplified`)
-    this.cpService.consultarCP(this.forma.get('cp').value)
+    // this.cpService.consultarCP(this.forma.get('cp').value)
+    // .subscribe(response => {
+    //   this.coloniaBoolean = false;
+    //   this.colonias = response['response'].asentamiento;
+    //   this.forma.get('ciudad').setValue(response['response'].ciudad);
+    //   this.forma.get('estado').setValue(response['response'].estado);
+    //   this.origenService.setPais(response['response'].pais);
+    // },
+    // error => {
+    //   this.coloniaBoolean = true;
+    //   this.origenService.setPais('MÚxico');
+    // })
+    this.domicilioService.buscarCP(this.forma.get('cp').value)
     .subscribe(response => {
       this.coloniaBoolean = false;
-      this.colonias = response['response'].asentamiento;
-      this.forma.get('ciudad').setValue(response['response'].ciudad);
-      this.forma.get('estado').setValue(response['response'].estado);
-      this.origenService.setPais(response['response'].pais);
+      this.colonias = response['asentamiento'];
+      this.forma.get('ciudad').setValue(response['ciudad']);
+      this.forma.get('estado').setValue(response['estado']);
+      this.origenService.setPais(response['pais']);
     },
     error => {
       this.coloniaBoolean = true;
@@ -131,12 +146,16 @@ export class OrigenComponent implements OnInit {
   onSiguiente() {
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
+    console.log(SwitchType.ORIGEN);
+    console.log(Vista.DESTINO);
+    console.log(window.location.pathname);
+    console.log(SwitchType.ORIGEN == window.location.pathname);
     switch(window.location.pathname) {
-      case '/app/app/envio':
-        this.router.navigate(['/envio/destino']);
+      case SwitchType.ORIGEN:
+        this.router.navigate([Vista.DESTINO]);
         break;
-      case '/app/app/dashboard/envio':
-        this.router.navigate(['/dashboard/envio/destino']);
+      case SwitchType.ORIGEN_DASHBOARD:
+        this.router.navigate([Vista.DESTINO_DASHBOARD]);
         break;
     }
     // if(this.cotizacion == COTIZACION.PersonalTSMO) {
