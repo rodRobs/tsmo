@@ -9,9 +9,14 @@
   }
 }
 
-@media (max-height: 1100px) {
+@media (max-height: 1200px) {
   .fondo-ciudad {
     display: none;
+  }
+
+  footer {
+    position: relative;
+    /* margin-top: 20px; */
   }
 }
 

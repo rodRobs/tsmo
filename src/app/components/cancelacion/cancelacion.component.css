@@ -1,0 +1,9 @@
+.formulario {
+  margin-bottom: 200px;
+}
+
+@media(max-width: 526px) {
+  .formulario {
+    margin-bottom: 50px;
+  }
+}

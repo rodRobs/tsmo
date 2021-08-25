@@ -1,3 +1,4 @@
+import { EtiquetaService } from './../../services/etiqueta/etiqueta.service';
 import { UsuarioService } from './../../services/usuarios/usuario.service';
 import { PerfilType } from './../../enums/perfil.enum';
 import { TokenService } from './../../services/usuarios/token.service';
@@ -70,7 +71,8 @@ export class ListarEnviosComponent implements OnInit {
     private clientesService: ClienteService,
     private tokenService: TokenService,
     private usuarioService: UsuarioService,
-    private domicilioService: DomicilioService
+    private domicilioService: DomicilioService,
+    private etiquetaService: EtiquetaService
   ) {
     this.crearFormulario();
   }
@@ -113,6 +115,7 @@ export class ListarEnviosComponent implements OnInit {
     this.pogressBoolean = true; // Activar pogress bar
     this.envioService.buscarEnvioPorFiltros(this.armarParams())
     .subscribe(envios => {
+      console.log(envios);
       this.envios = envios;
       console.log(this.envios == null);
       console.log(this.envios != null);
@@ -147,7 +150,7 @@ export class ListarEnviosComponent implements OnInit {
 
   validarStorage() {
     this.envios = JSON.parse(localStorage.getItem('envios'));
-    // console.log(this.envios);
+    console.log(this.envios);
   }
 
   onActivarPeriodo() {
@@ -266,6 +269,14 @@ export class ListarEnviosComponent implements OnInit {
 
     let url = window.URL.createObjectURL(blob);
     let pwa = window.open(url);
+  }
+
+  onImprimitGuiaProveedor(guia: string) {
+    console.log('Entra a imprimir guia: '+guia);
+    this.etiquetaService.imprimirGuiaProveedor(guia)
+    .subscribe(response => {
+      this.descargar(response, 'application/pdf; charset=utf-8');
+    })
   }
 
 }

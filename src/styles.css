@@ -18,7 +18,7 @@ header {
 footer {
     z-index: -100;
     color: #fff;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
     font-family: 'Raleway', sans-serif;
@@ -208,3 +208,8 @@ padding: 5px;
 
 /* html, body { height: 100%; margin: 0 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+
+footer p {
+  margin-bottom: 0;
+}

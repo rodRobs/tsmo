@@ -55,7 +55,7 @@ export class RastreoComponent implements OnInit {
   ngOnInit(): void {
     this.seleccionPerfil();
     this.verificarParamURL();
-
+    // document.getElementById('footer').style.position = 'absolute';
   }
 
   crearFormulario() {
@@ -87,11 +87,13 @@ export class RastreoComponent implements OnInit {
     console.log('Rastreo normal');
     this.rastrearService.onRastrear(this.forma.get('guia').value)
     .subscribe(envio => {
+      document.getElementById('footer').style.position = 'relative';
       this.rastreosBoolean = true;
       this.errorBoolean = false;
       // console.log(envio);
       this.envio = envio;
     }, error => {
+      document.getElementById('footer').style.position = 'relative';
       // console.log(error);
       this.rastreosBoolean = false;
       this.errorBoolean = true;

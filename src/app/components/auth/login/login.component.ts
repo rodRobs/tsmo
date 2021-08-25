@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
     // console.log(window.btoa('$2a$10$yzf7gaqvxiJXhxFbjmUm3.jWow/WgPPtouiA/NkcIMFVzZV5iQ7ie'));
     this.getToken();
     //  console.log(btoa(`${this.usuarioEnvia}:${this.password}`));
-    document.getElementById('footer').style.zIndex = '1';
+    document.getElementById('header-principal').style.display = 'block';
+    document.getElementById('menu').style.zIndex = '1';
+    document
   }
 
   login(form: NgForm) {

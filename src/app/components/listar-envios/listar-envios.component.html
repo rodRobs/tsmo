@@ -172,7 +172,8 @@
             <td class="text-center"><button class="btn-row " (click)="onBuscarEnvio(envio.guiaTsmo)" [class.par]="i%2==0"> {{(envio.cliente != null) ? envio.documentacion.cotizacion.destino.domicilio.ciudad : null}} </button></td>
 
             <td> <button class="btn btn-primary" (click)="onBuscarEnvio(envio.guiaTsmo)" title="Ver envio"> <i class="far fa-eye"></i> </button> </td>
-            <td> <button class="btn btn-info" (click)="onImprimirGuia(envio.guiaTsmo)" title="Imprimir guia"> <i class="fas fa-print"></i> </button> </td>
+            <td> <button class="btn btn-info" (click)="onImprimirGuia(envio.guiaTsmo)" title="Imprimir guia TSMO"> <i class="fas fa-print"></i> </button> </td>
+            <td> <button class="btn btn-secondary" (click)="onImprimitGuiaProveedor(envio.guiaProveedor)" title="Imprimir guia Proveedor" *ngIf="envio.guiaProveedor != null && envio.guiaProveedor != ''"> <i class="fas fa-print"></i> </button> </td>
 
             <!-- <td>@mdo</td> -->
           </tr>
@@ -184,7 +185,7 @@
                           nextLabel="Siguiente"
                           responsinve="true">
       </pagination-controls>
-      <div class="text-left mb-5" *ngIf="envios != null">
+      <div class="text-left" style="margin-bottom: 100px;" *ngIf="envios != null">
         <button class="btn btn-outline-info" (click)="exportarEnviosExcel()"><i class="fas fa-file-excel"></i> Exportar Excel de {{envios.length}} envios</button>
       </div>
     </div>

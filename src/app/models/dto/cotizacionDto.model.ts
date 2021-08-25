@@ -1,3 +1,4 @@
+import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
 import { OpcionesDto } from './opcionesDto.model';
 import { DetalleDto } from './detalleDto.model';
 import { DestinoDto } from './destinoDto.model';
@@ -46,6 +47,8 @@ export class CotizacionDto {
       // public contenido: string,
       // // Referencia
       // public referencia: string
+      // public recoleccion: string
+      public servicios: ServiciosDto[]
     ) {}
 
   }

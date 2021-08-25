@@ -32,7 +32,7 @@ export class DocumentacionService {
 
   getCotizacionDto(): CotizacionDto {
     let cotizacion: CotizacionDto = JSON.parse(localStorage.getItem(COTIZACION));
-    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date());
+    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
   }
 
   setCotizacionDto(cotizacion: CotizacionDto) {
