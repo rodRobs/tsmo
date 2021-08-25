@@ -59,7 +59,8 @@ export class ModalComponent implements OnInit {
         this.activeModal.close();
       },
       error => {
-        // console.log(error);
+        // console.log('Confirmar: ',error);
+        window.alert(error['error'].message);
         this.activeModal.close();
       }
     )
@@ -73,7 +74,7 @@ export class ModalComponent implements OnInit {
         this.activeModal.close();
       },
       error => {
-        // console.log(error);
+        // console.log('Cancelar: ',error);
         this.activeModal.close();
       }
     )
@@ -92,9 +93,10 @@ export class ModalComponent implements OnInit {
         // console.log(this.envio);
         this.cambiarEstadoPago(APROBADO, this.envio)
       }, error => {
+        // console.log('Solicitar Guia: ',error);
         this.envio.pago = this.id;
         this.cambiarEstadoPago(RECHAZADO, this.envio)
-        alert(error['error']);
+        alert(error['error'].message);
       } )
     } else {
       this.cambiarEstadoPago(APROBADO, this.envio);
@@ -106,7 +108,8 @@ export class ModalComponent implements OnInit {
     .subscribe(response => {
       // console.log(response);
     }, error => {
-      alert(error['error']);
+      // console.log('Cambiar estado pago: ',error);
+      window.alert(error['error'].message);
     } )
   }
 
@@ -120,7 +123,8 @@ export class ModalComponent implements OnInit {
       }
       // console.log(envio);
     }, error => {
-      alert(error['error']);
+      // console.log('Cambiar Estado Pago: ',error);
+      window.alert(error['error'].message);
     } )
   }
 
@@ -129,7 +133,12 @@ export class ModalComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
     }, error => {
-      console.log(error);
+      if (error.status == 200) {
+        console.log(error);
+        window.alert(error['error'].text);
+      } else {
+        window.alert(error['error'].message);
+      }
     })
   }
 

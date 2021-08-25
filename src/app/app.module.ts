@@ -52,6 +52,7 @@ import { SidenavListComponent } from './components/sidenav-list/sidenav-list.com
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
+
 import { ProgressComponent } from './components/progress/progress.component';
 import { GraphicsComponent } from './components/graphics/graphics.component';
 import { Error404Component } from './components/error404/error404.component';
@@ -68,6 +69,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 
 // QR
 import { NgQrScannerModule } from 'angular2-qrscanner';
+import { MapaComponent } from './components/mapa/mapa.component';
 // import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
@@ -117,7 +119,8 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
     ContratarEnvioUsuarioComponent,
     PagosComponent,
     ActualizarPagoComponent,
-    FooterComponent
+    FooterComponent,
+    MapaComponent
 
     // ProgressComponent,
     // GraphicsComponent,

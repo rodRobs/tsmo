@@ -7,131 +7,11 @@
         <form
         [formGroup]="forma" (ngSubmit)="onCotizar()">
         <app-instrucciones [instrucciones]="instrucciones"></app-instrucciones>
-        <div class="form-group row">
-          <div class="col-12">
-            <label for="tipoEntrega">Tipo de Entrega:</label>
-          </div>
-        </div>
-        <div class="form-group row pl-5">
-          <div class="col-12 col-md-6">
-            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
-            <label class="form-check-label" for="domicilio">Domicilio</label>
-          </div>
-          <div class="col-12 col-md-6">
-            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
-            <label class="form-check-label" for="ocurre">Ocurre</label>
-          </div>
-          <small class="text-danger" *ngIf="tipoEntregaNoValido">
-            Selecciona el tipo de entrega
-          </small>
-        </div>
-        <div class="form-group row">
-          <div class="col-12">
-            <label for="tipoEnvio">Tipo de Envío:</label>
-          </div>
-        </div>
-        <div class="form-group row pl-5">
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio" (click)="actualizarForm('P')" (change)="asignarValidaciones()">
-            <label class="form-check-label" for="paquete">Paquete</label>
-          </div>
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio" (click)="actualizarForm('S')" (change)="asignarValidaciones()">
-            <label class="form-check-label" for="sobre">Sobre</label>
-          </div>
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio" (click)="actualizarForm('V')" (change)="asignarValidaciones()">
-            <label class="form-check-label" for="valija">Valija</label>
-          </div>
-          <small class="text-danger" *ngIf="tipoEnvioNoValido">
-            Selecciona el tipo de envio
-          </small>
-        </div>
-        <!-- <div class="form-group row">
-          <div class="col-12">
-            <label for="tipoEntrega">Tipo de Entrega:</label>
-          </div>
-        </div>
-        <div class="form-group row pl-5">
-          <div class="col-12 col-md-6">
-            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
-            <label class="form-check-label" for="domicilio">Domicilio</label>
-          </div>
-          <div class="col-12 col-md-6">
-            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
-            <label class="form-check-label" for="ocurre">Ocurre</label>
-          </div>
-          <small class="text-danger" *ngIf="tipoEntregaNoValido">
-            Selecciona el tipo de entrega
-          </small>
-        </div>
-        <div class="form-group row">
-          <div class="col-12">
-            <label for="tipoEnvio">Tipo de Envío:</label>
-          </div>
-        </div>
-        <div class="form-group row pl-5">
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio">
-            <label class="form-check-label" for="paquete">Paquete</label>
-          </div>
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio">
-            <label class="form-check-label" for="sobre">Sobre</label>
-          </div>
-          <div class="col-12 col-md-4">
-            <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio">
-            <label class="form-check-label" for="valija">Valija</label>
-          </div>
-          <small class="text-danger" *ngIf="tipoEnvioNoValido">
-            Selecciona el tipo de envio
-          </small>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-12 col-md-4">
-            <label for="largo">Largo (cm):</label>
-            <input type="number" name="largo" id="largo" class="form-control" formControlName="largo" [class.is-invalid]="largoNoValido">
-            <small class="text-danger" *ngIf="largoNoValido">
-              Ingresa largo del paquete
-            </small>
-          </div>
-          <div class="col-12 col-md-4">
-            <label for="ancho">Ancho (cm):</label>
-            <input type="number" name="ancho" id="ancho" class="form-control" formControlName="ancho" [class.is-invalid]="anchoNoValido">
-            <small class="text-danger" *ngIf="anchoNoValido">
-              Ingresa ancho del paquete
-            </small>
-          </div>
-          <div class="col-12 col-md-4">
-            <label for="alto">Alto (cm):</label>
-            <input type="number" name="alto" id="alto" class="form-control" formControlName="alto" [class.is-invalid]="altoNoValido">
-            <small class="text-danger" *ngIf="altoNoValido">
-              Ingresa alto del paquete
-            </small>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-12 col-md-6">
-            <label for="peso">Peso (kg):</label>
-            <input type="number" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
-            <small class="text-danger" *ngIf="pesoNoValido">
-              Ingresa peso del paquete
-            </small>
-          </div>
-          <div class="col-12 col-md-6">
-            <label for="valor">Valor del paquete ($):</label>
-            <input type="text" name="valor" id="valor" class="form-control" currencyMask formControlName="valor" [class.is-invalid]="valorNoValido">
-            <small class="text-danger" *ngIf="valorNoValido">
-              Ingresa el valor del paquete
-            </small>
-          </div>
-        </div> -->
-
+        <!-- INICIO: Codigos postales -->
         <div class="form-group row">
           <div class="col-12 col-md-6">
             <label for="origen">Código Postal de Origen:</label>
-            <input type="text" name="origen" id="origen" class="form-control" formControlName="origen" [class.is-invalid]="origenNoValido" (change)="onBuscarCPOrigen()" maxlength="5">
+            <input type="text" name="origen" id="origen" class="form-control" formControlName="origen" [class.is-invalid]="origenNoValido" (change)="onBuscarCPOrigen()" (change)="onCobertura()" maxlength="5">
             <div *ngIf="origenNoValido">
               <small class="text-danger">
                 Ingresa código postal de origen
@@ -145,7 +25,7 @@
           </div>
           <div class="col-12 col-md-6">
             <label for="destino">Código Postal de Destino:</label>
-            <input type="text" name="destino" id="destino" class="form-control" formControlName="destino" [class.is-invalid]="destinoNoValido" (change)="onBuscarCPDestino()" maxlength="5">
+            <input type="text" name="destino" id="destino" class="form-control" formControlName="destino" [class.is-invalid]="destinoNoValido" (change)="onBuscarCPDestino()" (change)="onCobertura()" maxlength="5">
             <div *ngIf="destinoNoValido">
               <small class="text-danger">
                 Ingresa código postal de destino
@@ -158,9 +38,124 @@
             </div>
           </div>
         </div>
-
+        <div class="form-group row" *ngIf="opcionCuatro">
+          <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+              No tenemos cobertura en la zona especificada
+            </div>
+          </div>
+        </div>
+        <!-- FIN: Codigos postales -->
+        <!-- INICIO: Tipo de recoleccion -->
+        <div class="form-group row">
+          <div class="col-12">
+            <label for="tipoRecoleccion">Tipo de Recolección:</label>
+          </div>
+        </div>
+        <div class="form-group row pl-5">
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoRecoleccion" id="domicilioRecoleccion" value="RDO" formControlName="tipoRecoleccion">
+            <label class="form-check-label" for="domicilioRecoleccion">Domicilio <small class="text-secondary">($25.06 MXN para paquetes pequeños, para cargas pesadas varia el costo)</small></label>
+          </div>
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoRecoleccion" id="ocurreRecoleccion" value="O" formControlName="tipoRecoleccion">
+            <label class="form-check-label" for="ocurreRecoleccion">Sin recolección, se lleva a ocurre <small class="text-secondary">($0.00 MXN)</small> </label>
+          </div>
+          <small class="text-danger" *ngIf="tipoRecoleccionNoValido">
+            Selecciona el tipo de recolección
+          </small>
+        </div>
+        <!-- FIN: Tipo de recoleccion -->
+        <!-- INICIO: Tipo de entrega -->
+        <div class="form-group row">
+          <div class="col-12">
+            <label for="tipoEntrega">Tipo de Entrega:</label>
+          </div>
+        </div>
+        <div class="form-group row pl-5" *ngIf="opcionUno">
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
+            <label class="form-check-label" for="domicilio">Domicilio</label>
+          </div>
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
+            <label class="form-check-label" for="ocurre">Ocurre</label>
+          </div>
+          <small class="text-danger" *ngIf="tipoEntregaNoValido">
+            Selecciona el tipo de entrega
+          </small>
+        </div>
+        <div class="form-group row pl-5" *ngIf="opcionDos">
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
+            <label class="form-check-label" for="domicilio">Domicilio</label>
+          </div>
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" disabled>
+            <label class="form-check-label" for="ocurre">Ocurre</label>
+          </div>
+          <small class="text-danger" *ngIf="tipoEntregaNoValido">
+            Selecciona el tipo de entrega
+          </small>
+        </div>
+        <div class="form-group row pl-5" *ngIf="opcionTres">
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" disabled>
+            <label class="form-check-label" for="domicilio">Domicilio</label>
+          </div>
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
+            <label class="form-check-label" for="ocurre">Ocurre</label>
+          </div>
+          <small class="text-danger" *ngIf="tipoEntregaNoValido">
+            Selecciona el tipo de entrega
+          </small>
+        </div>
+        <div class="form-group row pl-5" *ngIf="opcionCuatro">
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" disabled>
+            <label class="form-check-label" for="domicilio">Domicilio</label>
+          </div>
+          <div class="col-12 col-md-6">
+            <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" disabled>
+            <label class="form-check-label" for="ocurre">Ocurre</label>
+          </div>
+          <small class="text-danger" *ngIf="tipoEntregaNoValido">
+            Selecciona el tipo de entrega
+          </small>
+        </div>
+        <!-- FIN: Tipo de entrega -->
+        <!-- INICIO: Tipo de envío -->
+        <div class="form-group row">
+          <div class="col-12">
+            <label for="tipoEnvio">Tipo de Envío:</label>
+          </div>
+        </div>
+        <div class="form-group row pl-5">
+          <div class="col-12 col-md-3">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio" (click)="actualizarForm('P')" (change)="asignarValidaciones()">
+            <label class="form-check-label" for="paquete">Paquete</label>
+          </div>
+          <div class="col-12 col-md-3">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio" (click)="actualizarForm('S')" (change)="asignarValidaciones()">
+            <label class="form-check-label" for="sobre">Sobre</label>
+          </div>
+          <div class="col-12 col-md-3">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio" (click)="actualizarForm('V')" (change)="asignarValidaciones()">
+            <label class="form-check-label" for="valija">Valija</label>
+          </div>
+          <div class="col-12 col-md-3">
+            <input class="form-check-input" type="radio" name="tipoEnvio" id="ltl" value="L" formControlName="tipoEnvio" (click)="actualizarForm('L')" (change)="asignarValidaciones()">
+            <label class="form-check-label" for="ltl">LTL</label>
+          </div>
+          <small class="text-danger" *ngIf="tipoEnvioNoValido">
+            Selecciona el tipo de envio
+          </small>
+        </div>
+        <!-- FIN: Tipo de envío -->
+        <!-- INICIO: Tamano paquete -->
         <legend *ngIf="forma.get('tipoEnvio').value == 'P'">Tamaño del Paquete</legend>
-        <div class="form-group row" *ngIf="forma.get('tipoEnvio').value == 'P'">
+        <div class="form-group row" *ngIf="forma.get('tipoEnvio').value == 'P' || forma.get('tipoEnvio').value == 'L'">
             <!-- <div class="col-12 d-flex justify-content-center">
 
             </div> -->
@@ -186,32 +181,40 @@
               </small>
             </div>
         </div>
+        <!-- FIN: Tamano paquete -->
+        <!-- INICIO: Peso paquete y contenido del paquete -->
         <div class="form-group row d-flex justify-content-center">
             <div class="col-12 col-md-6">
               <legend>Peso del Paquete</legend>
               <label for="peso">Peso (kg):</label>
-              <input type="number" step="0.1" min="0" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
+              <input type="number" step="1" min="0" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
               <small class="text-danger" *ngIf="pesoNoValido">
                 Ingresa medida de peso
               </small>
             </div>
-            <!-- <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6">
               <legend>Valor del Paquete:</legend>
-              <label for="largo">Valor ($ MXN):</label>
+              <label for="largo">Valor ($ MXN):</label><button class="btn-i ml-1" title="Ingresa valor del contenido para asegurar el envio" type="button" (click)="mostrarLegendaSeguro=true"><i class="fas fa-info-circle"></i></button>
               <input type="number" step="1" min="0" name="valor" id="valor" class="form-control" formControlName="valor" [class.is-invalid]="valorNoValido">
-              <small class="text-danger" *ngIf="valorNoValido">
-                Ingresa valor del paquete
+              <small *ngIf="mostrarLegendaSeguro" class="text-secondary">
+                Ingresa valor del contenido si se desea asegurar el envío
               </small>
-            </div> -->
+            </div>
         </div>
-
+        <!-- FIN: Peso paquete y contenido del paquete -->
         <ng-container *ngIf="loading; else botonCotizar">
           <div class="d-flex justify-content-center">
             <div class="loader"></div>
           </div>
         </ng-container>
         <ng-template #botonCotizar>
-          <button class="btn btn-info w-100" type="submit">Cotizar</button>
+          <button class="btn btn-info w-100" type="submit" [disabled]="opcionCuatro" [class.btn-disable]="opcionCuatro">Cotizar</button>
+          <div class="alert alert-warning mt-3" role="alert" *ngIf="opcionCuatro">
+            Verificar códigos postales donde exista cobertura
+          </div>
+          <div class="alert alert-danger mt-3" role="alert" *ngIf="submmit && forma.invalid">
+            Revisar los campos faltantes
+          </div>
         </ng-template>
 
       </form>
@@ -224,16 +227,31 @@
     <div class="col">
       <app-legend [lengenda]="legendaCosto"></app-legend>
       <div class="formulario p-4">
-        <div class="text-primary text-center" style="font-size: 2rem;">
+        <div class="text-primary text-center" style="font-size: 2.5rem;">
           {{precio | currency}}
         </div>
         <div class="text-primary text-center">
           {{ servicio }}
+        </div>
+        <div class="text-primary text-center">
+          <ng-container *ngIf="costo.realiza=='TSMO'; else elseTemplate">
+            Entrega Estimada: {{fechaEntregaAprox}}
+          </ng-container>
+          <ng-template #elseTemplate>
+            Entrega Estimada: {{fechaEntregaAprox | date:'d/MM/yyyy'}}
+          </ng-template>
+
+
         </div>
         <div class="d-flex justify-content-center mt-4">
           <button class="btn btn-outline-primary" (click)="onRouter()" >Relizar envío</button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="container" *ngIf="errorBool">
+  <div class="alert alert-danger" role="alert">
+    {{msg}}
   </div>
 </div>

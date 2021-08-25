@@ -28,6 +28,7 @@ export class CancelacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // document.getElementById('footer').style.position = 'absolute';
   }
 
   onCrearFormulario() {

@@ -1,3 +1,7 @@
+import { CostoDto } from 'src/app/models/dto/costoDto.model';
+import { CoberturaResponseModel } from 'src/app/models/response/cobertura-response.model';
+import { CoberturaDto } from './../../models/dto/cobertura.model';
+import { CoberturaService } from './../../services/cobertura/cobertura.service';
 import { SwitchType } from 'src/app/enums/switch.enum';
 import { Vista } from './../../enums/vista.enum';
 import { Router } from '@angular/router';
@@ -20,6 +24,7 @@ import { DomicilioDto } from 'src/app/models/dto/domicilioDto.model';
 import { DestinoDto } from 'src/app/models/dto/destinoDto.model';
 import { DimensionesDto } from 'src/app/models/dto/dimensionesDto.model';
 import { OpcionesDto } from 'src/app/models/dto/opcionesDto.model';
+import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
 
 const URL_CP = 'https://api-sepomex.hckdrk.mx/query/info_cp/';
 @Component({
@@ -36,7 +41,7 @@ export class CotizacionComponent implements OnInit {
   parrafo: string = ParrafoType.Cotizar;
   instrucciones: string = InstruccionesType.Cotizacion;
 
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date());
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
   detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null));
 
   forma: FormGroup;
@@ -47,6 +52,20 @@ export class CotizacionComponent implements OnInit {
   mostrarPrecio: boolean = false;
   precio: number = 0;
   servicio: string = '';
+  fechaEntregaAprox: string = '';
+
+  // Cobertura
+  coberturaResponse: CoberturaResponseModel[] = [];
+  opcionUno: boolean = true;
+  opcionDos: boolean = false;
+  opcionTres: boolean = false;
+  opcionCuatro: boolean = false;
+
+  mostrarLegendaSeguro: boolean = false;
+
+  submmit: boolean = false;
+
+  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null);
 
 
   constructor(
@@ -57,12 +76,14 @@ export class CotizacionComponent implements OnInit {
     private cpService: CpService,
     private cotizacionService: CotizacionService,
     private precioService: PrecioService,
-    private router: Router
+    private router: Router,
+    private coberturaService: CoberturaService
   ) {
     this.crearFormulario();
     this.cargarValoresService();
     this.existeCPOrigen();
     this.existeCPDestino();
+    this.onCobertura();
   }
 
   ngOnInit(): void {
@@ -71,27 +92,29 @@ export class CotizacionComponent implements OnInit {
 
   crearFormulario() {
     this.forma = this.fb.group({
-      origen: [{value: ''}, [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
+      origen: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
       destino: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
+      tipoRecoleccion: ['', Validators.required],
       tipoEntrega: ['', Validators.required],
       tipoEnvio: ['', Validators.required],
-      // valor: ['', Validators.required],
+      valor: [''],
       largo: ['', Validators.required],
       alto: ['', Validators.required],
       ancho: ['', Validators.required],
-      peso: ['', Validators.required]
+      peso: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
-  get origenNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').touched; }
-  get destinoNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').touched; }
-  get tipoEntregaNoValido() { return this.forma.get('tipoEntrega').invalid && this.forma.get('tipoEntrega').touched; }
-  get tipoEnvioNoValido() { return this.forma.get('tipoEnvio').invalid && this.forma.get('tipoEnvio').touched; }
-  // get valorNoValido() { return this.forma.get('valor').invalid && this.forma.get('valor').touched; }
-  get largoNoValido() { return this.forma.get('largo').invalid && this.forma.get('largo').touched; }
-  get altoNoValido() { return this.forma.get('alto').invalid && this.forma.get('alto').touched; }
-  get anchoNoValido() { return this.forma.get('ancho').invalid && this.forma.get('ancho').touched; }
-  get pesoNoValido() { return this.forma.get('peso').invalid && this.forma.get('peso').touched; }
+  get origenNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').touched; };
+  get destinoNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').touched; };
+  get tipoRecoleccionNoValido() { return this.forma.get('tipoRecoleccion').invalid && this.forma.get('tipoRecoleccion').touched; };
+  get tipoEntregaNoValido() { return this.forma.get('tipoEntrega').invalid && this.forma.get('tipoEntrega').touched; };
+  get tipoEnvioNoValido() { return this.forma.get('tipoEnvio').invalid && this.forma.get('tipoEnvio').touched; };
+  get valorNoValido() { return this.forma.get('valor').invalid && this.forma.get('valor').touched; };
+  get largoNoValido() { return this.forma.get('largo').invalid && this.forma.get('largo').touched; };
+  get altoNoValido() { return this.forma.get('alto').invalid && this.forma.get('alto').touched; };
+  get anchoNoValido() { return this.forma.get('ancho').invalid && this.forma.get('ancho').touched; };
+  get pesoNoValido() { return this.forma.get('peso').invalid && this.forma.get('peso').touched; };
 
   get origenPatternNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').errors['pattern']; };
   get destinoPatternNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').errors['pattern']; };
@@ -122,7 +145,12 @@ export class CotizacionComponent implements OnInit {
     }
   }
 
+  msg: string; errorBool: boolean = false;
   onCotizar() {
+    this.valoresResetOpciones();
+    this.mostrarPrecio = false;
+    this.errorBool = false;
+    this.submmit = true;
     // console.log(this.forma);
     localStorage.clear();
     this.loading = true;
@@ -137,17 +165,25 @@ export class CotizacionComponent implements OnInit {
     this.guardarValoresEnServicios();
     this.asignarACotizacion();
     // console.log(this.cotizacion);
+
     this.cotizacionService.onSolicitarCotizacionClientes(this.cotizacion)
     .subscribe(costo => {
+      this.costo = costo;
       this.loading = false;
       this.mostrarPrecio = true;
       this.precioService.setCosto(costo.costoTotal.toString());
       this.precio = costo.costoTotal;
       this.servicio = costo.tipoServicio;
-      // console.log(costo);
+      this.fechaEntregaAprox = costo.fcompromisoEntrega;
+      console.log(costo);
     }, error => {
+      this.errorBool = true;
+      error['error'].forEach(element => {
+        this.msg = element.msg + " ";
+      });
       this.loading = false;
     })
+
   }
 
   guardarValoresEnServicios() {
@@ -163,11 +199,11 @@ export class CotizacionComponent implements OnInit {
     this.paqueteService.setAncho(this.forma.get('ancho').value);
     this.paqueteService.setLargo(this.forma.get('largo').value);
     this.paqueteService.setPeso(this.forma.get('peso').value);
-    // this.paqueteService.setValor(this.forma.get('valor').value);
+    this.paqueteService.setValor(this.forma.get('valor').value);
     this.paqueteService.setTipoEntrega(this.forma.get('tipoEntrega').value);
     this.paqueteService.setTipoEnvio(this.forma.get('tipoEnvio').value);
     this.paqueteService.setTipoServicio(this.servicio);
-    // this.paqueteService.
+    this.paqueteService.setTipoRecoleccion(this.forma.get('tipoRecoleccion').value);
   }
 
   cargarValoresService() {
@@ -185,7 +221,8 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('largo').setValue(this.paqueteService.getLargo());
     this.forma.get('ancho').setValue(this.paqueteService.getAncho());
     this.forma.get('peso').setValue(this.paqueteService.getPeso());
-    // this.forma.get('valor').setValue(this.paqueteService.getValor());
+    this.forma.get('valor').setValue(this.paqueteService.getValor());
+    this.forma.get('tipoRecoleccion').setValue(this.paqueteService.getTipoRecoleccion());
   }
 
   onBuscarCPOrigen() {
@@ -221,6 +258,7 @@ export class CotizacionComponent implements OnInit {
   }
 
   asignarACotizacion() {
+    this.cotizacion = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
     this.cotizacion.detalle = [];
     this.cotizacion.origen.domicilio.codigoPostal = this.forma.get('origen').value;
     this.cotizacion.destino.domicilio.codigoPostal = this.forma.get('destino').value;
@@ -232,6 +270,14 @@ export class CotizacionComponent implements OnInit {
     this.detalle.dimensiones.peso = this.forma.get('peso').value;
     // this.detalle.valorDeclarado = this.forma.get('valor').value;
     this.cotizacion.detalle.push(this.detalle);
+    if (this.forma.get('tipoRecoleccion').value != "O") {
+      this.cotizacion.servicios.push(new ServiciosDto(this.forma.get('tipoRecoleccion').value, '0'))
+    }
+    if (this.forma.get('valor').value != '' && this.forma.get('valor').value != null && this.forma.get('valor').value != undefined && this.forma.get('valor').value != 'null') {
+      console.log('Entra a colocar servicio de seguro');
+      this.cotizacion.servicios.push(new ServiciosDto("SEG", this.forma.get('valor').value) )
+    }
+    // this.cotizacion.recoleccion
     // this.cotizacion.detalle[0].dimensiones.largo = this.forma.get('largo').value;
     // this.cotizacion.detalle[0].dimensiones.ancho = this.forma.get('ancho').value;
     // this.cotizacion.detalle[0].dimensiones.alto = this.forma.get('alto').value;
@@ -252,17 +298,17 @@ export class CotizacionComponent implements OnInit {
   }
 
   onRouter() {
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
     switch(window.location.pathname) {
       case SwitchType.COTIZACION_:
         this.router.navigate([Vista.ORIGEN]);
         break;
       case SwitchType.COTIZACION:
-        console.log(`Entra a ${this.path}/cotizacion`);
+        // console.log(`Entra a ${this.path}/cotizacion`);
         this.router.navigate([Vista.ORIGEN]);
         break;
       case SwitchType.COTIZACION_DASHBOARD:
-        console.log(`Entra a ${this.path}/dashboard/cotizacion`);
+        // console.log(`Entra a ${this.path}/dashboard/cotizacion`);
         this.router.navigate([Vista.ORIGEN_DASHBOARD]);
         break;
     }
@@ -273,6 +319,8 @@ export class CotizacionComponent implements OnInit {
     if (tipo == 'P') {
       // console.log('Paquete');
       this.validarFormPaquete();
+    } else if (tipo == 'L') {
+      this.asignarValoresLTL();
     } else {
       // console.log('Otro a paquete');
       this.invalidarFormPaquete();
@@ -295,6 +343,8 @@ export class CotizacionComponent implements OnInit {
     if (this.forma.get('tipoEnvio').value == 'P') {
       // console.log('Validaciones paquete');
       this.validacionesPaquete();
+    } else if (this.forma.get('tipoEnvio').value == 'L') {
+      this.asignarValoresLTL();
     } else {
       // console.log('Validaciones para sobre y valija');
       this.validacionesSobreValija();
@@ -317,7 +367,7 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('alto').setValidators(Validators.required);
     this.forma.get('alto').setValue('');
     this.forma.get('alto').updateValueAndValidity();
-    // this.forma.get('peso').setValue(0);
+    this.forma.get('peso').setValue(0);
     this.forma.get('peso').enable();
     this.forma.get('peso').setValidators(Validators.required);
     this.forma.get('peso').updateValueAndValidity();
@@ -331,7 +381,7 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('tipoEnvio').updateValueAndValidity();
     this.forma.get('peso').setValidators(Validators.required);
     this.forma.get('peso').setValue(1);
-    this.forma.get('peso').disable();
+    this.forma.get('peso').enable();
     this.forma.get('peso').updateValueAndValidity();
     // this.forma.get('largo').setValidators(Validators.required);
     this.forma.get('largo').setValue(0);
@@ -357,6 +407,66 @@ export class CotizacionComponent implements OnInit {
     // this.forma.get('alto').clearValidators();
     // this.forma.get('peso').clearValidators();
     // this.forma.get('contenido').clearValidators();
+  }
+
+
+  onCobertura() {
+    this.mostrarPrecio = false;
+    this.valoresResetOpciones();
+    if (this.forma.get('origen').value.length != 5 || this.forma.get('destino').value.length != 5) { return; }
+    let coberturaDto: CoberturaDto = new CoberturaDto(this.forma.get('origen').value, this.forma.get('destino').value);
+    this.coberturaService.cobertura(coberturaDto)
+    .subscribe(response => {
+      // console.log(response);
+      this.coberturaResponse = response;
+      if (this.coberturaResponse.length > 0) {
+        if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == true) {
+          // console.log('1 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == true));
+          this.opcionUno = true;
+        } else if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == false) {
+          // console.log('2 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == false));
+          this.opcionUno = false;
+          this.opcionDos = true;
+        } else if (this.coberturaResponse[0].isDomicilio == false && this.coberturaResponse[0].isOcurre == true) {
+          // console.log('3 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == true));
+          this.opcionUno = false;
+          this.opcionTres = true;
+        } else {
+          // console.log('4 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == false));
+          this.opcionUno = false;
+          this.opcionCuatro = true;
+        }
+      } else {
+        this.opcionUno = false;
+        this.opcionCuatro = true;
+      }
+    })
+  }
+
+  valoresResetOpciones() {
+    this.opcionUno = true;
+    this.opcionDos = false;
+    this.opcionTres = false;
+    this.opcionCuatro = false;
+  }
+
+  asignarValoresLTL() {
+    this.forma.get('peso').setValidators(Validators.required);
+    this.forma.get('peso').setValue(500);
+    this.forma.get('peso').disable();
+    this.forma.get('peso').updateValueAndValidity();
+    this.forma.get('largo').setValidators(Validators.required);
+    this.forma.get('largo').setValue(120);
+    this.forma.get('largo').disable();
+    this.forma.get('largo').updateValueAndValidity();
+    this.forma.get('ancho').setValidators(Validators.required);
+    this.forma.get('ancho').setValue(110);
+    this.forma.get('ancho').disable();
+    this.forma.get('ancho').updateValueAndValidity();
+    this.forma.get('alto').setValidators(Validators.required);
+    this.forma.get('alto').setValue(180);
+    this.forma.get('alto').disable();
+    this.forma.get('alto').updateValueAndValidity();
   }
 
 }

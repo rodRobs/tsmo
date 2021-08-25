@@ -128,7 +128,7 @@ export class GraphicsComponent implements OnInit{
     this.coloresFacturas = this.cargarColores(this.limiteFacturas);
 
     this.coloresFacturasCliente = this.cargarColores(this.limiteFacturasCliente);
-
+    document.getElementById('footer').style.position = "relative";
   }
 
   recuperarClientes() {

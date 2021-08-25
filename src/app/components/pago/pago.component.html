@@ -174,6 +174,11 @@
                 <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest" class="tarjeta">
                   <legend class="text-center">Datos de Pago</legend>
                   <div class="form-group row">
+                    <div class="col">
+                      <p class="text-white">Selecciona opción de datos de la tarjeta:</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <!-- <div class="w-100">
                       <label for="datos">Datos del cliente:</label>
                     </div> -->
@@ -290,7 +295,7 @@
             </div>
           </ng-template>
 
-          <div class="d-flex justify-content-center mt-4">
+          <div class="d-flex justify-content-center mt-4 mb-5">
             <button class="btn btn-outline-danger w-50" (click)="onRegresar()"> Regresar </button>
           </div>
         </div>
@@ -302,8 +307,8 @@
     <div class="alert alert-danger" role="alert" >
       {{ errorCotizacion }}
     </div>
-    <div class="text-center">
-      <button class="btn btn-primary" (click)="onRegresar()">Regresar</button>
+    <div class="text-center m-5">
+      <button class="btn btn-primary p-5" (click)="onRegresar()">Regresar</button>
     </div>
   </div>
 

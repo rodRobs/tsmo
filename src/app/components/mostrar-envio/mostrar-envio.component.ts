@@ -21,7 +21,7 @@ export class MostrarEnvioComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarEnvio(localStorage.getItem('envio'));
-
+    document.getElementById('footer').style.bottom = 'unset';
   }
 
   buscarEnvio(guia: string) {

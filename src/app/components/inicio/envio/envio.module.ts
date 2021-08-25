@@ -11,7 +11,7 @@ import { DestinoComponent } from './destino/destino.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
     // SharedModule
     // AppModule
   ]

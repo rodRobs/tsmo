@@ -56,6 +56,7 @@ export class ActualizarEnvioComponent implements OnInit {
   ngOnInit(): void {
     // this.getLocalizacion();
     this.onMostrarEtapas();
+    document.getElementById('footer').style.position = "relative";
   }
 
   onCrearFormulario() {

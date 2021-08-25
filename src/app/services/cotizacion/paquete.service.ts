@@ -9,6 +9,7 @@ const CONTENIDO = 'contenido';
 const TIPOENVIO = 'tipoEnvio';
 const TIPOENTREGA = 'tipoEntrega';
 const TIPOSERVICIO = 'tipoServicio';
+const TIPORECOLECCION = 'tipoRecoleccion';
 @Injectable({
   providedIn: 'root'
 })
@@ -86,6 +87,14 @@ export class PaqueteService {
 
   setTipoServicio(tipoServicio: string) {
     localStorage.setItem(TIPOSERVICIO, tipoServicio);
+  }
+
+  getTipoRecoleccion(): string {
+    return localStorage.getItem(TIPORECOLECCION) || '';
+  }
+
+  setTipoRecoleccion(tipoRecoleccion: string) {
+    return localStorage.setItem(TIPORECOLECCION, tipoRecoleccion);
   }
 
 }

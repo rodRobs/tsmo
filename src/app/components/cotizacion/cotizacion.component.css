@@ -1,3 +1,17 @@
 .form-check-label {
   color: #000;
 }
+
+.btn-disable {
+  cursor: not-allowed;
+}
+
+.btn-i {
+  border: none;
+  background: #BFD7EA;
+  color: #087E8B;
+}
+
+.text-blue {
+  color: #007bff;
+}

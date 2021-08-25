@@ -86,7 +86,7 @@ export class PagoComponent implements OnInit {
   loading: boolean = true;
   loadingPago: boolean = false;
 
-  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null);
+  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null);
   documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('',''));
   clienteDto: ClienteDto = new ClienteDto(null, null, null, null, null);
   envioDto: EnvioDto = new EnvioDto(null, null, null, new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('','')), new ClienteDto(null, null, null, null, null), null, null, null, new UsuarioModel(null, null, null, null, null, null));
@@ -221,7 +221,7 @@ export class PagoComponent implements OnInit {
       // this.precio = carga.precio;
       // console.log(costo);
     }, error => {
-      console.log(error);
+      // console.log(error);
       this.loading = false;
       this.errorCotBool = true;
       // console.log(error);
@@ -253,7 +253,7 @@ export class PagoComponent implements OnInit {
         //   })
         // }
       } else {
-        console.log('ERROR: ', error);
+        // console.log('ERROR: ', error);
         this.errorCotizacion = (error['status'] === 400) ? 'ERROR: Servidor falló' : error['error'];
         this.errorCotizacion = (error['status'] === 500) ? 'ERROR: Servidor falló' : error['error'];
       }
@@ -354,27 +354,27 @@ export class PagoComponent implements OnInit {
     this.clienteService.guardarCliente(this.clienteDto)
     .subscribe(cliente => {
       this.envioDto.cliente.id = cliente.id;
-      console.log('EnvioDto agrega cliente.id: ',this.envioDto);
+      // console.log('EnvioDto agrega cliente.id: ',this.envioDto);
       this.guardarDocumentacion()
       .subscribe(data => {
-        console.log('data guardar Documentación: ',data);
+        // console.log('data guardar Documentación: ',data);
         this.envioDto.documentacion.id = data['id'];
         this.envioDto.guiaProveedor = data['guia'];
-        console.log('Envio Dto (antes): ',this.envioDto);
+        // console.log('Envio Dto (antes): ',this.envioDto);
         this.guardarEnvio(this.envioDto)
         .subscribe(data => {
-          console.log('Data (despues): ',data);
+          // console.log('Data (despues): ',data);
           this.envioDto = data;
           this.envioService.setGuia(this.envioDto.guiaTsmo);
           this.realizarPago(paymentIntentDto);
         }, error => {
-          console.log(error);
+          // console.log(error);
         })
       }, error => {
-        console.log(error);
+        // console.log(error);
       })
     }, error => {
-      console.log(error);
+      // console.log(error);
     })
   }
 
@@ -456,7 +456,7 @@ export class PagoComponent implements OnInit {
         case 'ROL_TSMO':
           this.guardarEnvioUsuarioTSMO(this.envioDto)
           .subscribe(data => {
-            console.log(data);
+            // console.log(data);
             this.envioDto = data;
             this.envioService.setGuia(this.envioDto.guiaTsmo);
             this.solicitarGuiaProveedor();
@@ -466,7 +466,7 @@ export class PagoComponent implements OnInit {
         case 'ROL_CLIENTE':
           this.guardarEnvioClienteTSMO(this.envioDto)
           .subscribe(data => {
-            console.log(data);
+            // console.log(data);
             this.envioDto = data;
             this.envioService.setGuia(this.envioDto.guiaTsmo);
             this.solicitarGuiaProveedor();
@@ -500,7 +500,7 @@ export class PagoComponent implements OnInit {
         .subscribe(data => {
           this.router.navigate([Vista.EXITO_DASHBOARD]);
         }, error => {
-          console.log(error);
+          // console.log(error);
         })
         // console.log(this.envio);
         // this.cambiarEstadoPago(APROBADO, this.envio)
@@ -576,9 +576,9 @@ export class PagoComponent implements OnInit {
   notificarCorreoDocumento(envio: EnvioDto) {
     this.notificacionService.enviarCorreoDeEnvioDocumento(envio.id)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
     }, error => {
-      console.log(error);
+      // console.log(error);
     })
   }
 

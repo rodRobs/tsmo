@@ -17,7 +17,8 @@ export class CostoDto {
     public costoTotal: number,
     public moneda: string,
     public cotizacion: number,
-    public realiza: string
+    public realiza: string,
+    public fcompromisoEntrega: string
   ) {}
 
 }

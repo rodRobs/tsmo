@@ -126,11 +126,14 @@ export class BuscarGuiaComponent implements OnInit {
       // console.log(devices);
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
+        console.log(device);
           if (device.kind.toString() === 'videoinput') {
               videoDevices.push(device);
           }
       }
       if (videoDevices.length > 0){
+          console.log(videoDevices);
+          window.alert(videoDevices);
           let choosenDev;
           for (const dev of videoDevices){
               if (dev.label.includes('front')){

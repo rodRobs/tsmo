@@ -1,3 +1,5 @@
+import { Vista } from 'src/app/enums/vista.enum';
+import { SwitchType } from 'src/app/enums/switch.enum';
 import { Router } from '@angular/router';
 import { DestinoService } from './../../services/cotizacion/destino.service';
 import { OrigenService } from './../../services/cotizacion/origen.service';
@@ -97,7 +99,7 @@ export class CoberturaComponent implements OnInit {
       // console.log(this.coberturaResponse[0].ocurre);
     }, error => {
       this.loading = false;
-      alert('Error al comprobar cobertura');
+      window.alert('No se puso checar la cobertura de los datos de origen y destino ingresados');
     })
   }
 
@@ -118,12 +120,12 @@ export class CoberturaComponent implements OnInit {
 
   onRouter() {
     switch(window.location.pathname) {
-      case '/cobertura':
-        this.router.navigate(['/cotizacion']);
+      case SwitchType.COBERTURA:
+        this.router.navigate([Vista.COTIZACION]);
         break;
-      case '/dashboard/cobertura':
+      case SwitchType.COBERTURA_DASHBOARD:
         // console.log('Dashboard');
-        this.router.navigate(['/dashboard/cotizacion']);
+        this.router.navigate([Vista.COTIZACION_DASHBOARD]);
         break;
     }
   }
