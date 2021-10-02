@@ -23,5 +23,17 @@
 </div> -->
 
 <div class="text-center m-5">
-  <button class="btn btn-success" type="button" (click)="onGuardar()" >Guardar</button>
+  <button class="btn btn-success" type="button" (click)="onGuardar()" >Cotizar</button>
 </div>
+
+<div *ngIf="bandera">
+  EXITO
+  <app-tablas-envios [envios]="masivosResponse.exito"></app-tablas-envios>
+  <br>
+  SIN COBERTURA
+  <app-tablas-envios [envios]="masivosResponse.sinCobertura"></app-tablas-envios>
+  <br>
+  ERROR
+  <app-tablas-envios [envios]="masivosResponse.error"></app-tablas-envios>
+</div>
+

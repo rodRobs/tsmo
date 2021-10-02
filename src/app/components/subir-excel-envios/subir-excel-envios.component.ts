@@ -1,6 +1,7 @@
 import { ArchivoService } from './../../services/archivo/archivo/archivo.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { MasivoResponseDtoModel } from 'src/app/models/dto/masivosResponseDto.model';
 
 @Component({
   selector: 'app-subir-excel-envios',
@@ -10,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class SubirExcelEnviosComponent implements OnInit {
 
   public pedidoFile: any = File;
+  public masivosResponse: MasivoResponseDtoModel;
+
+  public bandera: boolean = false;
 
   constructor(
     private archivoService: ArchivoService
@@ -19,12 +23,15 @@ export class SubirExcelEnviosComponent implements OnInit {
   }
 
   onGuardar() {
+    this.bandera = false;
     const formData = new FormData();
     formData.append('pedidos', this.pedidoFile);
 
     this.archivoService.guardarArchivo(formData)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
+      this.bandera = true;
+      this.masivosResponse = response;
     })
   }
 

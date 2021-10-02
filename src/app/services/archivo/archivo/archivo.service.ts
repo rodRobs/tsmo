@@ -1,6 +1,7 @@
 import { HostType } from 'src/app/enums/host.enum';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MasivoResponseDtoModel } from 'src/app/models/dto/masivosResponseDto.model';
 
 const ARCHIVO = 'archivo'
 @Injectable({
@@ -13,7 +14,7 @@ export class ArchivoService {
   ) { }
 
   guardarArchivo(formData: FormData) {
-    return this.http.post(`${HostType.HOST}${ARCHIVO}/tsmo`, formData);
+    return this.http.post<MasivoResponseDtoModel>(`${HostType.HOST}${ARCHIVO}/tsmo`, formData);
   }
 
 

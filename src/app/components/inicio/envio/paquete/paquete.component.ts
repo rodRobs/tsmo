@@ -28,6 +28,7 @@ import { TelefonosDto } from 'src/app/models/dto/telefonosDto.model';
 import { DomicilioDto } from 'src/app/models/dto/domicilioDto.model';
 import { DimensionesDto } from 'src/app/models/dto/dimensionesDto.model';
 import { ServiciosDto } from 'src/app/models/dto/serviciosDto.model';
+import { CostoDto } from 'src/app/models/dto/costoDto.model';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class PaqueteComponent implements OnInit {
   legend: string = LegendaType.Envio.toString();
 
   paquete: PaqueteDto = new PaqueteDto('','','','','','');
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
   opciones: OpcionesDto = new OpcionesDto('','','','','');
   origenDto: OrigenDto = new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date());
   destinoDto: DestinoDto = new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date());
