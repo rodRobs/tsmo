@@ -1,3 +1,5 @@
+import { ClienteService } from './../../services/clientes/cliente.service';
+import { ClienteDto } from './../../models/dto/clienteDto.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor() { }
+  clienteDto: ClienteDto = new ClienteDto(null, null, null, null, null);
+
+  constructor(
+    private clienteService: ClienteService,
+  ) { }
 
   ngOnInit(): void {
+    this.recuperarDatosClienteService();
+  }
+
+  recuperarDatosClienteService() {
+    this.clienteDto = new ClienteDto(null, this.clienteService.getNombre(), this.clienteService.getCorreo(), this.clienteService.getTelCasa(), null);
   }
 
 }

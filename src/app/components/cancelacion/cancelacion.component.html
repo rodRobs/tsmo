@@ -19,6 +19,13 @@
                   CANCELAR
                 </h1>
               </div> -->
+              <div class="form-group row">
+                <div class="col-12">
+                  <div class="alert alert-primary" role="alert">
+                    Si el paquete del envío ya ha sido recolectado, la cancelación tendrá un costo de $300.00 MXN.
+                  </div>
+                </div>
+              </div>
               <div class="form-group row" >
                 <label for="guia" class="col-sm-12 col-form-label">Número de Guía:</label>
                 <div class="col-sm-12">
@@ -50,6 +57,10 @@
       <div class="alert alert-danger mt-5" role="alert" *ngIf="errorBool">
         {{error}}
       </div>
+
+      <!-- <div class="container mt-5" *ngIf="envio">
+        <app-mostrar-informacion [envio]="envio"></app-mostrar-informacion>
+      </div> -->
 
 
     </div>

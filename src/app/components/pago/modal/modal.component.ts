@@ -43,7 +43,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('Entra a ventana de modal');
-    // console.log(this.documentacion);
+    console.log(this.documentacion);
     // console.log(this.proveedor);
     // console.log(window.location.pathname);
   }
@@ -84,6 +84,7 @@ export class ModalComponent implements OnInit {
     // console.log(this.proveedor);
     // console.log(this.envio);
     if (this.proveedor == 'ENVIA') {
+      console.log(this.documentacion);
       this.documentacionService.obtenerGuiaProveedor(this.documentacion)
       .subscribe(guia => {
         // console.log("Guia: ",guia);
@@ -93,10 +94,11 @@ export class ModalComponent implements OnInit {
         // console.log(this.envio);
         this.cambiarEstadoPago(APROBADO, this.envio)
       }, error => {
-        // console.log('Solicitar Guia: ',error);
+        console.log('Solicitar Guia: ',error);
         this.envio.pago = this.id;
         this.cambiarEstadoPago(RECHAZADO, this.envio)
-        alert(error['error'].message);
+        console.log(error['error'].message);
+        this.router.navigate([Vista.ERROR]);
       } )
     } else {
       this.cambiarEstadoPago(APROBADO, this.envio);
@@ -106,7 +108,7 @@ export class ModalComponent implements OnInit {
   cambiarEstadoEnvio(estadoEnvio: string, envio: EnvioDto) {
     this.envioService.actualizarEstado(estadoEnvio, envio)
     .subscribe(response => {
-      // console.log(response);
+      console.log(response);
     }, error => {
       // console.log('Cambiar estado pago: ',error);
       window.alert(error['error'].message);

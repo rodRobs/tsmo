@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TokenService } from './../../../services/usuarios/token.service';
 import { SidebarService } from './../../../services/sidebar/sidebar.service';
 import { Component, OnInit } from '@angular/core';
+import { RolesType } from 'src/app/enums/roles.enum';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,11 +32,14 @@ export class SidebarComponent implements OnInit {
     // this.menuItems = this.sidebarService.menuEmpleados;
     perfiles.forEach(perfil => {
       switch(perfil) {
-        case 'ROL_TSMO':
+        case RolesType.TSMO:
           this.menuItems = this.sidebarService.menuEmpleados;
           break;
-        case 'ROL_CLIENTE':
+        case RolesType.CLIENTE:
           this.menuItems = this.sidebarService.menuClientes;
+          break;
+        case RolesType.ADMIN:
+          this.menuItems = this.sidebarService.menuAdministrador;
           break;
       }
     })

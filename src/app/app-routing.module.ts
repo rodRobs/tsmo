@@ -1,3 +1,5 @@
+import { SubirExcelEnviosComponent } from './components/subir-excel-envios/subir-excel-envios.component';
+import { ErrorComponent } from './components/error/error.component';
 import { MostrarEnvioComponent } from './components/mostrar-envio/mostrar-envio.component';
 import { ListarEnviosComponent } from './components/listar-envios/listar-envios.component';
 import { RxjsComponent } from './components/rxjs/rxjs.component';
@@ -47,7 +49,8 @@ const routes: Routes = [
     {path: 'costos', component: CostosClientesComponent},
     {path: 'resumen', component: DatosPedidoComponent},
     {path: 'pago', component: PagoComponent},
-    {path: 'exito', component: ExitoComponent}
+    {path: 'exito', component: ExitoComponent},
+    {path: 'error', component:ErrorComponent}
   ]},
   {path: 'cliente', component: AltaClienteComponent},
   {path: 'pago', component: PagoComponent},
@@ -100,8 +103,10 @@ const routes: Routes = [
         {path: 'costos', component: CostosClientesComponent, data: {titulo: 'Costos'}},
         {path: 'resumen', component: DatosPedidoComponent, data: {titulo: 'Datos del Pedido'}},
         {path: 'pago', component: PagoComponent, data: {titulo: 'Contratación'}},
-        {path: 'exito', component: ExitoComponent, data: {titulo: ''}}
+        {path: 'exito', component: ExitoComponent, data: {titulo: ''}},
+        {path: 'error', component: ErrorComponent, data: {titulo: ''}}
       ]},
+      {path: 'alta/usuario', component: AltaUsuariosComponent, data: {titulo: 'Alta Usuario'}},
     {path: 'cobertura', component: CoberturaComponent, data: {titulo: 'Cobertura'}},
     {path: 'cancelacion', component: CancelacionComponent, data: {titulo: 'Cancelación'}},
     {path: 'rastrear', component: RastreoComponent, data: {titulo: 'Rastrear'}},
@@ -113,6 +118,7 @@ const routes: Routes = [
     {path: 'ver/envio', component: MostrarEnvioComponent, data: {titulo: 'Envio'}},
     {path: 'pagos', component: PagosComponent, data: {titulo: 'Actualizar Pago Envío'}}
     ]},
+  {path: 'archivo', component: SubirExcelEnviosComponent},
   {path: '**', component: Error404Component}
 ];
 

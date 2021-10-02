@@ -1,0 +1,27 @@
+
+<!-- <div class="m-5">
+  <div class="d-flex justify-content-center">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="customFileLang" lang="es" (change)="onArhivoSeleccionado($event)" accept=".csv, .xlsx, .xltx">
+      <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+    </div>
+  </div>
+</div> -->
+
+<div class="m-5">
+  <div class="d-flex justify-content-center">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="customFile" (change)="onArhivoSeleccionado($event)" accept=".csv, .xlsx, .xltx">
+      <label class="custom-file-label" for="customFile">Elige tu documento Excel</label>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div> -->
+
+<div class="text-center m-5">
+  <button class="btn btn-success" type="button" (click)="onGuardar()" >Guardar</button>
+</div>

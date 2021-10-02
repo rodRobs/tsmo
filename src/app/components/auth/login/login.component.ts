@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RolesType } from 'src/app/enums/roles.enum';
 import { Vista } from 'src/app/enums/vista.enum';
 import { UsuarioLoginModel } from 'src/app/models/usuarioLogin.model';
 import { LoginService } from 'src/app/services/usuarios/login.service';
@@ -65,14 +66,19 @@ export class LoginComponent implements OnInit {
 
   // ddk
   vistas(perfiles: string[]) {
-    // console.log(perfiles);
+    console.log(perfiles);
     perfiles.forEach(perfil => {
+      // console.log('Admin: ',perfil==RolesType.ROLE_ADMIN.toString());
+      // console.log(RolesType.ROLE_ADMIN.toString());
       switch(perfil) {
-        case 'ROL_TSMO':
+        case RolesType.ADMIN:
+          this.router.navigate([Vista.INICIO_DASHBOARD]);
+          break;
+        case RolesType.TSMO:
           // Personal TSMO
           this.router.navigate([Vista.INICIO_DASHBOARD]);
           break;
-        case 'ROL_CLIENTE':
+        case RolesType.CLIENTE:
           // Cliente TSMO
           this.router.navigate([Vista.INICIO_DASHBOARD]);
           break;

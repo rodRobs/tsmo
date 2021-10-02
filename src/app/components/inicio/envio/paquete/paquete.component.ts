@@ -44,12 +44,12 @@ export class PaqueteComponent implements OnInit {
   legend: string = LegendaType.Envio.toString();
 
   paquete: PaqueteDto = new PaqueteDto('','','','','','');
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
-  opciones: OpcionesDto = new OpcionesDto('','','','');
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
+  opciones: OpcionesDto = new OpcionesDto('','','','','');
   origenDto: OrigenDto = new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date());
   destinoDto: DestinoDto = new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date());
   detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null));
-  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('',''));
+  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   // Para realizar cobertura
   coberturaResponse: CoberturaResponseModel[] = [];
   coberturaDto: CoberturaDto = new CoberturaDto('','');
@@ -129,7 +129,7 @@ export class PaqueteComponent implements OnInit {
       ancho: ['', /*Validators.required*/],
       alto: ['', /*Validators.required*/],
       peso: ['', Validators.required],
-      valor: ['', Validators.required],
+      valor: [''],
 
       contenido: ['', Validators.required]
     });
@@ -329,6 +329,7 @@ export class PaqueteComponent implements OnInit {
     this.opciones.tipoCobro = '';
     this.opciones.tipoEntrega = this.forma.get('tipoEntrega').value;
     this.opciones.tipoEnvio = this.forma.get('tipoEnvio').value;
+    this.opciones.tipoRecoleccion = this.forma.get('tipoRecoleccion').value;
     // this.opciones.tipoServicio = '3';
   }
 
@@ -368,7 +369,7 @@ export class PaqueteComponent implements OnInit {
     // console.log('Crea Detalle');
     this.detalle.contenido = this.forma.get('contenido').value;
     this.detalle.identificador = '1';
-    // this.detalle.valorDeclarado = this.forma.get('valor').value;
+    this.detalle.valorDeclarado = this.forma.get('valor').value;
     this.detalle.dimensiones.alto = this.forma.get('alto').value;
     this.detalle.dimensiones.ancho = this.forma.get('ancho').value;
     this.detalle.dimensiones.largo = this.forma.get('largo').value;
@@ -381,7 +382,7 @@ export class PaqueteComponent implements OnInit {
     this.documentacionDto.origen = this.origenDto;
     this.documentacionDto.destino = this.destinoDto;
     this.documentacionDto.detalle.push(this.detalle);
-
+    this.documentacionDto.servicios = this.cotizacion.servicios;
   }
 
   contratar() {
@@ -488,22 +489,24 @@ export class PaqueteComponent implements OnInit {
       console.log(this.coberturaResponse);
       // this.forma.get('tipoEntrega').disable();
       // console.log('1 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == true));
-
-
-
-      if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == true) {
-        console.log('1 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == true));
-        this.opcionUno = true;
-      } else if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == false) {
-        console.log('2 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == false));
-        this.opcionDos = true;
-      } else if (this.coberturaResponse[0].isDomicilio == false && this.coberturaResponse[0].isOcurre == true) {
-        console.log('3 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == true));
-        this.opcionTres = true;
+      if (this.coberturaResponse.length > 0) {
+        if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == true) {
+          console.log('1 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == true));
+          this.opcionUno = true;
+        } else if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == false) {
+          console.log('2 opcion: ' + (this.coberturaResponse[0].isDomicilio == true) && (this.coberturaResponse[0].isOcurre == false));
+          this.opcionDos = true;
+        } else if (this.coberturaResponse[0].isDomicilio == false && this.coberturaResponse[0].isOcurre == true) {
+          console.log('3 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == true));
+          this.opcionTres = true;
+        } else {
+          console.log('4 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == false));
+          this.opcionCuatro = true;
+        }
       } else {
-        console.log('4 opcion: ' + (this.coberturaResponse[0].isDomicilio == false) && (this.coberturaResponse[0].isOcurre == false));
         this.opcionCuatro = true;
       }
+
       // console.log(response.length == 0);
       // console.log(typeof response[0] === undefined || response[0] == undefined);
 

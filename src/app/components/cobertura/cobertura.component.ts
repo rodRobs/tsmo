@@ -33,6 +33,9 @@ export class CoberturaComponent implements OnInit {
 
   sinServicio: boolean = false;
 
+  errorBool: boolean = false;
+  msgError: string;
+
   constructor(
     private fb: FormBuilder,
     private coberturaService: CoberturaService,
@@ -70,6 +73,7 @@ export class CoberturaComponent implements OnInit {
     localStorage.clear();
     this.resultado = false;
     this.loading = true;
+    this.errorBool = true;
     if ( this.forma.invalid ) {
       this.allTouched();
       this.loading = false;
@@ -98,8 +102,11 @@ export class CoberturaComponent implements OnInit {
       // console.log(this.coberturaResponse[0].domicilio);
       // console.log(this.coberturaResponse[0].ocurre);
     }, error => {
+      this.errorBool = true;
       this.loading = false;
-      window.alert('No se puso checar la cobertura de los datos de origen y destino ingresados');
+      this.msgError = error['error'];
+      // console.log(error['error']);
+      //window.alert('No se puso checar la cobertura de los datos de origen y destino ingresados');
     })
   }
 

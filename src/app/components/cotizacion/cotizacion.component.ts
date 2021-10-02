@@ -1,3 +1,4 @@
+import { ValidadoresService } from './../../services/validadores/validadores.service';
 import { CostoDto } from 'src/app/models/dto/costoDto.model';
 import { CoberturaResponseModel } from 'src/app/models/response/cobertura-response.model';
 import { CoberturaDto } from './../../models/dto/cobertura.model';
@@ -41,7 +42,7 @@ export class CotizacionComponent implements OnInit {
   parrafo: string = ParrafoType.Cotizar;
   instrucciones: string = InstruccionesType.Cotizacion;
 
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
   detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null));
 
   forma: FormGroup;
@@ -65,7 +66,7 @@ export class CotizacionComponent implements OnInit {
 
   submmit: boolean = false;
 
-  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null);
+  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null, null);
 
 
   constructor(
@@ -77,7 +78,8 @@ export class CotizacionComponent implements OnInit {
     private cotizacionService: CotizacionService,
     private precioService: PrecioService,
     private router: Router,
-    private coberturaService: CoberturaService
+    private coberturaService: CoberturaService,
+    private ValidadoresService: ValidadoresService
   ) {
     this.crearFormulario();
     this.cargarValoresService();
@@ -92,8 +94,8 @@ export class CotizacionComponent implements OnInit {
 
   crearFormulario() {
     this.forma = this.fb.group({
-      origen: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
-      destino: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]],
+      origen: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]/*, this.ValidadoresService.existeCobertura*/],
+      destino: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern("^[0-9]*$")]/*, this.ValidadoresService.existeCobertura*/],
       tipoRecoleccion: ['', Validators.required],
       tipoEntrega: ['', Validators.required],
       tipoEnvio: ['', Validators.required],
@@ -117,6 +119,7 @@ export class CotizacionComponent implements OnInit {
   get pesoNoValido() { return this.forma.get('peso').invalid && this.forma.get('peso').touched; };
 
   get origenPatternNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').errors['pattern']; };
+  // get origenMinLengthNoValido() { return this.forma.get('origen').invalid && this.forma.get('origen').errors['minLength'];}
   get destinoPatternNoValido() { return this.forma.get('destino').invalid && this.forma.get('destino').errors['pattern']; };
 
   // activarValidaciones() {
@@ -164,7 +167,7 @@ export class CotizacionComponent implements OnInit {
     }
     this.guardarValoresEnServicios();
     this.asignarACotizacion();
-    // console.log(this.cotizacion);
+    console.log(this.cotizacion);
 
     this.cotizacionService.onSolicitarCotizacionClientes(this.cotizacion)
     .subscribe(costo => {
@@ -175,7 +178,8 @@ export class CotizacionComponent implements OnInit {
       this.precio = costo.costoTotal;
       this.servicio = costo.tipoServicio;
       this.fechaEntregaAprox = costo.fcompromisoEntrega;
-      console.log(costo);
+      window.location.href = '#precio';
+      // console.log(costo);
     }, error => {
       this.errorBool = true;
       error['error'].forEach(element => {
@@ -258,7 +262,7 @@ export class CotizacionComponent implements OnInit {
   }
 
   asignarACotizacion() {
-    this.cotizacion = new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
+    this.cotizacion = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
     this.cotizacion.detalle = [];
     this.cotizacion.origen.domicilio.codigoPostal = this.forma.get('origen').value;
     this.cotizacion.destino.domicilio.codigoPostal = this.forma.get('destino').value;
@@ -381,7 +385,7 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('tipoEnvio').updateValueAndValidity();
     this.forma.get('peso').setValidators(Validators.required);
     this.forma.get('peso').setValue(1);
-    this.forma.get('peso').enable();
+    this.forma.get('peso').disable();
     this.forma.get('peso').updateValueAndValidity();
     // this.forma.get('largo').setValidators(Validators.required);
     this.forma.get('largo').setValue(0);
@@ -409,8 +413,11 @@ export class CotizacionComponent implements OnInit {
     // this.forma.get('contenido').clearValidators();
   }
 
-
+  msgError: string;
+  coberturaBool: boolean;
   onCobertura() {
+    this.errorBool = false;
+    this.coberturaBool = false;
     this.mostrarPrecio = false;
     this.valoresResetOpciones();
     if (this.forma.get('origen').value.length != 5 || this.forma.get('destino').value.length != 5) { return; }
@@ -418,6 +425,7 @@ export class CotizacionComponent implements OnInit {
     this.coberturaService.cobertura(coberturaDto)
     .subscribe(response => {
       // console.log(response);
+      this.coberturaBool = true;
       this.coberturaResponse = response;
       if (this.coberturaResponse.length > 0) {
         if (this.coberturaResponse[0].isDomicilio == true && this.coberturaResponse[0].isOcurre == true) {
@@ -440,6 +448,12 @@ export class CotizacionComponent implements OnInit {
         this.opcionUno = false;
         this.opcionCuatro = true;
       }
+    }, error => {
+      this.opcionUno = false;
+      this.opcionCuatro = true;
+      this.errorBool = true;
+      this.msg = error["error"];
+      // console.log(error["error"]);
     })
   }
 
@@ -452,7 +466,7 @@ export class CotizacionComponent implements OnInit {
 
   asignarValoresLTL() {
     this.forma.get('peso').setValidators(Validators.required);
-    this.forma.get('peso').setValue(500);
+    this.forma.get('peso').setValue(1000);
     this.forma.get('peso').disable();
     this.forma.get('peso').updateValueAndValidity();
     this.forma.get('largo').setValidators(Validators.required);
@@ -460,13 +474,17 @@ export class CotizacionComponent implements OnInit {
     this.forma.get('largo').disable();
     this.forma.get('largo').updateValueAndValidity();
     this.forma.get('ancho').setValidators(Validators.required);
-    this.forma.get('ancho').setValue(110);
+    this.forma.get('ancho').setValue(105);
     this.forma.get('ancho').disable();
     this.forma.get('ancho').updateValueAndValidity();
     this.forma.get('alto').setValidators(Validators.required);
-    this.forma.get('alto').setValue(180);
+    this.forma.get('alto').setValue(190);
     this.forma.get('alto').disable();
     this.forma.get('alto').updateValueAndValidity();
+  }
+
+  verFormulario() {
+    console.log(this.forma);
   }
 
 }

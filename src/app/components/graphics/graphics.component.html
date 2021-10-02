@@ -18,7 +18,7 @@
 </div>
 <legend class="text-center"> Resumen del mes de {{mes}} </legend>
 
-<ng-container *ngIf="perfil == 5; else elseTemplate">
+<ng-container *ngIf="perfil == 5 || perfil == 1; else elseTemplate">
   <div class="row">
     <div class="col-12 col-md-6">
       <!-- Gráfica Envios -->

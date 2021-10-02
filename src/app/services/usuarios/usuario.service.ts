@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { HostType } from 'src/app/enums/host.enum';
 
 // const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
-const URL = 'http://localhost:8080/';
+// const URL = 'http://localhost:8080/';
 const AUTH = 'auth/'
 const CORREO = 'correo';
 const NOMBREUSUARIO = 'nombreUsuario';
