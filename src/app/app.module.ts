@@ -72,6 +72,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { SubirExcelEnviosComponent } from './components/subir-excel-envios/subir-excel-envios.component';
 import { TablasEnviosComponent } from './components/subir-excel-envios/tablas-envios/tablas-envios.component';
+import { TablasEnviosErrorComponent } from './components/subir-excel-envios/tablas-envios-error/tablas-envios-error.component';
 // import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
@@ -124,7 +125,8 @@ import { TablasEnviosComponent } from './components/subir-excel-envios/tablas-en
     FooterComponent,
     MapaComponent,
     SubirExcelEnviosComponent,
-    TablasEnviosComponent
+    TablasEnviosComponent,
+    TablasEnviosErrorComponent
 
     // ProgressComponent,
     // GraphicsComponent,

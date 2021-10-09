@@ -9,6 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TablasEnviosComponent implements OnInit {
 
   @Input() envios: EnvioDto[];
+  @Input() exito: boolean = false;
+  @Input() error: boolean = false;
 
   constructor() { }
 

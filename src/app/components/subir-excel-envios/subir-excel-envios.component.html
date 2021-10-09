@@ -27,13 +27,31 @@
 </div>
 
 <div *ngIf="bandera">
-  EXITO
-  <app-tablas-envios [envios]="masivosResponse.exito"></app-tablas-envios>
+  <div class="text-center alert alert-success" role="alert">EXITO</div>
+  <div>
+    Se ha realizado la cotización de {{masivosResponse.exito.length}} envíos. 
+  </div>
+  <div>
+    <button class="btn btn-link"> Mostrar {{masivosResponse.exito.length}} envíos cotizados. </button>
+  </div>
+  <app-tablas-envios [envios]="masivosResponse.exito" [exito]="true"></app-tablas-envios>
   <br>
-  SIN COBERTURA
-  <app-tablas-envios [envios]="masivosResponse.sinCobertura"></app-tablas-envios>
+  <div class="text-center alert alert-secondary" role="alert">SIN COBERTURA</div>
+  <div>
+    No tenemos cobertura en {{masivosResponse.sinCobertura.length}} envíos. 
+  </div>
+  <div>
+    <button class="btn btn-link"> Mostrar {{masivosResponse.sinCobertura.length}} envíos sin cobertura. </button>
+  </div>
+  <app-tablas-envios [envios]="masivosResponse.sinCobertura" [exito]="false"></app-tablas-envios>
   <br>
-  ERROR
-  <app-tablas-envios [envios]="masivosResponse.error"></app-tablas-envios>
+  <div class="text-center alert alert-danger" role="alert">ERROR</div>
+  <div>
+    En {{masivosResponse.error.length}} envíos se presento error y no se pudieron procesar para cotización. 
+  </div>
+  <div>
+    <button class="btn btn-link"> Mostrar {{masivosResponse.error.length}} envíos. </button>
+  </div>
+  <app-tablas-envios [envios]="masivosResponse.error" [exito]="false" [error]="true"></app-tablas-envios>
 </div>
 

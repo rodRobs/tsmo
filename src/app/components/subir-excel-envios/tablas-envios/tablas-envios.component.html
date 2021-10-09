@@ -1,48 +1,72 @@
-<div class="overflow-auto margen">
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Costo</th>
-        <th scope="col">Remitente</th>
-        <th scope="col">Direccion Origen</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Destinatario</th>
-        <th scope="col">Destinatario 2</th>
-        <th scope="col">Direccion Destino</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Tipo Envio</th>
-        <th scope="col">Tipo Entrega</th>
-        <th scope="col">Ancho</th>
-        <th scope="col">Largo</th>
-        <th scope="col">Alto</th>
-        <th scope="col">Peso</th>
-        <th scope="col">Peso Volumétrico</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let envio of envios; index as i">
-        <th scope="row"> {{i+1}} </th>
-        <td> {{envio.documentacion.cotizacion.costo.costoTotal}} </td>
-        <td> {{envio.documentacion.cotizacion.remitente}} </td>
-        <td> {{envio.documentacion.cotizacion.origen.domicilio.calle}} {{envio.documentacion.cotizacion.origen.domicilio.numExt}}, {{envio.documentacion.cotizacion.origen.domicilio.numInt}}, {{envio.documentacion.cotizacion.origen.domicilio.colonia}}, {{envio.documentacion.cotizacion.origen.domicilio.codigoPostal}}, {{envio.documentacion.cotizacion.origen.domicilio.ciudad}}, {{envio.documentacion.cotizacion.origen.domicilio.estado}} </td>
-        <td> {{envio.documentacion.cotizacion.origen.telefonos[0].numeroTelefono}} </td>
-        <td> {{envio.documentacion.cotizacion.origen.email}} </td>
-        <td> {{envio.documentacion.cotizacion.destino.destinatario}} </td>
-        <td> {{envio.documentacion.cotizacion.destino.destinatario2}} </td>
-        <td> {{envio.documentacion.cotizacion.destino.domicilio.calle}} {{envio.documentacion.cotizacion.destino.domicilio.numExt}}, {{envio.documentacion.cotizacion.destino.domicilio.numInt}}, {{envio.documentacion.cotizacion.destino.domicilio.colonia}}, {{envio.documentacion.cotizacion.destino.domicilio.codigoPostal}}, {{envio.documentacion.cotizacion.destino.domicilio.ciudad}}, {{envio.documentacion.cotizacion.destino.domicilio.estado}} </td>
-        <td> {{envio.documentacion.cotizacion.destino.telefonos[0].numeroTelefono}} </td>
-        <td> {{envio.documentacion.cotizacion.destino.email}} </td>
-        <td> {{envio.documentacion.cotizacion.opciones.tipoEntrega}} </td>
-        <td> {{envio.documentacion.cotizacion.opciones.tipoEnvio}} </td>
-        <td> {{envio.documentacion.cotizacion.detalle[0].dimensiones.ancho}} </td>
-        <td> {{envio.documentacion.cotizacion.detalle[0].dimensiones.largo}} </td>
-        <td> {{envio.documentacion.cotizacion.detalle[0].dimensiones.alto}} </td>
-        <td> {{envio.documentacion.cotizacion.detalle[0].dimensiones.peso}} </td>
-        <td> {{envio.documentacion.cotizacion.costo.pesoVolumetrico}} </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="cont">
+  <div class="overflow-auto margen">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" *ngIf="exito">Costo</th>
+          <th scope="col">Calle Origen</th>
+          <th scope="col">Número Exterior Origen</th>
+          <th scope="col">Número Interior Origen</th>
+          <th scope="col">Colonia Origen</th>
+          <th scope="col">Código Potal Origen</th>
+          <th scope="col">Ciudad Origen</th>
+          <th scope="col">Estado Origen</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Destinatario</th>
+          <th scope="col">Destinatario 2</th>
+          <th scope="col">Calle Destino</th>
+          <th scope="col">Número Interior Destino</th>
+          <th scope="col">Número Exterior Destino</th>
+          <th scope="col">Colonia Destino</th>
+          <th scope="col">Ciudad Destino</th>
+          <th scope="col">Código Postal Destino</th>
+          <th scope="col">Estado Destino</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Tipo Envio</th>
+          <th scope="col">Tipo Entrega</th>
+          <th scope="col" *ngIf="!error">Ancho</th>
+          <th scope="col" *ngIf="!error">Largo</th>
+          <th scope="col" *ngIf="!error">Alto</th>
+          <th scope="col" *ngIf="!error">Peso</th>
+          <th scope="col" *ngIf="exito">Peso Volumétrico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let envio of envios; index as i">
+          <th scope="row"> {{i+1}} </th>
+          <td *ngIf="exito"> {{envio.documentacion.cotizacion.costo.costoTotal | currency}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.calle}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.numExt}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.numInt}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.colonia}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.codigoPostal}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.ciudad}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.domicilio.estado}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.telefonos[0].numeroTelefono}} </td>
+          <td> {{envio.documentacion.cotizacion.origen.email}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.destinatario}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.destinatario2}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.calle}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.numExt}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.numInt}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.colonia}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.codigoPostal}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.ciudad}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.domicilio.estado}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.telefonos[0].numeroTelefono}} </td>
+          <td> {{envio.documentacion.cotizacion.destino.email}} </td>
+          <td> {{envio.documentacion.cotizacion.opciones.tipoEntrega}} </td>
+          <td> {{envio.documentacion.cotizacion.opciones.tipoEnvio}} </td>
+          <td *ngIf="!error"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.ancho}} </td>
+          <td *ngIf="!error"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.largo}} </td>
+          <td *ngIf="!error"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.alto}} </td>
+          <td *ngIf="!error"> {{envio.documentacion.cotizacion.detalle[0].dimensiones.peso}} </td>
+          <td *ngIf="exito"> {{envio.documentacion.cotizacion.costo.pesoVolumetrico}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
