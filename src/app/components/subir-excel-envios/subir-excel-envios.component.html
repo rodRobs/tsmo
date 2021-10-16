@@ -8,11 +8,26 @@
   </div>
 </div> -->
 
-<div class="m-5">
-  <div class="d-flex justify-content-center">
+<div class="container">
+  <!-- <div class="m-5">
+    <div class="d-flex justify-content-center">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" (change)="onArhivoSeleccionado($event)" accept=".csv, .xlsx, .xltx">
+        <label class="custom-file-label" for="customFile">Elige tu documento Excel</label>
+      </div>
+    </div>
+  </div> -->
+  <div class="m-5">
+    <app-instrucciones [instrucciones]="instrucciones"></app-instrucciones>
+  </div>
+  <div class="input-group mt-5 mb-3">
+
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroupFileAddon01">Excel</span>
+    </div>
     <div class="custom-file">
-      <input type="file" class="custom-file-input" id="customFile" (change)="onArhivoSeleccionado($event)" accept=".csv, .xlsx, .xltx">
-      <label class="custom-file-label" for="customFile">Elige tu documento Excel</label>
+      <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" (change)="onArhivoSeleccionado($event)" accept=".csv, .xlsx, .xltx" [class.is-invalid]="mensajeBool">
+      <label class="custom-file-label" for="inputGroupFile01"> {{pedidoFile.name}} </label>
     </div>
   </div>
 </div>
@@ -23,35 +38,102 @@
 </div> -->
 
 <div class="text-center m-5">
-  <button class="btn btn-success" type="button" (click)="onGuardar()" >Cotizar</button>
+  <ng-container *ngIf="!loading; else elseTemplate">
+    <button class="btn btn-outline-primary" type="button" (click)="onGuardar()">Cotizar</button>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only">Cargando información...</span>
+    </div>
+  </ng-template>
+
+
 </div>
 
-<div *ngIf="bandera">
-  <div class="text-center alert alert-success" role="alert">EXITO</div>
+<div class="container" *ngIf="mensajeBool">
+  <div class="d-flex justify-content-center">
+    <div class="alert alert-danger" role="alert">
+      {{mensajeFalta}}
+    </div>
+  </div>
+</div>
+
+<div class="container " *ngIf="bandera">
+  <div class="d-flex justify-content-center">
+    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Costo de los envíos</h5>
+        <h2 class="card-subtitle mb-2 text-muted text-center" > {{costoCotizaciones | currency}} </h2>
+        <p class="card-text small">De los envíos que se encuentran en la lista de éxito.</p>
+        <button class="card-link btn btn-success">Contratar</button>
+        <button class="card-link btn btn-danger">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5" *ngIf="bandera">
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">¡Éxito!</h4>
+    <p>Se ha realizado la cotización de {{masivosResponse.exito.length}} envíos. </p>
+    <hr>
+    <ng-container *ngIf="!mostrarExito; else exitoTemplate">
+      <p class="mb-0"><button class="btn btn-link" (click)="onMostrarExito()"> Mostrar {{masivosResponse.exito.length}} envíos cotizados. </button></p>
+    </ng-container>
+    <ng-template #exitoTemplate>
+      <p class="mb-0"><button class="btn btn-link text-danger" (click)="onMostrarExito()"> Ocultar {{masivosResponse.exito.length}} envíos cotizados. </button></p>
+    </ng-template>
+
+  </div>
+  <!-- <div class="text-center alert alert-success" role="alert">EXITO</div>
   <div>
-    Se ha realizado la cotización de {{masivosResponse.exito.length}} envíos. 
+    Se ha realizado la cotización de {{masivosResponse.exito.length}} envíos.
   </div>
   <div>
     <button class="btn btn-link"> Mostrar {{masivosResponse.exito.length}} envíos cotizados. </button>
-  </div>
-  <app-tablas-envios [envios]="masivosResponse.exito" [exito]="true"></app-tablas-envios>
+  </div> -->
+  <app-tablas-envios *ngIf="this.mostrarExito" [envios]="masivosResponse.exito" [exito]="true"></app-tablas-envios>
   <br>
-  <div class="text-center alert alert-secondary" role="alert">SIN COBERTURA</div>
+  <div class="alert alert-secondary" role="alert">
+    <h4 class="alert-heading">¡Sin Cobertura!</h4>
+    <p>No tenemos cobertura en {{masivosResponse.sinCobertura.length}} envíos. </p>
+    <hr>
+    <p class="mb-0">
+      <ng-container *ngIf="!mostrarNoCobertura; else sinCoberturaTemplate">
+        <button class="btn btn-link" (click)="onMostrarSinCobertura()"> Mostrar {{masivosResponse.sinCobertura.length}} envíos sin cobertura. </button>
+      </ng-container>
+      <ng-template #sinCoberturaTemplate>
+        <button class="btn btn-link text-danger" (click)="onMostrarSinCobertura()"> Ocultar {{masivosResponse.sinCobertura.length}} envíos sin cobertura. </button>
+      </ng-template>
+    </p>
+  </div>
+  <!-- <div class="text-center alert alert-secondary" role="alert">SIN COBERTURA</div>
   <div>
-    No tenemos cobertura en {{masivosResponse.sinCobertura.length}} envíos. 
+    No tenemos cobertura en {{masivosResponse.sinCobertura.length}} envíos.
   </div>
   <div>
     <button class="btn btn-link"> Mostrar {{masivosResponse.sinCobertura.length}} envíos sin cobertura. </button>
-  </div>
-  <app-tablas-envios [envios]="masivosResponse.sinCobertura" [exito]="false"></app-tablas-envios>
-  <br>
+  </div> -->
+  <app-tablas-envios *ngIf="mostrarNoCobertura" [envios]="masivosResponse.sinCobertura" [exito]="false"></app-tablas-envios>
+  <!-- <br>
   <div class="text-center alert alert-danger" role="alert">ERROR</div>
   <div>
-    En {{masivosResponse.error.length}} envíos se presento error y no se pudieron procesar para cotización. 
+    En {{masivosResponse.error.length}} envíos se presento error y no se pudieron procesar para cotización.
   </div>
   <div>
     <button class="btn btn-link"> Mostrar {{masivosResponse.error.length}} envíos. </button>
+  </div> -->
+  <div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">¡Error!</h4>
+    <p>En {{masivosResponse.error.length}} envíos se presentó error y no se pudieron procesar para cotización.</p>
+    <hr>
+    <ng-container *ngIf="!mostrarError; else errorTemplate">
+      <p class="mb-0"><button class="btn btn-link" (click)="onMostrarError()"> Mostrar {{masivosResponse.error.length}} envíos. </button></p>
+    </ng-container>
+    <ng-template #errorTemplate>
+      <p class="mb-0"><button class="btn btn-link text-danger" (click)="onMostrarError()"> Ocultar {{masivosResponse.error.length}} envíos. </button></p>
+    </ng-template>
   </div>
-  <app-tablas-envios [envios]="masivosResponse.error" [exito]="false" [error]="true"></app-tablas-envios>
+  <app-tablas-envios *ngIf="mostrarError" [envios]="masivosResponse.error" [exito]="false" [error]="true"></app-tablas-envios>
 </div>
 
