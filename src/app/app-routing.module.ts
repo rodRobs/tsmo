@@ -106,7 +106,7 @@ const routes: Routes = [
         {path: 'exito', component: ExitoComponent, data: {titulo: ''}},
         {path: 'error', component: ErrorComponent, data: {titulo: ''}}
       ]},
-      {path: 'alta/usuario', component: AltaUsuariosComponent, data: {titulo: 'Alta Usuario'}},
+    {path: 'alta/usuario', component: AltaUsuariosComponent, data: {titulo: 'Alta Usuario'}},
     {path: 'cobertura', component: CoberturaComponent, data: {titulo: 'Cobertura'}},
     {path: 'cancelacion', component: CancelacionComponent, data: {titulo: 'Cancelación'}},
     {path: 'rastrear', component: RastreoComponent, data: {titulo: 'Rastrear'}},
@@ -116,7 +116,8 @@ const routes: Routes = [
     {path: '*', component: Error404Component, data: {titulo: 'Error 404'}},
     {path: 'envios', component: ListarEnviosComponent, data: {titulo: 'Envios'}},
     {path: 'ver/envio', component: MostrarEnvioComponent, data: {titulo: 'Envio'}},
-    {path: 'pagos', component: PagosComponent, data: {titulo: 'Actualizar Pago Envío'}}
+    {path: 'pagos', component: PagosComponent, data: {titulo: 'Actualizar Pago Envío'}},
+    {path: 'realizar/envios', component: SubirExcelEnviosComponent, data: {titulo: 'Subir envios'}}
     ]},
   {path: 'archivo', component: SubirExcelEnviosComponent},
   {path: '**', component: Error404Component}

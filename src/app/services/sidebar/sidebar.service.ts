@@ -98,14 +98,14 @@ export class SidebarService {
     },
     {
       titulo: 'Cancelaciones',
-      icono: 'mdi mdi-sim-alert',
+      icono: 'mdi mdi-close-circle',
       url: 'cancelacion'
     },
-    // {
-    //   titulo: 'Cerrar Sesión',
-    //   icono: 'mdi mdi-logout',
-    //   url: '/login'
-    // },
+    {
+      titulo: 'Realizar envíos',
+      icono: 'mdi mdi-send',
+      url: 'realizar/envios'
+    },
   ]
 
   menuAdministrador: any[] = [
