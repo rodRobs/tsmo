@@ -4,7 +4,8 @@ export class OpcionesDto {
     public tipoEnvio: string,
     public tipoEntrega: string,
     public tipoServicio: string,
-    public tipoCobro: string
+    public tipoCobro: string,
+    public tipoRecoleccion: string
   ) {}
 
 }

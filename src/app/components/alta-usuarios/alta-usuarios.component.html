@@ -21,7 +21,7 @@
                   <!-- <small class="text-danger" *ngIf="existeCorreo">Correo ya existe</small> -->
                 </div>
                 <div class="col-12">
-                  <label for="nombreUsuario">Nombre de usuario:</label>
+                  <label for="nombreUsuario">Nombre de usuario pp:</label>
                   <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" formControlName="nombreUsuario" [class.is-invalid]="nombreUsuarioNoValido">
                   <small class="text-danger" *ngIf="nombreUsuarioNoValido">Ingresa nombre de usuario</small>
                   <!-- <small class="text-danger" *ngIf="existeNombreUsuraio">Nombre de Usuario ya existe</small> -->
@@ -40,6 +40,9 @@
                   <label for="rol">Rol de usuario:</label>
                   <select name="rol" id="rol" class="form-control" formControlName="rol">
                     <option value="Operador">Operador</option>
+                    <option value="operaciones">Operaciones</option>
+                    <option value="cliente">Cliente</option>
+                    <option value="admin">Administrador</option>
                   </select>
                 </div>
               </div>

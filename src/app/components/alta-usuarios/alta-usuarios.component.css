@@ -1,0 +1,13 @@
+.formulario {
+  max-width: 500px;
+}
+
+main {
+  margin-bottom: 200px;
+}
+
+@media (max-width: 726px) {
+  main {
+    margin-bottom: 50px;
+  }
+}

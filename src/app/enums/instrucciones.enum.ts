@@ -4,6 +4,7 @@ export enum InstruccionesType {
   Cotizacion = 'Ingresa datos de origen, destino y paquete a cotizar.',
   Cobertura = 'Solo ingresa Código Postal de Origen y Código Postal de Destino.',
   Envios = 'Ingresa los valores o filtros de la búsqueda de envíos',
-  Cancelacion = ''
+  Cancelacion = '',
+  Archivo = 'Selecciona archivo Excel con los datos de tus envíos para poder hacer la cotización'
 
 }

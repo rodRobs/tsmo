@@ -121,3 +121,12 @@
   </div>
 </div>
 
+<div class="container mt-4" *ngIf="errorBool">
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        {{msgError}}
+      </div>
+    </div>
+  </div>
+</div>

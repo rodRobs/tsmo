@@ -78,6 +78,8 @@ export class ActualizarEnvioComponent implements OnInit {
         }
       },
         (error: GeolocationPositionError) => console.log(error));
+    } else {
+
     }
   }
 

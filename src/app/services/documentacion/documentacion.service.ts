@@ -11,6 +11,7 @@ import { OpcionesDto } from 'src/app/models/dto/opcionesDto.model';
 import { DetalleDto } from 'src/app/models/dto/detalleDto.model';
 import { DimensionesDto } from 'src/app/models/dto/dimensionesDto.model';
 import { HostType } from 'src/app/enums/host.enum';
+import { CostoDto } from 'src/app/models/dto/costoDto.model';
 
 // const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
 const URL = 'http://localhost:8080/';
@@ -32,7 +33,7 @@ export class DocumentacionService {
 
   getCotizacionDto(): CotizacionDto {
     let cotizacion: CotizacionDto = JSON.parse(localStorage.getItem(COTIZACION));
-    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[]);
+    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
   }
 
   setCotizacionDto(cotizacion: CotizacionDto) {
@@ -41,7 +42,7 @@ export class DocumentacionService {
 
   getDocumentacion(): DocumentacionDto {
     let documentacion: DocumentacionDto = JSON.parse(localStorage.getItem(DOCUMENTACION));
-    return documentacion || new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('',''));
+    return documentacion || new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   }
 
   setDocumentacion(documentacion: DocumentacionDto) {

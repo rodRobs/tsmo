@@ -1,0 +1,23 @@
+.margen {
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+.icono {
+  font-size: 250px;
+}
+.tache {
+  color: #3c997d;
+  font-size: 2rem;
+}
+
+@media(max-width: 700px) {
+  .margen {
+    margin-bottom: 80px;
+  }
+  .tache {
+    font-size: 1rem;
+  }
+  .icono {
+    font-size: 5rem;
+  }
+}

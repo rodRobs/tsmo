@@ -17,6 +17,7 @@ export enum Vista {
     ALTA_CLIENTE = "cliente",
     PAGO_CLIENTE = "envio/pago",
     EXITO = 'envio/exito',
+    ERROR = 'envio/error',
     // DASHBOARD
     INICIO_DASHBOARD = 'dashboard/inicio',
     // Envio
@@ -25,6 +26,7 @@ export enum Vista {
     PAQUETE_DASHBOARD = 'dashboard/envio/paquete',
     PAGO_DASHBOARD = 'dashboard/envio/pago',
     EXITO_DASHBOARD = 'dashboard/envio/exito',
+    ERROR_DASHBOARD = 'dashboard/envio/error',
     // Cotizacion
     COTIZACION_DASHBOARD = 'dashboard/cotizacion',
     COBERTURA_DASHBOARD = 'dashboard/cobertura',

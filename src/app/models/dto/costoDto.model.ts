@@ -7,6 +7,7 @@ export class CostoDto {
     public tipoServicio: string,
     public paquete: number,
     public peso: number,
+    public pesoVolumetrico: number,
     public volumen: number,
     public flete: number,
     public combustible: number,
