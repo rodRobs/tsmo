@@ -35,8 +35,12 @@ export class GraphicsComponent implements OnInit{
 
   seleccionarBusquedaGraficas(perfiles: string[]) {
     perfiles.forEach(perfil => {
-      // console.log(perfil);
+      console.log(perfil);
       switch(perfil) {
+        case 'ROLE_ADMIN':
+          this.perfil = PerfilType.ADMIN;
+          this.buscarTSMO();
+          break;
         case 'ROL_TSMO':
           this.perfil = PerfilType.TSMO;
           this.buscarTSMO();
@@ -165,7 +169,7 @@ export class GraphicsComponent implements OnInit{
   coloresENVIA: Color[] = [];
 
   // Gráficas Facturas
-  tituloFacturas: string = 'Facturas';
+  tituloFacturas: string = 'Envios cuentas';
   valoresFacturas: MultiDataSet = [];
   subtituloFacturas: Label[] = ['Pagada', 'Pendiente', 'Reembolso', 'Rechazada'];
   coloresFacturas: Color[] = [];
@@ -236,14 +240,14 @@ export class GraphicsComponent implements OnInit{
   }
 
   conteoProveedor(proveedor: string, fechas: Fechas) {
-    // console.log('Conteo Proveedor: '+proveedor);
+    console.log('Conteo Proveedor: '+proveedor);
     let respuesta: number;
     this.envioService.contarEnvioProveedorPeriodo(proveedor, fechas.inicio, fechas.fin)
     .subscribe(count => {
-      // console.log(`${proveedor}:${count}`);
+      console.log(`${proveedor}:${count}`);
       switch(proveedor) {
         case 'TSMO':
-          // console.log('Entra TSMO');
+          console.log('Entra TSMO');
           this.contadorTSMO = count;
           this.valoresEnvios = [
             [this.contadorTSMO, this.contadorEnvia],
@@ -251,7 +255,7 @@ export class GraphicsComponent implements OnInit{
           this.contadorEnvios++;
           break;
         case 'TSME':
-          // console.log('Entra Envia');
+          console.log('Entra Envia');
           this.contadorEnvia = count;
           this.valoresEnvios = [
             [this.contadorTSMO, this.contadorEnvia],
@@ -269,11 +273,11 @@ export class GraphicsComponent implements OnInit{
   }
 
   conteoFacturas(factura: string, fechas: Fechas) {
-    // console.log('Conteo Factura: '+factura);
+    console.log('Conteo Factura: '+factura);
     let respuesta: number;
     this.envioService.contarEnvioFacturaPeriodo(factura, fechas.inicio, fechas.fin)
     .subscribe(count => {
-      // console.log(`${factura}:${count}`);
+      //console.log(`${factura}:${count}`);
       switch(factura) {
         case 'APROBADO':
           this.contadorFacPagada = count;
@@ -281,7 +285,7 @@ export class GraphicsComponent implements OnInit{
             [this.contadorFacPagada, this.contadorFacPendiente, this.contadorFacReembolso, this.contadorFacRechazada]
           ];
           this.contadorFacturas++;
-          // console.log('Contador Facturas: ',this.contadorFacturas);
+          //console.log('Contador Facturas: ',this.contadorFacturas);
           break;
         case 'RECHAZADO':
           this.contadorFacRechazada = count;
@@ -472,7 +476,7 @@ export class GraphicsComponent implements OnInit{
   }
 
   buscarTSMO() {
-    // console.log('Entra a buscar valores TSMO');
+    console.log('Entra a buscar valores TSMO');
     Object.values( ProveedorType ).forEach(proveedor => {
       this.conteoProveedor(proveedor, this.fechas);
     })
@@ -488,7 +492,6 @@ export class GraphicsComponent implements OnInit{
     });
 
     this.conteoDestinoPeriodo(this.fechas);
-
   }
 
   valoresTodosDestinos: Object[] = [];

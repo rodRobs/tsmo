@@ -138,4 +138,6 @@ export class EnvioService {
     return this.http.get(`${HostType.HOST}${ENVIOS}${IMPRIMIR_GUIA}${guia}`, {responseType: 'arraybuffer'});
   }
 
+
+
 }

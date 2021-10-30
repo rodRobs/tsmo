@@ -90,7 +90,7 @@ export class RastreoComponent implements OnInit {
       document.getElementById('footer').style.position = 'relative';
       this.rastreosBoolean = true;
       this.errorBoolean = false;
-      // console.log(envio);
+      console.log('envio: ',envio);
       this.envio = envio;
     }, error => {
       document.getElementById('footer').style.position = 'relative';
@@ -107,7 +107,7 @@ export class RastreoComponent implements OnInit {
     .subscribe(envio => {
       this.rastreosBoolean = true;
       this.errorBoolean = false;
-      // console.log(envio);
+      console.log('envio: ',envio);
       this.envio = envio;
     }, error => {
       // console.log(error);

@@ -134,10 +134,19 @@
                   <label for="peso" class="etiqueta">Peso:</label>
                   <label for="peso" class="valor"> {{documentacionDto.detalle[0].dimensiones.peso}} </label>
                 </div>
+                <div class="col">
+                  <label for="pesoVolumetrico" class="etiqueta">Peso Volumétrico:</label>
+                  <label for="pesoVolumetrico" class="valor"> {{costo.pesoVolumetrico}} </label>
+                </div>
               </div>
             </div>
             <div class="col-12 col-md-6">
               <app-legend [lengenda]="opcionesLegenda"></app-legend>
+              <div class="col">
+                <label for="tipoRecoleccion" class="etiqueta">Tipo de recolección:</label>
+                <label for="tipoRecoleccion" *ngIf="documentacionDto.opciones.tipoRecoleccion == 'RDO'" class="valor">Domicilio</label>
+                <label for="tipoRecoleccion" *ngIf="documentacionDto.opciones.tipoRecoleccion == 'O'" class="valor">Ocurre</label>
+              </div>
               <div class="col">
                 <label for="tipoEntrega" class="etiqueta">Tipo de entrega:</label>
                 <label for="tipoEntrega" *ngIf="documentacionDto.opciones.tipoEntrega == 'D'" class="valor"> Domicilio</label>
@@ -275,7 +284,7 @@
                   </div>
                 </ng-container>
                 <ng-template #formaCliente>
-                  <button class="btn btn-link" (click)="mostrarFormularioCliente()" *ngIf="perfil == 'ROL_TSMO'">+ Agregar nuevo cliente</button>
+                  <button class="btn btn-link" (click)="mostrarFormularioCliente()" *ngIf="perfil == 'ROL_TSMO' || perfil == 'ROLE_ADMIN'">+ Agregar nuevo cliente</button>
                 </ng-template>
               <div *ngIf="mostrarErrorSeleccionarCliente">
                 <div class="alert alert-warning" role="alert">

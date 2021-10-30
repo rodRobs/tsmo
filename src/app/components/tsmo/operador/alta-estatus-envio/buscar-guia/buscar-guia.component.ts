@@ -1,3 +1,5 @@
+import { ActualizacionEtapaDtoModel } from 'src/app/models/dto/actualizacionEtapaDto.model';
+import { InstruccionesType } from './../../../../../enums/instrucciones.enum';
 import { GeocodeService } from './../../../../../services/google/geocode.service';
 import { EnvioDto } from './../../../../../models/dto/EnvioDto.model';
 import { EnvioService } from './../../../../../services/envio/envio.service';
@@ -65,6 +67,12 @@ export class BuscarGuiaComponent implements OnInit {
   public etapa: string = '';
   public nombre: string = '';
 
+  // Variables a enviar a web service
+  actualizacionEtapa: ActualizacionEtapaDtoModel = new ActualizacionEtapaDtoModel(null,null,null,null,null);
+
+  // Instrucciones
+  instrucciones: string = InstruccionesType.ActualizarStatus;
+
   // Output
   @Output () buscarEnvio = new EventEmitter<EnvioMostrar>();
 
@@ -97,10 +105,14 @@ export class BuscarGuiaComponent implements OnInit {
   onSubmit() {
     if (this.forma.invalid) { this.markTouched(); return; }
 
+    this.actualizacionEtapa = new ActualizacionEtapaDtoModel(+localStorage.getItem('opcion'), this.lat, this.lng, this.listaGuias, null);
+    console.log(this.actualizacionEtapa);
     //this.getLocalizacion();
+    /*
     console.log(this.lat);
     console.log(this.lng);
     console.log(this.guias);
+    */
     // this.actualizarStatus();
     /*this.envioService.buscarEnvioPorGuia(this.forma.get('guia').value)
     .subscribe(envio => {
@@ -228,6 +240,13 @@ export class BuscarGuiaComponent implements OnInit {
     }
   }
   */
+
+  agregarGuia(event: any) {
+    if (event.keyCode == 13) {
+      this.listaGuias = this.forma.get('guia').value.split('\n');
+    }
+  }
+
 
 
 }

@@ -16,7 +16,7 @@ export class DocumentacionDto {
     public origen: OrigenDto,
     public destino: DestinoDto,
     public detalle: DetalleDto[],
-    public servicios: ServiciosDto
+    public servicios: ServiciosDto[]
   ) {}
 
 }

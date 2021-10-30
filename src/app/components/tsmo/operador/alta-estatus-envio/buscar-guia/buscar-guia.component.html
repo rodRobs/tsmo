@@ -2,11 +2,12 @@
   <form
   [formGroup]="forma" (ngSubmit)="onSubmit()">
   <app-legend [lengenda]="legendaGuia"></app-legend>
+  <app-instrucciones [instrucciones]="instrucciones"></app-instrucciones>
   <div class="form-group row">
     <div class="d-flex justify-content-center w-100">
       <div class="ancho">
         <label for="guia">Guía:</label>
-        <textarea name="guia" id="guia" cols="30" rows="10" class="form-control" formControlName="guia" [class.is-invalid]="guiaNoValido" ></textarea>
+        <textarea name="guia" id="guia" cols="30" rows="10" class="form-control" formControlName="guia" [class.is-invalid]="guiaNoValido" (keyup)="agregarGuia($event)"></textarea>
         <!-- <input type="text" name="guia" id="guia" class="form-control" formControlName="guia" [class.is-invalid]="guiaNoValido"> -->
         <small class="text-danger" *ngIf="guiaNoValido">Ingrese guia para buscar</small>
         <small class="text-primary" *ngIf="contadorQR>0"> Se han escaneado {{contadorQR}} paquetes </small>
@@ -32,7 +33,7 @@
   </div>
   <div class="col mt-3 d-flex justify-content-center">
     <!-- <button type="submit" class="btn btn-info w-50">Buscar</button> -->
-    <button type="button" class="btn btn-info w-50" (click)="onActualizar()">Actualizar estados envíos</button>
+    <button type="button" class="btn btn-info w-50" (click)="onSubmit()">Actualizar estados envíos</button>
   </div>
   </form>
   <div class="mt-1" *ngIf="errorBoolean">

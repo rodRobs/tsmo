@@ -1,3 +1,4 @@
+import { CoberturaService } from './../cobertura/cobertura.service';
 import { UsuarioService } from './../usuarios/usuario.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,7 +17,8 @@ export class ValidadoresService {
 
   constructor(
     private http: HttpClient,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private coberturaService: CoberturaService
   ) { }
 
   passwordsIguales(pass1Name: string, pass2Name: string) {
@@ -66,6 +68,27 @@ export class ValidadoresService {
           resolve({existe: true});
         } else {
           resolve(null);
+        }
+      })
+    })
+
+  }
+
+  existeCobertura = (control: FormControl): Promise<any> | Observable<any> => {
+
+    if (!control.value) {
+      return Promise.resolve(null);
+    }
+
+    return new Promise( ( resolve, reject ) => {
+      this.coberturaService.validarCobertura(control.value)
+      .subscribe(existe => {
+        if (existe) {
+          console.log("Existe");
+          resolve({existe: true});
+        } else {
+          console.log("No existe")
+          resolve({existe: false});
         }
       })
     })

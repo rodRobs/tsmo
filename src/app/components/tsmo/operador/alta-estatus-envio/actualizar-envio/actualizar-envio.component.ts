@@ -4,6 +4,7 @@ import { EnvioMostrar } from 'src/app/models/dto/envioMostrar.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LegendaType } from 'src/app/enums/legendas.enum';
 import { Component, OnInit, Input } from '@angular/core';
+import { ActualizacionEtapaDtoModel } from 'src/app/models/dto/actualizacionEtapaDto.model';
 
 @Component({
   selector: 'app-actualizar-envio',
@@ -46,6 +47,7 @@ export class ActualizarEnvioComponent implements OnInit {
   exitoBoolean: boolean = false;
   exito: string = 'Se ha actualizado el status del envío correctamente';
 
+
   constructor(
     private fb: FormBuilder,
     private rastreoService: RastreoService
@@ -71,13 +73,15 @@ export class ActualizarEnvioComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
         if (position) {
-          // console.log("Latitude: " + position.coords.latitude +
-            // "Longitude: " + position.coords.longitude);
+          console.log("Latitude: " + position.coords.latitude +
+            "Longitude: " + position.coords.longitude);
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
         }
       },
         (error: GeolocationPositionError) => console.log(error));
+    } else {
+
     }
   }
 

@@ -58,12 +58,11 @@
   </div>
 </div>
 
-<div class="container mt-5" *ngIf="envio">
+<!-- <div class="container mt-5" *ngIf="envio">
   <app-mostrar-informacion [envio]="envio"></app-mostrar-informacion>
-</div>
+</div> -->
 
-
-<div *ngIf="mostrarResultado">
+<!-- <div *ngIf="mostrarResultado">
   <ng-container *ngIf="mostrarResultado; else error">
 
   </ng-container>
@@ -72,7 +71,7 @@
       No existe envio con esa guía, introducir guía correcta.
     </div>
   </ng-template>
-</div>
+</div> -->
 
 <div class="container mt-5">
   <div class="alert alert-danger" role="alert" *ngIf="errorBoolean">
@@ -84,7 +83,9 @@
 <div class="container mt-5 p-4 procesos" *ngIf="rastreosBoolean">
   <div class="row">
     <div class="col">
-
+      <div class="text-center">
+        <app-legend [lengenda]="'Detalles del Envío'"></app-legend>
+      </div>
       <div class="form-group row listo" >
         <!-- <div class="col-12 col-md-5">
           <div class="text-center icono">
@@ -94,10 +95,11 @@
             {{rastreo['nombre']}}
           </div>
         </div> -->
+
         <div class="col-12 d-flex justify-content-center">
           <ng-container *ngIf="envio.rastreos.length>0; else elseTemplate">
             <ul>
-              <li *ngFor="let rastreo of envio.rastreos, index as i"> {{rastreo['createAt'] | date : 'd/M/yy, h:mm a'}} - {{rastreo['descripcion']}} </li>
+              <li *ngFor="let rastreo of envio.rastreos, index as i"> <p><strong> {{rastreo['createAt'] | date : 'dd/MM/yyyy, h:mm a'}} - {{rastreo['estado']}}, {{rastreo['pais']}} </strong></p><p> {{rastreo['descripcion']}} </p> </li>
             </ul>
           </ng-container>
           <ng-template #elseTemplate>

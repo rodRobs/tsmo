@@ -14,7 +14,7 @@
   color: #828485;
 }
 .procesos {
-  margin-bottom: 200px;
+  margin-bottom: 50px;
   border: 0.5px solid #000;
   border-radius: 10px;
   box-shadow: black;
@@ -24,6 +24,24 @@
   color: #FF7075;
   font-weight: 300;
 }
-div {
+ul {
+  padding-left: 0;
+}
+li {
+  margin-bottom: 2rem;
+  border: 1px solid #BFD7EA;
+  list-style: none;
+  padding: 1.5rem;
+  border-radius: 100px;
+  text-align: center;
+}
+/* Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'update rastreos set estado = 'Estado de México' where id_rastreo = 7' at line 6
+ */
+
+@media(max-width: 526px) {
+  li {
+    border-radius: 50px;
+  }
+
 
 }

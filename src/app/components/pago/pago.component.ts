@@ -86,10 +86,10 @@ export class PagoComponent implements OnInit {
   loading: boolean = true;
   loadingPago: boolean = false;
 
-  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null);
-  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('',''));
+  costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null, null);
+  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   clienteDto: ClienteDto = new ClienteDto(null, null, null, null, null);
-  envioDto: EnvioDto = new EnvioDto(null, null, null, new DocumentacionDto(null,'',new OpcionesDto('','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], new ServiciosDto('','')), new ClienteDto(null, null, null, null, null), null, null, null, new UsuarioModel(null, null, null, null, null, null));
+  envioDto: EnvioDto = new EnvioDto(null, null, null, new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []), new ClienteDto(null, null, null, null, null), null, null, null, new UsuarioModel(null, null, null, null, null, null));
 
   // form: FormGroup;
 
@@ -162,12 +162,13 @@ export class PagoComponent implements OnInit {
     // this.clienteProm = this.promesaGuardarCliente(this.clienteDto);
     // this.documentacionProm = this.promesaGuardarDocumentacion(this.documentacionDto);
     // this.envioProm = this.promesaGuardarEnvio(this.envioDto);
-    // console.log("COTIZACION: ",this.documentacionService.getCotizacionDto());
-    // console.log("DOCUMENTACION: ",this.documentacionService.getDocumentacion());
+    console.log("COTIZACION: ",this.documentacionService.getCotizacionDto());
+    console.log("DOCUMENTACION: ",this.documentacionService.getDocumentacion());
   }
 
   seleccionarPerfil() {
     this.tokenService.getAuthorities().forEach(perfil => {
+      console.log(perfil);
       switch(perfil){
         case 'ROL_TSMO':
           this.perfil = perfil;
@@ -175,6 +176,9 @@ export class PagoComponent implements OnInit {
 
           break;
         case 'ROL_CLIENTE':
+          this.perfil = perfil;
+          break;
+        case 'ROLE_ADMIN':
           this.perfil = perfil;
           break;
       }
@@ -205,7 +209,7 @@ export class PagoComponent implements OnInit {
     this.cotizacionService.onSolicitarCotizacionEnvio(this.documentacionService.getCotizacionDto())
     .subscribe(costo => {
       // console.log('Costo (Response): ',costo);
-      document.getElementById('footer').style.position = 'relative';
+      // document.getElementById('footer').style.position = 'relative';
       this.documentacionDto = this.documentacionService.getDocumentacion();
       this.formulario = true;
       this.loading = false;
@@ -500,6 +504,7 @@ export class PagoComponent implements OnInit {
         .subscribe(data => {
           this.router.navigate([Vista.EXITO_DASHBOARD]);
         }, error => {
+
           // console.log(error);
         })
         // console.log(this.envio);
