@@ -1,3 +1,4 @@
+import { RastreoDto } from './../../models/dto/rastreo.model';
 import { ClienteDto } from './../../models/dto/clienteDto.model';
 import { UsuarioService } from './../../services/usuarios/usuario.service';
 import { PerfilType } from './../../enums/perfil.enum';
@@ -38,6 +39,7 @@ export class RastreoComponent implements OnInit {
   // Envio
   // envio: EnvioDto = new EnvioDto(null,null,null,null,null,null,null,null, null);
   envio: EnvioMostrar;
+  rastreos: RastreoDto[];
 
   // Resultado
   error: string = '';
@@ -86,12 +88,12 @@ export class RastreoComponent implements OnInit {
   rastreo() {
     console.log('Rastreo normal');
     this.rastrearService.onRastrear(this.forma.get('guia').value)
-    .subscribe(envio => {
+    .subscribe(rastreos => {
       document.getElementById('footer').style.position = 'relative';
       this.rastreosBoolean = true;
       this.errorBoolean = false;
-      console.log('envio: ',envio);
-      this.envio = envio;
+      console.log('envio: ',rastreos);
+      this.rastreos = rastreos;
     }, error => {
       document.getElementById('footer').style.position = 'relative';
       // console.log(error);

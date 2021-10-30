@@ -1,3 +1,5 @@
+import { RastreoService } from './../../../../../services/rastreo/rastreo.service';
+import { RastreoDto } from './../../../../../models/dto/rastreo.model';
 import { ActualizacionEtapaDtoModel } from 'src/app/models/dto/actualizacionEtapaDto.model';
 import { InstruccionesType } from './../../../../../enums/instrucciones.enum';
 import { GeocodeService } from './../../../../../services/google/geocode.service';
@@ -79,7 +81,8 @@ export class BuscarGuiaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private envioService: EnvioService,
-    private geocodeService: GeocodeService
+    private geocodeService: GeocodeService,
+    private rastreoService: RastreoService
   ) {
     this.onCrearFormulario();
   }
@@ -107,6 +110,10 @@ export class BuscarGuiaComponent implements OnInit {
 
     this.actualizacionEtapa = new ActualizacionEtapaDtoModel(+localStorage.getItem('opcion'), this.lat, this.lng, this.listaGuias, null);
     console.log(this.actualizacionEtapa);
+    this.rastreoService.actualizarRastreo(this.actualizacionEtapa)
+    .subscribe(response => {
+      console.log(response);
+    })
     //this.getLocalizacion();
     /*
     console.log(this.lat);
@@ -121,8 +128,6 @@ export class BuscarGuiaComponent implements OnInit {
       this.buscarEnvio.emit(this.envio);
       this.errorBoolean = false;
       document.getElementById('footer').style.position = 'relative';
-
-
     }, error => {
       this.buscarEnvio.emit(null);
       this.errorBoolean = true;
@@ -145,7 +150,7 @@ export class BuscarGuiaComponent implements OnInit {
       }
       if (videoDevices.length > 0){
           console.log(videoDevices);
-          window.alert(videoDevices);
+          // window.alert(videoDevices);
           let choosenDev;
           for (const dev of videoDevices){
               if (dev.label.includes('front')){
@@ -250,3 +255,4 @@ export class BuscarGuiaComponent implements OnInit {
 
 
 }
+

@@ -1,3 +1,4 @@
+import { ActualizacionEtapaDtoModel } from './../../models/dto/actualizacionEtapaDto.model';
 import { PostActualizacionStatusType } from 'src/app/models/dto/actualizacionStatus.model';
 import { EnvioMostrar } from 'src/app/models/dto/envioMostrar.model';
 import { EnvioDto } from './../../models/dto/EnvioDto.model';
@@ -5,11 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RastreoDto } from 'src/app/models/dto/rastreo.model';
 import { HostType } from 'src/app/enums/host.enum';
+import { ResponseActualizacionEtapa } from 'src/app/models/response/response-actualizacion-etapa.model';
 
 // const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
 const URL = 'http://localhost:8080/';
 const ACTUALIZAR = '/actualizar/';
 const RASTREO = 'rastreo';
+const ETAPA = 'etapa';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +24,7 @@ export class RastreoService {
 
   onRastrear(guia: string) {
     console.log(`${HostType.HOST}${RASTREO}/${guia}`);
-    return this.http.get<EnvioMostrar>(`${HostType.HOST}${RASTREO}/${guia}`);
+    return this.http.get<any>(`${HostType.HOST}${RASTREO}/${guia}`);
   }
 
   onRastrearCliente(guia: string, cliente: number) {
@@ -30,11 +33,15 @@ export class RastreoService {
   }
 
   onActualizarRastreo(envio: number, rastreo: RastreoDto) {
-    return this.http.post<EnvioDto>(`${HostType.HOST}${RASTREO}/${ACTUALIZAR}${envio}`, rastreo);
+    return this.http.post<EnvioDto>(`${HostType.HOST}${RASTREO}${ACTUALIZAR}${envio}`, rastreo);
   }
 
   actualizarRastreoEtapas(rastreo: PostActualizacionStatusType) {
-    return this.http.post<string>(`${HostType.HOST}${RASTREO}/${ACTUALIZAR}${RASTREO}`, rastreo);
+    return this.http.post<string>(`${HostType.HOST}${RASTREO}${ACTUALIZAR}${RASTREO}`, rastreo);
+  }
+
+  actualizarRastreo(actualizaconEtapa: ActualizacionEtapaDtoModel) {
+    return this.http.post<ResponseActualizacionEtapa>(`${HostType.HOST}${RASTREO}${ACTUALIZAR}${ETAPA}`, actualizaconEtapa);
   }
 
 

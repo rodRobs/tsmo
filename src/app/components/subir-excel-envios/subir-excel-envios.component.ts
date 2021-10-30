@@ -1,3 +1,6 @@
+import { TokenService } from './../../services/usuarios/token.service';
+import { EnvioGranelDtoModel } from './../../models/dto/envioGranel.model';
+import { EnvioService } from './../../services/envio/envio.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InstruccionesType } from './../../enums/instrucciones.enum';
 import { ArchivoService } from './../../services/archivo/archivo/archivo.service';
@@ -36,13 +39,22 @@ export class SubirExcelEnviosComponent implements OnInit {
   // Loading
   public loading: boolean = false;
 
+  // Formulario para nombre
+  public form: FormGroup;
+
   constructor(
     private archivoService: ArchivoService,
+    private envioService: EnvioService,
+    private fb: FormBuilder,
+    private tokenService: TokenService
     // private fb: FormBuilder
-  ) { }
+  ) {
+    this.crearFormulario();
+  }
 
   ngOnInit(): void {
     console.log(this.pedidoFile);
+    console.log(localStorage.getItem(''))
     // this.crearFormulario();
   }
 
@@ -110,5 +122,30 @@ export class SubirExcelEnviosComponent implements OnInit {
   //     excel: [File, Validators.required]
   //   })
   // }
+
+  onContratar() {
+    if (this.form.invalid) {
+      this.form.get('nombre').markAllAsTouched();
+      return;
+    }
+    this.envioService.guardarGranel(this.asignarValoresEnviosGranel(), this.tokenService.getUserName())
+    .subscribe(response => {
+      console.log(response);
+    })
+  }
+
+  asignarValoresEnviosGranel(): EnvioGranelDtoModel {
+    return new EnvioGranelDtoModel(
+      null, null, this.form.get('nombre').value, this.masivosResponse.exito.length, 0, null, null, this.masivosResponse.exito
+    );
+  }
+
+  crearFormulario() {
+    this.form = this.fb.group({
+      nombre: ['', Validators.required]
+    })
+  }
+
+  get nombreNoValid() { return this.form.get('nombre').invalid && this.form.get('nombre').touched; }
 
 }

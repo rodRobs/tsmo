@@ -65,8 +65,16 @@
         <h5 class="card-title">Costo de los envíos</h5>
         <h2 class="card-subtitle mb-2 text-muted text-center" > {{costoCotizaciones | currency}} </h2>
         <p class="card-text small">De los envíos que se encuentran en la lista de éxito.</p>
-        <button class="card-link btn btn-success">Contratar</button>
-        <button class="card-link btn btn-danger">Cancelar</button>
+        <form
+        [formGroup]="form"
+        (ngSubmit)="onContratar()"
+        >
+          <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre" [class.is-invalid]="nombreNoValid">
+          <small class="text-danger" *ngIf="nombreNoValid">Ingresa un nombre para identificar los envios</small>
+          <br>
+          <button class="card-link btn btn-success" >Contratar</button>
+          <button class="card-link btn btn-danger">Cancelar</button>
+        </form>
       </div>
     </div>
   </div>
@@ -93,7 +101,7 @@
     <button class="btn btn-link"> Mostrar {{masivosResponse.exito.length}} envíos cotizados. </button>
   </div> -->
   <app-tablas-envios *ngIf="this.mostrarExito" [envios]="masivosResponse.exito" [exito]="true"></app-tablas-envios>
-  <br>
+  <!-- <br> -->
   <div class="alert alert-secondary" role="alert">
     <h4 class="alert-heading">¡Sin Cobertura!</h4>
     <p>No tenemos cobertura en {{masivosResponse.sinCobertura.length}} envíos. </p>
