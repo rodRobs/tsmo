@@ -7,6 +7,7 @@ import { ArchivoService } from './../../services/archivo/archivo/archivo.service
 import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MasivoResponseDtoModel } from 'src/app/models/dto/masivosResponseDto.model';
+import { ClienteDto } from 'src/app/models/dto/clienteDto.model';
 
 @Component({
   selector: 'app-subir-excel-envios',
@@ -35,9 +36,12 @@ export class SubirExcelEnviosComponent implements OnInit {
   // Mensajes
   public mensajeFalta: string = 'Selecciona tu archivo excel para los envíos';
   public mensajeBool: boolean = false;
+  public mensajeErrorContratacion: string = "";
+  public mensajeErrorContratacionBoolean: boolean = false;
 
   // Loading
   public loading: boolean = false;
+  public loadingContratcion: boolean = false;
 
   // Formulario para nombre
   public form: FormGroup;
@@ -58,7 +62,7 @@ export class SubirExcelEnviosComponent implements OnInit {
     // this.crearFormulario();
   }
 
-  onGuardar() {
+  onCotizar() {
     if (this.pedidoFile == File) {
       this.mensajeBool = true;
       return;
@@ -124,19 +128,27 @@ export class SubirExcelEnviosComponent implements OnInit {
   // }
 
   onContratar() {
+    this.loadingContratcion = true;
+    this.mensajeErrorContratacionBoolean = false;
     if (this.form.invalid) {
       this.form.get('nombre').markAllAsTouched();
+      this.loadingContratcion = false;
       return;
     }
+    console.log(this.asignarValoresEnviosGranel());
     this.envioService.guardarGranel(this.asignarValoresEnviosGranel(), this.tokenService.getUserName())
     .subscribe(response => {
+      this.loadingContratcion = false;
       console.log(response);
+    }, error => {
+      this.mensajeErrorContratacionBoolean = true;
+      this.mensajeErrorContratacion = error["error"];
     })
   }
 
   asignarValoresEnviosGranel(): EnvioGranelDtoModel {
     return new EnvioGranelDtoModel(
-      null, null, this.form.get('nombre').value, this.masivosResponse.exito.length, 0, null, null, this.masivosResponse.exito
+      null, new ClienteDto(null,this.tokenService.getUserName(),null,null,null), this.form.get('nombre').value, this.masivosResponse.exito.length, 0, null, null, this.masivosResponse.exito
     );
   }
 

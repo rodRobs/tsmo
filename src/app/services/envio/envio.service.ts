@@ -140,7 +140,9 @@ export class EnvioService {
   }
 
   guardarGranel(enviosGranel: EnvioGranelDtoModel, cliente: string) {
-    return this.http.post(`${HostType.HOST}${ENVIOS}${CLIENTES}/${cliente}`, enviosGranel);
+    console.log(enviosGranel);
+    // return this.http.post(`${HostType.HOST}${ENVIOS}/${CLIENTES}/${cliente}`, enviosGranel);
+    return this.http.post(`${HostType.HOST}${ENVIOS}/${CLIENTES}/`, enviosGranel);
   }
 
 }

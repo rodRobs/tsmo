@@ -39,7 +39,7 @@
 
 <div class="text-center m-5">
   <ng-container *ngIf="!loading; else elseTemplate">
-    <button class="btn btn-outline-primary" type="button" (click)="onGuardar()">Cotizar</button>
+    <button class="btn btn-outline-primary" type="button" (click)="onCotizar()">Cotizar</button>
   </ng-container>
   <ng-template #elseTemplate>
     <div class="spinner-border text-success" role="status">
@@ -72,8 +72,18 @@
           <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre" [class.is-invalid]="nombreNoValid">
           <small class="text-danger" *ngIf="nombreNoValid">Ingresa un nombre para identificar los envios</small>
           <br>
-          <button class="card-link btn btn-success" >Contratar</button>
-          <button class="card-link btn btn-danger">Cancelar</button>
+          <ng-container *ngIf="loadingContratcion; else botonContratar">
+            <div class="spinner-border text-success" role="status">
+              <span class="sr-only">Cargando información...</span>
+            </div>
+          </ng-container>
+          <ng-template #botonContratar>
+            <button type="submit" class="card-link btn btn-success" >Contratar</button>
+          </ng-template>
+
+
+            <!-- <button type="button" class="card-link btn btn-danger">Cancelar</button> -->
+
         </form>
       </div>
     </div>
