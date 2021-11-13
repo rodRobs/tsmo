@@ -2,12 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col">
+        Guia prueba
         <app-buscar-guia (buscarEnvio)="buscarEnvio($event)"></app-buscar-guia>
         <div *ngIf="botonerBoolean" class="mt-3">
-          <ng-container *ngIf="mostrar; else elseTemplate">
+          <ng-container *ngIf="mostrar; else mostrarTemplate">
             <button class="btn btn-link text-danger" type="button" (click)="onMostrarInformacion()"> - Ocultar información del envío </button>
           </ng-container>
-          <ng-template #elseTemplate>
+          <ng-template #mostrarTemplate>
             <button class="btn btn-link" type="button" (click)="onMostrarInformacion()"> - Mostrar información del envío </button>
           </ng-template>
           <div *ngIf="mostrar">
@@ -15,6 +16,9 @@
           </div>
           <div *ngIf="envio">
             <app-actualizar-envio [envio]="envio" *ngIf="envio"></app-actualizar-envio>
+          </div>
+          <div *ngIf="true">
+            Prueba
           </div>
         </div>
       </div>

@@ -75,6 +75,11 @@ export class BuscarGuiaComponent implements OnInit {
   // Instrucciones
   instrucciones: string = InstruccionesType.ActualizarStatus;
 
+  // Comprobar longitud de guias
+  public longitudGuiaBool: boolean = false;
+  public posicionListaGuia: string = "";
+  public mensajeLongitudGuia: string = "";
+
   // Output
   @Output () buscarEnvio = new EventEmitter<EnvioMostrar>();
 
@@ -88,7 +93,7 @@ export class BuscarGuiaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('opcion'));
+    //console.log(localStorage.getItem('opcion'));
     document.getElementById('footer').style.position = 'relative';
     this.getLocalizacion();
   }
@@ -136,7 +141,7 @@ export class BuscarGuiaComponent implements OnInit {
     */
   }
 
-  ngAfterViewInit(): void {
+  /*ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.qrScannerComponent.getMediaDevices().then(devices => {
@@ -179,7 +184,7 @@ export class BuscarGuiaComponent implements OnInit {
         // console.log(this.listaGuias);
         // this.onSubmit();
     });
-  }
+  }*/
 
   getLocalizacion() {
     // Obtener coordenadas
@@ -249,7 +254,23 @@ export class BuscarGuiaComponent implements OnInit {
   agregarGuia(event: any) {
     if (event.keyCode == 13) {
       this.listaGuias = this.forma.get('guia').value.split('\n');
+      //this.contadorQR;
     }
+  }
+
+  verificarLongitud(listaGuias: string[]) {
+    this.longitudGuiaBool = false;
+    for (let index = 0; index < listaGuias.length; index++) {
+      const element = listaGuias[index];
+      if (element.length == 11) {
+
+      }
+    }
+    listaGuias.forEach(guia => {
+      if (guia.length == 11) {
+
+      }
+    })
   }
 
 

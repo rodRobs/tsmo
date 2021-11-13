@@ -73,6 +73,7 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { SubirExcelEnviosComponent } from './components/subir-excel-envios/subir-excel-envios.component';
 import { TablasEnviosComponent } from './components/subir-excel-envios/tablas-envios/tablas-envios.component';
 import { TablasEnviosErrorComponent } from './components/subir-excel-envios/tablas-envios-error/tablas-envios-error.component';
+import { ResultadoEstatusEnvioComponent } from './components/tsmo/operador/alta-estatus-envio/resultado-estatus-envio/resultado-estatus-envio.component';
 // import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
@@ -126,7 +127,8 @@ import { TablasEnviosErrorComponent } from './components/subir-excel-envios/tabl
     MapaComponent,
     SubirExcelEnviosComponent,
     TablasEnviosComponent,
-    TablasEnviosErrorComponent
+    TablasEnviosErrorComponent,
+    ResultadoEstatusEnvioComponent
 
     // ProgressComponent,
     // GraphicsComponent,

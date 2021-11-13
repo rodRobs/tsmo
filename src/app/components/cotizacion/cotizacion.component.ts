@@ -178,7 +178,7 @@ export class CotizacionComponent implements OnInit {
       this.precio = costo.costoTotal;
       this.servicio = costo.tipoServicio;
       this.fechaEntregaAprox = costo.fcompromisoEntrega;
-      window.location.href = '#precio';
+      //window.location.href = '#precio';
       // console.log(costo);
     }, error => {
       this.errorBool = true;
@@ -424,7 +424,7 @@ export class CotizacionComponent implements OnInit {
     let coberturaDto: CoberturaDto = new CoberturaDto(this.forma.get('origen').value, this.forma.get('destino').value);
     this.coberturaService.cobertura(coberturaDto)
     .subscribe(response => {
-      // console.log(response);
+      console.log(response);
       this.coberturaBool = true;
       this.coberturaResponse = response;
       if (this.coberturaResponse.length > 0) {
@@ -447,6 +447,8 @@ export class CotizacionComponent implements OnInit {
       } else {
         this.opcionUno = false;
         this.opcionCuatro = true;
+        this.errorBool = true;
+        this.coberturaBool = false;
       }
     }, error => {
       this.opcionUno = false;
