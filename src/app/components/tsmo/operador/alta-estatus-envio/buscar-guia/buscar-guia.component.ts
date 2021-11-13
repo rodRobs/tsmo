@@ -78,7 +78,7 @@ export class BuscarGuiaComponent implements OnInit {
   // Comprobar longitud de guias
   public longitudGuiaBool: boolean = false;
   public posicionListaGuia: string = "";
-  public mensajeLongitudGuia: string = "";
+  public mensajeLongitudGuia: string = "La guias en las posiciones siguientes no se cumplen con la longitud de caracteres de la guia:";
 
   // Output
   @Output () buscarEnvio = new EventEmitter<EnvioMostrar>();
@@ -255,6 +255,7 @@ export class BuscarGuiaComponent implements OnInit {
     if (event.keyCode == 13) {
       this.listaGuias = this.forma.get('guia').value.split('\n');
       //this.contadorQR;
+      this.verificarLongitud(this.listaGuias);
     }
   }
 
@@ -263,14 +264,14 @@ export class BuscarGuiaComponent implements OnInit {
     for (let index = 0; index < listaGuias.length; index++) {
       const element = listaGuias[index];
       if (element.length == 11) {
-
+        this.mensajeLongitudGuia += ` ${index}`
       }
     }
-    listaGuias.forEach(guia => {
-      if (guia.length == 11) {
+    // listaGuias.forEach(guia => {
+    //   if (guia.length == 11) {
 
-      }
-    })
+    //   }
+    // })
   }
 
 
