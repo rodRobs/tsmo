@@ -207,17 +207,19 @@ export class PagoComponent implements OnInit {
   onCotizar() {
     // console.log(this.documentacionService.getCotizacionDto());
     this.cotizacionService.onSolicitarCotizacionEnvio(this.documentacionService.getCotizacionDto())
-    .subscribe(costo => {
-      // console.log('Costo (Response): ',costo);
+    .subscribe(cotizacionResponse => {
+      console.log("Res: ",cotizacionResponse);
+      console.log('Costo (Response): ',cotizacionResponse.costo);
       // document.getElementById('footer').style.position = 'relative';
       this.documentacionDto = this.documentacionService.getDocumentacion();
       this.formulario = true;
       this.loading = false;
-      this.costo = costo;
-      this.precio = costo.costoTotal;
+      this.costo = cotizacionResponse.costo;
+      this.precio = cotizacionResponse.costo.costoTotal;
+      console.log("Costo: ",cotizacionResponse.costo);
       // Request
-      this.proveedor = costo.realiza;
-      this.cotizacion = costo.cotizacion['id'];
+      this.proveedor = cotizacionResponse.costo.realiza;
+      this.cotizacion = cotizacionResponse.cotizacion;
       this.cotizacionService.setIdCotizacion(this.cotizacion.toString());
       // localStorage.setItem('cotizacion', costo.id.toString());
       // this.mostrarPrecio = true;
@@ -358,7 +360,7 @@ export class PagoComponent implements OnInit {
     this.clienteService.guardarCliente(this.clienteDto)
     .subscribe(cliente => {
       this.envioDto.cliente.id = cliente.id;
-      // console.log('EnvioDto agrega cliente.id: ',this.envioDto);
+      console.log('EnvioDto agrega cliente.id: ',this.envioDto);
       this.guardarDocumentacion()
       .subscribe(data => {
         // console.log('data guardar Documentación: ',data);
@@ -437,15 +439,15 @@ export class PagoComponent implements OnInit {
 
   mostrarErrorSeleccionarCliente: boolean = false;
   contratarEnvio() {
-    if (this.clienteInput == 0) {
-      this.mostrarErrorSeleccionarCliente = true;
-      return;
-    }
+    // if (this.clienteInput == 0) {
+    //   this.mostrarErrorSeleccionarCliente = true;
+    //   return;
+    // }
     // console.log('Entra a contratar envio para usuarios registrados');
     // console.log(this.perfil);
     this.guardarDocumentacion()
     .subscribe(data => {
-      // console.log(data);
+      console.log("Response: ",data);
       // console.log(data['id']);
       // console.log(data['guia']);
 
@@ -456,8 +458,10 @@ export class PagoComponent implements OnInit {
       this.envioDto.cliente.id = this.clienteInput;
       // this.envioDto.usuario.nombreUsuario = window.sessionStorage.getItem('AuthUserName');
       // console.log(this.envioDto);
+      console.log(this.perfil);
       switch(this.perfil) {
         case 'ROL_TSMO':
+          this.envioDto.cliente.id = 17;
           this.guardarEnvioUsuarioTSMO(this.envioDto)
           .subscribe(data => {
             // console.log(data);
@@ -469,6 +473,17 @@ export class PagoComponent implements OnInit {
           break;
         case 'ROL_CLIENTE':
           this.guardarEnvioClienteTSMO(this.envioDto)
+          .subscribe(data => {
+            // console.log(data);
+            this.envioDto = data;
+            this.envioService.setGuia(this.envioDto.guiaTsmo);
+            this.solicitarGuiaProveedor();
+            this.notificarCorreoDocumento(this.envioDto);
+          });
+          break;
+        case 'ROLE_ADMIN':
+          this.envioDto.cliente.id = 17;
+          this.guardarEnvioUsuarioTSMO(this.envioDto)
           .subscribe(data => {
             // console.log(data);
             this.envioDto = data;

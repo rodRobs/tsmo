@@ -5,6 +5,7 @@ import { CargaDto } from 'src/app/models/dto/cargaDto.model';
 import { TokenService } from '../usuarios/token.service';
 import { CostoDto } from 'src/app/models/dto/costoDto.model';
 import { HostType } from 'src/app/enums/host.enum';
+import { CotizacionResponse } from 'src/app/models/response/cotizacion-response.model';
 
 
 const CP_D = 'cp_d';
@@ -38,21 +39,21 @@ export class CotizacionService {
   };
 
   onSolicitarCotizacion(cotizacion: any) {
-    return this.http.post<CostoDto>(`${HostType.HOST}${COTIZACION}`, cotizacion, this.HEADERS);
+    return this.http.post<CotizacionResponse>(`${HostType.HOST}${COTIZACION}`, cotizacion, this.HEADERS);
   }
 
   onSolicitarCotizacionClientes(cotizacion: CotizacionDto) {
     console.log(`${HostType.HOST}${COTIZACION}/${CLIENTES}`);
-    return this.http.post<CostoDto>(`${HostType.HOST}${COTIZACION}/${CLIENTES}`, cotizacion);
+    return this.http.post<CotizacionResponse>(`${HostType.HOST}${COTIZACION}/${CLIENTES}`, cotizacion);
   }
 
   onSolicitarCotizacionEnvio(cotizacion: CotizacionDto) {
     console.log(`${HostType.HOST}${COTIZACION}/${ENVIO}`);
-    return this.http.post<CostoDto>(`${HostType.HOST}${COTIZACION}/${ENVIO}`, cotizacion);
+    return this.http.post<CotizacionResponse>(`${HostType.HOST}${COTIZACION}/${ENVIO}`, cotizacion);
   }
 
   onSolicitarCosto(cotizacion: string) {
-    return this.http.get<CostoDto>(`${HostType.HOST}${COTIZACION}${BUSCAR_COSTO}${cotizacion}`);
+    return this.http.get<CotizacionResponse>(`${HostType.HOST}${COTIZACION}${BUSCAR_COSTO}${cotizacion}`);
   }
 
   setIdCotizacion(id: string) {

@@ -247,7 +247,7 @@
                   </select>
                 </div>
               </div>
-
+<!--
                 <ng-container *ngIf="mostrarFormCliente; else formaCliente">
                   <div class="mt-4">
                     <button class="btn btn-link text-danger" (click)="mostrarFormularioCliente()">- No mostrar formulario </button>
@@ -286,6 +286,7 @@
                 <ng-template #formaCliente>
                   <button class="btn btn-link" (click)="mostrarFormularioCliente()" *ngIf="perfil == 'ROL_TSMO' || perfil == 'ROLE_ADMIN'">+ Agregar nuevo cliente</button>
                 </ng-template>
+                -->
               <div *ngIf="mostrarErrorSeleccionarCliente">
                 <div class="alert alert-warning" role="alert">
                   Seleccione un cliente para continuar

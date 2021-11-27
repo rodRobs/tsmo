@@ -167,18 +167,20 @@ export class CotizacionComponent implements OnInit {
     }
     this.guardarValoresEnServicios();
     this.asignarACotizacion();
-    console.log(this.cotizacion);
+    console.log('Cotizacion enviar: ',this.cotizacion);
 
     this.cotizacionService.onSolicitarCotizacionClientes(this.cotizacion)
-    .subscribe(costo => {
-      this.costo = costo;
+    .subscribe(response => {
+      console.log('Response; ',response);
+      // console.log('Response: ',response.costo);
+      this.costo = response.costo;
       this.loading = false;
       this.mostrarPrecio = true;
-      this.precioService.setCosto(costo.costoTotal.toString());
-      this.precio = costo.costoTotal;
-      this.servicio = costo.tipoServicio;
-      this.fechaEntregaAprox = costo.fcompromisoEntrega;
-      window.location.href = '#precio';
+      this.precioService.setCosto(response.costo.costoTotal.toString());
+      this.precio = response.costo.costoTotal;
+      this.servicio = response.costo.tipoServicio;
+      this.fechaEntregaAprox = response.costo.fcompromisoEntrega;
+      //window.location.href = '#precio';
       // console.log(costo);
     }, error => {
       this.errorBool = true;

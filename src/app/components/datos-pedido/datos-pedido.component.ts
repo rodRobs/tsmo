@@ -59,8 +59,8 @@ export class DatosPedidoComponent implements OnInit {
 
   onBuscarCosto() {
     this.cotizacionService.onSolicitarCosto(this.cotizacionService.getIdCotizacion())
-    .subscribe(costo => {
-      this.costo = costo;
+    .subscribe(response => {
+      this.costo = response.costo;
     })
   }
 

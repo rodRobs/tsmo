@@ -1,3 +1,4 @@
+import { CotizacionDto } from 'src/app/models/dto/cotizacionDto.model';
 export class CostoDto {
 
   constructor(
@@ -17,7 +18,7 @@ export class CostoDto {
     public total: number,
     public costoTotal: number,
     public moneda: string,
-    public cotizacion: number,
+    public cotizacion: CotizacionDto,
     public realiza: string,
     public fcompromisoEntrega: string
   ) {}
