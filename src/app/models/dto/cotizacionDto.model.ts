@@ -50,7 +50,8 @@ export class CotizacionDto {
       // public referencia: string
       // public recoleccion: string
       public servicios: ServiciosDto[],
-      public costo: CostoDto
+      public costo: CostoDto,
+      public realiza: any
     ) {}
 
   }

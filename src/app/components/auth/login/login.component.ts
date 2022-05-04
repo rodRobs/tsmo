@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     if (form.invalid) { return; }
     this.loginService.onLogin(this.usuario)
     .subscribe(data => {
-      // console.log(data);
+      console.log(data);
       localStorage.clear();
       this.tokenService.setToken(data.token);
       this.tokenService.setUserName(data.nombreUsuario);
@@ -88,5 +88,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
 }

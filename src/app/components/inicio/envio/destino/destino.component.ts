@@ -170,18 +170,23 @@ export class DestinoComponent implements OnInit {
   }
 
   onSiguiente() {
+    console.log("Entra a siguiente: ");
     if (this.forma.invalid) { this.allTouched(); return; }
     this.guardarValoresService();
+    console.log(window.location.pathname);
+    console.log(SwitchType.DESTINO);
+    console.log(SwitchType.DESTINO_DASHBOARD);
     switch(window.location.pathname) {
       case SwitchType.DESTINO:
+        console.log(Vista.PAQUETE);
         this.router.navigate([Vista.PAQUETE]);
         break;
       case SwitchType.DESTINO_DASHBOARD:
+        console.log(Vista.PAQUETE_DASHBOARD);
         this.router.navigate([Vista.PAQUETE_DASHBOARD]);
         break;
     }
   }
-
 }
 
 // sjNi#4rn

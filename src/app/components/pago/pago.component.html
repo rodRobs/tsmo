@@ -238,7 +238,7 @@
               [formCliente]="formSelecCliente">
 
               </form> -->
-              <div class="form-group row mt-5" *ngIf="perfil == 'ROL_TSMO'">
+              <div class="form-group row mt-5" *ngIf="perfil == 'ROL_TSMO' || perfil == 'ROLE_ADMIN'">
                 <div class="col-12 col-md-6" >
                   <label for="clientes">Selecciona Cliente:</label>
                   <select name="clientes" id="clientes" class="form-control" [(ngModel)]="clienteInput" (change)="clienteSeleccionado()">

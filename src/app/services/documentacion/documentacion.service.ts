@@ -33,7 +33,7 @@ export class DocumentacionService {
 
   getCotizacionDto(): CotizacionDto {
     let cotizacion: CotizacionDto = JSON.parse(localStorage.getItem(COTIZACION));
-    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
+    return cotizacion || new CotizacionDto(0,'',new OpcionesDto('','','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null),null);
   }
 
   setCotizacionDto(cotizacion: CotizacionDto) {
@@ -42,7 +42,7 @@ export class DocumentacionService {
 
   getDocumentacion(): DocumentacionDto {
     let documentacion: DocumentacionDto = JSON.parse(localStorage.getItem(DOCUMENTACION));
-    return documentacion || new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
+    return documentacion || new DocumentacionDto(null,'',new OpcionesDto('','','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   }
 
   setDocumentacion(documentacion: DocumentacionDto) {

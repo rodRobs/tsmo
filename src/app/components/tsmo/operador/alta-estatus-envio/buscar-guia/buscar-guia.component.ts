@@ -74,6 +74,11 @@ export class BuscarGuiaComponent implements OnInit {
   // Instrucciones
   instrucciones: string = InstruccionesType.ActualizarStatus;
 
+  // Comprobar longitud de guias
+  public longitudGuiaBool: boolean = false;
+  public posicionListaGuia: string = "";
+  public mensajeLongitudGuia: string = "La guias en las posiciones siguientes no se cumplen con la longitud de caracteres de la guia:";
+
   // Output
   @Output () buscarEnvio = new EventEmitter<EnvioMostrar>();
 
@@ -87,7 +92,7 @@ export class BuscarGuiaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('opcion'));
+    //console.log(localStorage.getItem('opcion'));
     document.getElementById('footer').style.position = 'relative';
     this.getLocalizacion();
   }
@@ -127,8 +132,6 @@ export class BuscarGuiaComponent implements OnInit {
       this.buscarEnvio.emit(this.envio);
       this.errorBoolean = false;
       document.getElementById('footer').style.position = 'relative';
-
-
     }, error => {
       this.buscarEnvio.emit(null);
       this.errorBoolean = true;
@@ -137,7 +140,7 @@ export class BuscarGuiaComponent implements OnInit {
     */
   }
 
-  ngAfterViewInit(): void {
+  /*ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.qrScannerComponent.getMediaDevices().then(devices => {
@@ -151,7 +154,7 @@ export class BuscarGuiaComponent implements OnInit {
       }
       if (videoDevices.length > 0){
           console.log(videoDevices);
-          window.alert(videoDevices);
+          // window.alert(videoDevices);
           let choosenDev;
           for (const dev of videoDevices){
               if (dev.label.includes('front')){
@@ -180,7 +183,7 @@ export class BuscarGuiaComponent implements OnInit {
         // console.log(this.listaGuias);
         // this.onSubmit();
     });
-  }
+  }*/
 
   getLocalizacion() {
     // Obtener coordenadas
@@ -250,9 +253,27 @@ export class BuscarGuiaComponent implements OnInit {
   agregarGuia(event: any) {
     if (event.keyCode == 13) {
       this.listaGuias = this.forma.get('guia').value.split('\n');
+      //this.contadorQR;
+      this.verificarLongitud(this.listaGuias);
     }
+  }
+
+  verificarLongitud(listaGuias: string[]) {
+    this.longitudGuiaBool = false;
+    for (let index = 0; index < listaGuias.length; index++) {
+      const element = listaGuias[index];
+      if (element.length == 11) {
+        this.mensajeLongitudGuia += ` ${index}`
+      }
+    }
+    // listaGuias.forEach(guia => {
+    //   if (guia.length == 11) {
+
+    //   }
+    // })
   }
 
 
 
 }
+

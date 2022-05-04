@@ -35,6 +35,7 @@ import { CotizacionClientesComponent } from './components/cotizacion-clientes/co
 import { CostosClientesComponent } from './components/cotizacion-clientes/costos-clientes/costos-clientes.component';
 import { EnvioComponent } from './components/inicio/envio/envio.component';
 import { PagosComponent } from './components/tsmo/pagos/pagos.component';
+import { DatosEnvioComponent } from './components/datos-envio/datos-envio.component';
 
 
 // import { EnvioComponent } from './components/inicio/envio/envio.component';
@@ -120,7 +121,9 @@ const routes: Routes = [
     {path: 'realizar/envios', component: SubirExcelEnviosComponent, data: {titulo: 'Subir envios'}}
     ]},
   {path: 'archivo', component: SubirExcelEnviosComponent},
-  {path: '**', component: Error404Component}
+  {path: 'datos-envio', component: DatosEnvioComponent},
+  {path: '**', component: Error404Component},
+
 ];
 
 @NgModule({

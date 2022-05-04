@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EnvioMostrar } from 'src/app/models/dto/envioMostrar.model';
 import { HostType } from 'src/app/enums/host.enum';
+import { EnvioGranelDtoModel } from 'src/app/models/dto/envioGranel.model';
 
 // const URL = 'http://189.226.231.80:8082/crud-0.0.1-SNAPSHOT/';
 const URL = 'http://localhost:8080/';
@@ -138,6 +139,10 @@ export class EnvioService {
     return this.http.get(`${HostType.HOST}${ENVIOS}${IMPRIMIR_GUIA}${guia}`, {responseType: 'arraybuffer'});
   }
 
-
+  guardarGranel(enviosGranel: EnvioGranelDtoModel, cliente: string) {
+    console.log(enviosGranel);
+    // return this.http.post(`${HostType.HOST}${ENVIOS}/${CLIENTES}/${cliente}`, enviosGranel);
+    return this.http.post(`${HostType.HOST}${ENVIOS}/${CLIENTES}/`, enviosGranel);
+  }
 
 }

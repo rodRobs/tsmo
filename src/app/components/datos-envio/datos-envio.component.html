@@ -1,1 +1,770 @@
-<p>datos-envio works!</p>
+<!-- <p>datos-envio works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <app-legend [lengenda]="legenda"></app-legend>
+      <app-parrafo [parrafo]="parrafo"></app-parrafo>
+      <div class="form-group row">
+        <div class="col-12 col-md-6">
+          Origen
+          <app-origen></app-origen>
+        </div>
+        <div class="col-12 col-md-6">
+          Destino
+          <app-destino></app-destino>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-12">
+          <app-paquete></app-paquete>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+    <form>
+        <div class="formulario p-4">
+            <div class="form-group row">
+                <div class="col-12 col-md-6">
+                    <legend class="text-center">ORIGEN</legend>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label for="remitente">Remitente:</label>
+                            <input type="text" name="remitente" id="remitente" class="form-control" formControlName="remitente" [class.is-invalid]="remitenteNoValido">
+                            <small class="text-danger" *ngIf="remitenteNoValido">
+                              Ingresa remitente
+                            </small>
+                          </div>
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" id="email" class="form-control" formControlName="emailOrigen" [class.is-invalid]="emailOrigenNoValido">
+                            <small class="text-danger" *ngIf="emailOrigenNoValido">
+                              Ingresa email
+                            </small>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="cp-origen">Código Postal:</label>
+                            <input type="text" minlength="5" maxlength="5" name="cp-origen" id="cp-origen" class="form-control" (change)="onBuscarCP()" formControlName="cpOrigen" [class.is-invalid]="cpOrigenNoValido">
+                            <small class="text-danger" *ngIf="cpOrigenNoValido">
+                              Ingresa código postal
+                            </small>
+                          </div>
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="colonia-origen">Colonia:</label>
+                            <ng-container *ngIf="coloniaBoolean; else coloniaList">
+                              <input type="text" name="colonia" id="colonia" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                              <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                                Ingresa colonia
+                              </small>
+                            </ng-container>
+                            <ng-template #coloniaList>
+                              <select name="colonia-origen" id="colonia-origen" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                                <!-- <option [value]="colonia" > {{colonia}} </option> -->
+                                <option [value]="colonia" *ngFor="let colonia of coloniasOrigen"> {{colonia}} </option>
+                              </select>
+                              <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                                Ingresa colonia
+                              </small>
+                            </ng-template>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="calle-origen">Calle:</label>
+                            <input type="text" name="calle-origen" id="calle-origen" class="form-control" formControlName="calle" [class.is-invalid]="calleOrigenNoValido">
+                            <small class="text-danger" *ngIf="calleOrigenNoValido">
+                              Ingresa calle
+                            </small>
+                          </div>
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-6">
+                            <label for="numero-exterior-origen">Número Exterior: </label>
+                            <input type="text" name="numero-exterior-origen" id="numero-exterior-origen" class="form-control" formControlName="numeroExt" [class.is-invalid]="numeroExtOrigenNoValido">
+                            <small class="text-danger" *ngIf="numeroExtOrigenNoValido">
+                              Ingresa número interior
+                            </small>
+                          </div>
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-6">
+                            <label for="numero-interior-origen">Número Interior:</label>
+                            <input type="text" name="numero-interior-origen" id="numero-interior-origen" class="form-control" formControlName="numeroInt" [class.is-invalid]="numeroIntOrigenNoValido">
+                            <small class="text-danger" *ngIf="numeroIntOrigenNoValido">
+                              Ingresa número interior
+                            </small>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <!-- <div class="col-12">
+                            <label for="municipio-o">Ciudad:</label>
+                            <input type="text" name="municipio-o" id="municipio-o" class="form-control" formControlName="ciudad" [class.is-invalid]="ciudadNovalido" [disabled]="!coloniaBoolean">
+                            <small class="text-danger" *ngIf="ciudadNovalido">
+                              Ingresa ciudad
+                            </small>
+                          </div> -->
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="estado-o">Estado:</label>
+                            <input type="text" name="estado-o" id="estado-o" class="form-control" formControlName="estado" [class.is-invalid]="estadoOrigenNoValido" [disabled]="!coloniaBoolean">
+                            <small class="text-danger" *ngIf="estadoOrigenNoValido">
+                              Ingresa estado
+                            </small>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono" [class.is-invalid]="telefonoOrigenNoValido" maxlength="10">
+                            <small class="text-danger" *ngIf="telefonoOrigenNoValido">
+                              Ingresa teléfono
+                            </small>
+                          </div>
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="referencia">Referencia (Entre calles):</label>
+                            <input type="text" name="referencia" id="referencia" class="form-control" formControlName="referencia" [class.is-invalid]="referenciaOrigenNoValido">
+                            <small class="text-danger" *ngIf="referenciaOrigenNoValido">
+                              Ingresa referencia (Entre calles)
+                            </small>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <legend class="text-center">DESTINO</legend>
+                    <div class="col-12">
+                        <label for="remitente">Remitente:</label>
+                        <input type="text" name="remitente" id="remitente" class="form-control" formControlName="remitente" [class.is-invalid]="remitenteNoValido">
+                        <small class="text-danger" *ngIf="remitenteNoValido">
+                          Ingresa remitente
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" class="form-control" formControlName="emailOrigen" [class.is-invalid]="emailOrigenNoValido">
+                        <small class="text-danger" *ngIf="emailOrigenNoValido">
+                          Ingresa email
+                        </small>
+                      </div>
+                    <!-- </div>
+                    <div class="form-group row"> -->
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="cp-origen">Código Postal:</label>
+                        <input type="text" minlength="5" maxlength="5" name="cp-origen" id="cp-origen" class="form-control" (change)="onBuscarCP()" formControlName="cpOrigen" [class.is-invalid]="cpOrigenNoValido">
+                        <small class="text-danger" *ngIf="cpOrigenNoValido">
+                          Ingresa código postal
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="colonia-origen">Colonia:</label>
+                        <ng-container *ngIf="coloniaBoolean; else coloniaList">
+                          <input type="text" name="colonia" id="colonia" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                          <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                            Ingresa colonia
+                          </small>
+                        </ng-container>
+                        <ng-template #coloniaList>
+                          <select name="colonia-origen" id="colonia-origen" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                            <!-- <option [value]="colonia" > {{colonia}} </option> -->
+                            <option [value]="colonia" *ngFor="let colonia of coloniasOrigen"> {{colonia}} </option>
+                          </select>
+                          <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                            Ingresa colonia
+                          </small>
+                        </ng-template>
+                      </div>
+                    <!-- </div>
+                    <div class="form-group row"> -->
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="calle-origen">Calle:</label>
+                        <input type="text" name="calle-origen" id="calle-origen" class="form-control" formControlName="calle" [class.is-invalid]="calleOrigenNoValido">
+                        <small class="text-danger" *ngIf="calleOrigenNoValido">
+                          Ingresa calle
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-6">
+                        <label for="numero-exterior-origen">Número Exterior: </label>
+                        <input type="text" name="numero-exterior-origen" id="numero-exterior-origen" class="form-control" formControlName="numeroExt" [class.is-invalid]="numeroExtOrigenNoValido">
+                        <small class="text-danger" *ngIf="numeroExtOrigenNoValido">
+                          Ingresa número interior
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-6">
+                        <label for="numero-interior-origen">Número Interior:</label>
+                        <input type="text" name="numero-interior-origen" id="numero-interior-origen" class="form-control" formControlName="numeroInt" [class.is-invalid]="numeroIntOrigenNoValido">
+                        <small class="text-danger" *ngIf="numeroIntOrigenNoValido">
+                          Ingresa número interior
+                        </small>
+                      </div>
+                    <!-- </div>
+                    <div class="form-group row"> -->
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <!-- <div class="col-12">
+                        <label for="municipio-o">Ciudad:</label>
+                        <input type="text" name="municipio-o" id="municipio-o" class="form-control" formControlName="ciudad" [class.is-invalid]="ciudadNovalido" [disabled]="!coloniaBoolean">
+                        <small class="text-danger" *ngIf="ciudadNovalido">
+                          Ingresa ciudad
+                        </small>
+                      </div> -->
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="estado-o">Estado:</label>
+                        <input type="text" name="estado-o" id="estado-o" class="form-control" formControlName="estado" [class.is-invalid]="estadoOrigenNoValido" [disabled]="!coloniaBoolean">
+                        <small class="text-danger" *ngIf="estadoOrigenNoValido">
+                          Ingresa estado
+                        </small>
+                      </div>
+                    <!-- </div>
+                    <div class="form-group row"> -->
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono" [class.is-invalid]="telefonoOrigenNoValido" maxlength="10">
+                        <small class="text-danger" *ngIf="telefonoOrigenNoValido">
+                          Ingresa teléfono
+                        </small>
+                      </div>
+                      <!-- <div class="col-12 col-md-6"> -->
+                      <div class="col-12">
+                        <label for="referencia">Referencia (Entre calles):</label>
+                        <input type="text" name="referencia" id="referencia" class="form-control" formControlName="referencia" [class.is-invalid]="referenciaOrigenNoValido">
+                        <small class="text-danger" *ngIf="referenciaOrigenNoValido">
+                          Ingresa referencia (Entre calles)
+                        </small>
+                      </div>
+                </div>
+                <div class="col-12">
+                    <legend class="text-center">PAQUETE</legend>
+                    <div class="form-group row">
+                        <!-- Tipo de recoleccion -->
+                        <div class="col-12 col-md-6">
+                            <input class="form-check-input" type="radio" name="tipoRecoleccion" id="domicilioRecoleccion" value="RDO" formControlName="tipoRecoleccion">
+                            <label class="form-check-label" for="domicilioRecoleccion">Domicilio <small class="text-secondary">($25.06 MXN para paquetes pequeños, para cargas pesadas varia el costo)</small></label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <input class="form-check-input" type="radio" name="tipoRecoleccion" id="ocurreRecoleccion" value="O" formControlName="tipoRecoleccion">
+                            <label class="form-check-label" for="ocurreRecoleccion">Sin recolección, se lleva a ocurre <small class="text-secondary">($0.00 MXN)</small> </label>
+                        </div>
+                        <small class="text-danger" *ngIf="tipoRecoleccionNoValido">
+                            Selecciona el tipo de recolección
+                        </small>
+                        <!--  -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="form-group row">
+    <div class="formulario p-4">
+    <form>
+        <!-- ORIGEN -->
+        <div class="col-12 col-md-6"> 
+            <legend class="text-center">Origen</legend>
+                      <div class="form-group row">
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="remitente">Remitente:</label>
+                          <input type="text" name="remitente" id="remitente" class="form-control" formControlName="remitente" [class.is-invalid]="remitenteNoValido">
+                          <small class="text-danger" *ngIf="remitenteNoValido">
+                            Ingresa remitente
+                          </small>
+                        </div>
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="email">Email:</label>
+                          <input type="text" name="email" id="email" class="form-control" formControlName="emailOrigen" [class.is-invalid]="emailOrigenNoValido">
+                          <small class="text-danger" *ngIf="emailOrigenNoValido">
+                            Ingresa email
+                          </small>
+                        </div>
+                      <!-- </div>
+                      <div class="form-group row"> -->
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="cp-origen">Código Postal:</label>
+                          <input type="text" minlength="5" maxlength="5" name="cp-origen" id="cp-origen" class="form-control" (change)="onBuscarCP()" formControlName="cpOrigen" [class.is-invalid]="cpOrigenNoValido">
+                          <small class="text-danger" *ngIf="cpOrigenNoValido">
+                            Ingresa código postal
+                          </small>
+                        </div>
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="colonia-origen">Colonia:</label>
+                          <ng-container *ngIf="coloniaBoolean; else coloniaList">
+                            <input type="text" name="colonia" id="colonia" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                            <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                              Ingresa colonia
+                            </small>
+                          </ng-container>
+                          <ng-template #coloniaList>
+                            <select name="colonia-origen" id="colonia-origen" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaOrigenNoValido">
+                              <!-- <option [value]="colonia" > {{colonia}} </option> -->
+                              <option [value]="colonia" *ngFor="let colonia of coloniasOrigen"> {{colonia}} </option>
+                            </select>
+                            <small class="text-danger" *ngIf="coloniaOrigenNoValido">
+                              Ingresa colonia
+                            </small>
+                          </ng-template>
+                        </div>
+                      <!-- </div>
+                      <div class="form-group row"> -->
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="calle-origen">Calle:</label>
+                          <input type="text" name="calle-origen" id="calle-origen" class="form-control" formControlName="calle" [class.is-invalid]="calleOrigenNoValido">
+                          <small class="text-danger" *ngIf="calleOrigenNoValido">
+                            Ingresa calle
+                          </small>
+                        </div>
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-6">
+                          <label for="numero-exterior-origen">Número Exterior: </label>
+                          <input type="text" name="numero-exterior-origen" id="numero-exterior-origen" class="form-control" formControlName="numeroExt" [class.is-invalid]="numeroExtOrigenNoValido">
+                          <small class="text-danger" *ngIf="numeroExtOrigenNoValido">
+                            Ingresa número interior
+                          </small>
+                        </div>
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-6">
+                          <label for="numero-interior-origen">Número Interior:</label>
+                          <input type="text" name="numero-interior-origen" id="numero-interior-origen" class="form-control" formControlName="numeroInt" [class.is-invalid]="numeroIntOrigenNoValido">
+                          <small class="text-danger" *ngIf="numeroIntOrigenNoValido">
+                            Ingresa número interior
+                          </small>
+                        </div>
+                      <!-- </div>
+                      <div class="form-group row"> -->
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <!-- <div class="col-12">
+                          <label for="municipio-o">Ciudad:</label>
+                          <input type="text" name="municipio-o" id="municipio-o" class="form-control" formControlName="ciudad" [class.is-invalid]="ciudadNovalido" [disabled]="!coloniaBoolean">
+                          <small class="text-danger" *ngIf="ciudadNovalido">
+                            Ingresa ciudad
+                          </small>
+                        </div> -->
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="estado-o">Estado:</label>
+                          <input type="text" name="estado-o" id="estado-o" class="form-control" formControlName="estado" [class.is-invalid]="estadoOrigenNoValido" [disabled]="!coloniaBoolean">
+                          <small class="text-danger" *ngIf="estadoOrigenNoValido">
+                            Ingresa estado
+                          </small>
+                        </div>
+                      <!-- </div>
+                      <div class="form-group row"> -->
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="telefono">Teléfono:</label>
+                          <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono" [class.is-invalid]="telefonoOrigenNoValido" maxlength="10">
+                          <small class="text-danger" *ngIf="telefonoOrigenNoValido">
+                            Ingresa teléfono
+                          </small>
+                        </div>
+                        <!-- <div class="col-12 col-md-6"> -->
+                        <div class="col-12">
+                          <label for="referencia">Referencia (Entre calles):</label>
+                          <input type="text" name="referencia" id="referencia" class="form-control" formControlName="referencia" [class.is-invalid]="referenciaOrigenNoValido">
+                          <small class="text-danger" *ngIf="referenciaOrigenNoValido">
+                            Ingresa referencia (Entre calles)
+                          </small>
+                        </div>
+                      </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <!-- DESTINO -->
+            <legend class="text-center">Destino</legend>
+                        <div class="form-group row">
+                          <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="destinatario">Destinatario:</label>
+                            <input type="text" name="destinatario" id="destinatario" class="form-control" formControlName="destinatario" [class.is-invalid]="destinatarioNoValido">
+                            <small class="text-danger" *ngIf="destinatarioNoValido">
+                              Ingresa destinatario
+                            </small>
+                          </div>
+                          <div class="col-12">
+                            <label for="correo">Correo:</label>
+                            <input type="text" name="correo" id="correo" class="form-control" formControlName="email" [class.is-invalid]="emailDestinoNoValido">
+                            <small class="text-danger" *ngIf="emailDestinoNoValido">
+                              Ingresa correo
+                            </small>
+                          </div>
+                           <!-- <div class="col-12 col-md-6"> -->
+                          <!-- <div class="col-12">
+                            <label for="destinatario_dos">Destinatario 2:</label>
+                            <input type="text" name="destinatario_dos" id="destinatario_dos" class="form-control" formControlName="destinatario_dos" [class.is-invalid]="destanatarioDosNoValido">
+                          </div> -->
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-12">
+                              <label for="cp-destino">Código Postal:</label>
+                              <input type="text" minlength="5" maxlength="5" name="cp-destino" id="cp-destino" class="form-control"  (change)="onBuscarCP()" formControlName="cp" [class.is-invalid]="cpDestinoNoValido">
+                              <small class="text-danger" *ngIf="cpDestinoNoValido">
+                                Ingresa código postal
+                              </small>
+                          </div>
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-12">
+                              <label for="colonia-destino">Colonia:</label>
+                              <ng-container *ngIf="coloniaBoolean; else coloniaList">
+                                <input type="text" name="colonia" id="colonia" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaDestinoNoValido">
+                                <small class="text-danger" *ngIf="coloniaDestinoNoValido">
+                                  Ingresa colonia
+                                </small>
+                              </ng-container>
+                              <ng-template #coloniaList>
+                                <select name="colonia-origen" id="colonia-origen" class="form-control" formControlName="colonia" [class.is-invalid]="coloniaDestinoNoValido">
+                                  <!-- <option [value]="colonia" > {{colonia}} </option> -->
+                                  <option [value]="colonia" *ngFor="let colonia of coloniasDestino"> {{colonia}} </option>
+                                </select>
+                                <small class="text-danger" *ngIf="coloniaDestinoNoValido">
+                                  Ingresa colonia
+                                </small>
+                              </ng-template>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-12">
+                              <label for="calle-destino">Calle:</label>
+                              <input type="text" name="calle-destino" id="calle-destino" class="form-control" formControlName="calle" [class.is-invalid]="calleDestinoNoValido">
+                              <small class="text-danger" *ngIf="calleDestinoNoValido">
+                                Ingresa calle
+                              </small>
+                          </div>
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-6">
+                              <label for="numero-exterior-destino">Número Exterior:</label>
+                              <input type="text" name="numero-exterior-destino" id="numero-exterior-destino" class="form-control" formControlName="numeroExt" [class.is-invalid]="numeroExtDestinoNoValido">
+                              <small class="text-danger" *ngIf="numeroExtDestinoNoValido">
+                                Ingresa número exterior
+                              </small>
+                          </div>
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-6">
+                              <label for="numero-interior-destino">Número Interior:</label>
+                              <input type="text" name="numero-interior-destino" id="numero-interior-destino" class="form-control" formControlName="numeroInt" [class.is-invalid]="numeroIntDestinoNoValido">
+                              <small class="text-danger" *ngIf="numeroIntDestinoNoValido">
+                                Ingresa número interior
+                              </small>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                          <!-- <div class="col-12">
+                              <label for="municipio-destino">Ciudad:</label>
+                              <input type="text" name="municipio-destino" id="municipio-destino" class="form-control" formControlName="ciudad" [class.is-invalid]="ciudadNovalido" [disabled]="!coloniaBoolean">
+                              <small class="text-danger" *ngIf="ciudadNovalido"></small>
+                          </div> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-12">
+                              <label for="estado-destinvo">Estado:</label>
+                              <input type="text" name="estado-destino" id="estado-destino" class="form-control" formControlName="estado" [class.is-invalid]="estadoDestinoNoValido" [disabled]="!coloniaBoolean">
+                              <small class="text-danger" *ngIf="estadoDestinoNoValido">
+                                Ingresa estado
+                              </small>
+                          </div>
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                          <div class="col-12">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" name="telefono" id="telefono" class="form-control" formControlName="telefono" [class.is-invalid]="telefonoDestinoNoValido">
+                            <small class="text-danger" *ngIf="telefonoDestinoNoValido">
+                              Ingresa teléfono
+                            </small>
+                          </div>
+                           <!-- <div class="col-12 col-md-6"> -->
+  
+                        <!-- </div>
+                        <div class="form-group row"> -->
+                           <!-- <div class="col-12 col-md-6"> -->
+                            <div class="col-12">
+                            <label for="referencia-destino">Referencia (Entre calles):</label>
+                            <input type="text" name="referencia" id="referencia" class="form-control" formControlName="referencia" [class.is-invalid]="referenciaDestinoNoValido">
+                            <small class="text-danger" *ngIf="referenciaDestinoNoValido">
+                              Ingresa referencia (Entre calles)
+                            </small>
+                          </div>
+                        </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group row">
+                <div class="col-12">
+                  <label for="tipoRecoleccion">Tipo de Recolección:</label>
+                </div>
+              </div>
+              <div class="form-group row pl-5">
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoRecoleccion" id="domicilioRecoleccion" value="RDO" formControlName="tipoRecoleccion">
+                  <label class="form-check-label" for="domicilioRecoleccion">Domicilio <small class="text-secondary">($25.06 MXN para paquetes pequeños, para cargas pesadas varia el costo)</small></label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoRecoleccion" id="ocurreRecoleccion" value="O" formControlName="tipoRecoleccion">
+                  <label class="form-check-label" for="ocurreRecoleccion">Sin recolección, se lleva a ocurre <small class="text-secondary">($0.00 MXN)</small> </label>
+                </div>
+                <small class="text-danger" *ngIf="tipoRecoleccionNoValido">
+                  Selecciona el tipo de recolección
+                </small>
+              </div>
+              <!-- FIN: Tipo de recoleccion -->
+              <!-- INICIO: Tipo de entrega -->
+              <div class="form-group row">
+                <div class="col-12">
+                  <label for="tipoEntrega">Tipo de Entrega:</label>
+                </div>
+              </div>
+              <div class="form-group row pl-5" *ngIf="opcionUno">
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
+                  <label class="form-check-label" for="domicilio">Domicilio</label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
+                  <label class="form-check-label" for="ocurre">Ocurre</label>
+                </div>
+                <small class="text-danger" *ngIf="tipoEntregaNoValido">
+                  Selecciona el tipo de entrega
+                </small>
+              </div>
+              <div class="form-group row pl-5" *ngIf="opcionDos">
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" formControlName="tipoEntrega">
+                  <label class="form-check-label" for="domicilio">Domicilio</label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" disabled>
+                  <label class="form-check-label" for="ocurre">Ocurre</label>
+                </div>
+                <small class="text-danger" *ngIf="tipoEntregaNoValido">
+                  Selecciona el tipo de entrega
+                </small>
+              </div>
+              <div class="form-group row pl-5" *ngIf="opcionTres">
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" disabled>
+                  <label class="form-check-label" for="domicilio">Domicilio</label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" formControlName="tipoEntrega">
+                  <label class="form-check-label" for="ocurre">Ocurre</label>
+                </div>
+                <small class="text-danger" *ngIf="tipoEntregaNoValido">
+                  Selecciona el tipo de entrega
+                </small>
+              </div>
+              <div class="form-group row pl-5" *ngIf="opcionCuatro">
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="domicilio" value="D" disabled>
+                  <label class="form-check-label" for="domicilio">Domicilio</label>
+                </div>
+                <div class="col-12 col-md-6">
+                  <input class="form-check-input" type="radio" name="tipoEntrega" id="ocurre" value="O" disabled>
+                  <label class="form-check-label" for="ocurre">Ocurre</label>
+                </div>
+                <small class="text-danger" *ngIf="tipoEntregaNoValido">
+                  Selecciona el tipo de entrega
+                </small>
+              </div>
+              <!-- FIN: Tipo de entrega -->
+              <!-- INICIO: Tipo de envío -->
+              <div class="form-group row">
+                <div class="col-12">
+                  <label for="tipoEnvio">Tipo de Envío:</label>
+                </div>
+              </div>
+              <div class="form-group row pl-5">
+                <div class="col-12 col-md-4">
+                  <input class="form-check-input" type="radio" name="tipoEnvio" id="paquete" value="P" formControlName="tipoEnvio" (click)="actualizarForm('P')" (change)="asignarValidaciones()">
+                  <label class="form-check-label" for="paquete">Paquete</label>
+                </div>
+                <div class="col-12 col-md-4">
+                  <input class="form-check-input" type="radio" name="tipoEnvio" id="sobre" value="S" formControlName="tipoEnvio" (click)="actualizarForm('S')" (change)="asignarValidaciones()">
+                  <label class="form-check-label" for="sobre">Sobre</label>
+                </div>
+                <!-- <div class="col-12 col-md-3">
+                  <input class="form-check-input" type="radio" name="tipoEnvio" id="valija" value="V" formControlName="tipoEnvio" (click)="actualizarForm('V')" (change)="asignarValidaciones()">
+                  <label class="form-check-label" for="valija">Valija</label>
+                </div> -->
+                <div class="col-12 col-md-4">
+                  <input class="form-check-input" type="radio" name="tipoEnvio" id="ltl" value="L" formControlName="tipoEnvio" (click)="actualizarForm('L')" (change)="asignarValidaciones()">
+                  <label class="form-check-label" for="ltl">LTL</label>
+                </div>
+                <small class="text-danger" *ngIf="tipoEnvioNoValido">
+                  Selecciona el tipo de envio
+                </small>
+              </div>
+              <!-- FIN: Tipo de envío -->
+
+              <fieldset *ngIf="forma.get('tipoEnvio').value == 'P' || forma.get('tipoEnvio').value == 'L'">
+                <legend>Tamaño del Paquete</legend>
+                <div class="form-group row">
+                    <!-- <div class="col-12 d-flex justify-content-center">
+                    </div> -->
+                    <div class="col-12 col-md-4">
+                      <label for="largo">Largo (cm):</label>
+                      <input type="number" step="1" min="0" name="largo" id="largo" class="form-control" formControlName="largo" [class.is-invalid]="largoNoValido">
+                      <small class="text-danger" *ngIf="largoNoValido">
+                        Ingresa medida de largo
+                      </small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label for="ancho">Ancho (cm):</label>
+                      <input type="number" step="1" min="0" name="ancho" id="ancho" class="form-control" formControlName="ancho" [class.is-invalid]="anchoNoValido">
+                      <small class="text-danger" *ngIf="anchoNoValido">
+                        Ingresa medida de ancho
+                      </small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <label for="alto">Alto (cm):</label>
+                      <input type="number" step="1" min="0" name="alto" id="alto" class="form-control" formControlName="alto" [class.is-invalid]="altoNoValido">
+                      <small class="text-danger" *ngIf="altoNoValido">
+                        Ingresa medida de alto
+                      </small>
+                    </div>
+                </div>
+              </fieldset>
+                <div class="form-group row">
+                    <div class="col-12 col-md-4">
+                      <legend>Peso del Paquete</legend>
+                      <label for="peso">Peso (kg):</label>
+                      <input type="number" step="0.1" min="0" name="peso" id="peso" class="form-control" formControlName="peso" [class.is-invalid]="pesoNoValido">
+                      <small class="text-danger" *ngIf="pesoNoValido">
+                        Ingresa medida de peso
+                      </small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <legend>Contenido del Paquete:</legend>
+                      <label for="largo">Contenido:</label>
+                      <input type="text" name="contenido" id="contenido" class="form-control" formControlName="contenido" [class.is-invalid]="contenidoNoValido">
+                      <small class="text-danger" *ngIf="contenidoNoValido">
+                        Ingresa contenido del paquete
+                      </small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <legend>Valor del Paquete:</legend>
+                      <label for="largo">Valor ($ MXN):</label>
+                      <input type="number" step="1" min="0" name="valor" id="valor" class="form-control" formControlName="valor" [class.is-invalid]="valorNoValido">
+                      <small class="text-secondary">
+                        Ingresa valor del contenido si se desea asegurar el envío
+                      </small>
+                      <!-- <small class="text-danger" *ngIf="valorNoValido">
+                        Ingresa valor del paquete
+                      </small> -->
+                    </div>
+                </div>
+                <!-- <legend>Contenido del Paquete:</legend>
+                <div class="form-group row d-flex justify-content-center">
+                    <div class="col-12">
+                      <label for="largo">Contenido:</label>
+                      <input type="text" name="contenido" id="contenido" class="form-control" formControlName="contenido" [class.is-invalid]="contenidoNoValido">
+                      <small class="text-danger" *ngIf="contenidoNoValido">
+                        Ingresa contenido del paquete
+                      </small>
+                    </div>
+                </div> -->
+                <!-- <legend>Valor del Paquete:</legend>
+                <div class="form-group row d-flex justify-content-center">
+                    <div class="col-12 col-md-4">
+                        <label for="largo">Valor ($ MXN):</label>
+                            <input type="number" step="1" name="valor" id="valor" class="form-control" [(ngModel)]="paquete.valor" required>
+                            <div class="alert alert-danger w-100" role="alert" *ngIf="f.submitted && f.controls['valor'].errors">
+                                Favor de ingresar valor
+                            </div>
+                    </div>
+                </div> -->
+
+              <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn btn-outline-danger" (click)="onAtras()">Atrás</button>
+                <ng-container *ngIf="perfil == 5 || perfil == 4; else elseTemplate">
+                  <button class="btn btn-info" type="submit" [disabled]="opcionCuatro">Contratar</button>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <button class="btn btn-info" type="submit" [disabled]="opcionCuatro">Pago</button>
+                </ng-template>
+              </div>
+
+        </div>
+    </form>
+
+</div>
+<div class="container-sm mb-5">
+    <div class="row">
+        <div class="col">
+          <!-- <app-legend [lengenda]="legenda"></app-legend>
+          <app-parrafo [parrafo]="parrafo"></app-parrafo> -->
+          <div class="mb-4">
+            <!-- <button class="btn btn-info w-100" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >
+                Nueva cotizacion
+            </button> -->
+           </div>
+            <div class="formulario p-4">
+              <div>
+                <!-- <app-legend class="text-center" [lengenda]="legend"></app-legend> -->
+              </div>
+                <form
+                [formGroup]="forma" (ngSubmit)="onPagar()"
+                >
+                    <fieldset>
+  
+                      
+                      <!-- <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-dark" type="submit">Siguiente</button>
+                      </div> -->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  <div class="container-sm mb-5">
+    <div class="row">
+        <div class="col">
+          <!-- <app-legend [lengenda]="legenda"></app-legend>
+          <app-parrafo [parrafo]="parrafo"></app-parrafo> -->
+          <div class="mb-4">
+            <!-- <button class="btn btn-info w-100" [routerLink]="['/inicio']" routerLinkActive="router-link-active" >
+                Nueva cotizacion
+            </button> -->
+          </div>
+            
+              <div>
+                <!-- <app-legend class="text-center" [lengenda]="lengend"></app-legend> -->
+              </div>
+                <!-- <form
+                [formGroup]="forma" (ngSubmit)="onSiguiente()"
+                > -->
+                    <fieldset>
+                        
+                        <!-- <div class="d-flex justify-content-between">
+                            <button class="btn btn-outline-danger" (click)="onAtras()" type="button">Atrás</button>
+                            <button class="btn btn-outline-dark" type="submit">Siguiente</button>
+                        </div> -->
+                        <!-- INICIO: Tipo de recoleccion -->
+                                    </fieldset>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+  </div>
+  

@@ -10,7 +10,8 @@ constructor(
   public latitud: string,
   public longitud: string,
   public createAt: Date,
-  public envio: EnvioDto
+  public envio: EnvioDto,
+  public guia: string
 ) {}
 
 }

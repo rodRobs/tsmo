@@ -10,6 +10,8 @@ const TIPOENVIO = 'tipoEnvio';
 const TIPOENTREGA = 'tipoEntrega';
 const TIPOSERVICIO = 'tipoServicio';
 const TIPORECOLECCION = 'tipoRecoleccion';
+const CANTIDAD = 'cantidad';
+const PAQUETERIA_REALIZAR = 'paqueteriaRealizar';
 @Injectable({
   providedIn: 'root'
 })
@@ -94,7 +96,22 @@ export class PaqueteService {
   }
 
   setTipoRecoleccion(tipoRecoleccion: string) {
-    return localStorage.setItem(TIPORECOLECCION, tipoRecoleccion);
+    localStorage.setItem(TIPORECOLECCION, tipoRecoleccion);
   }
 
+  getCantidad() {
+    return localStorage.getItem(CANTIDAD);
+  }
+
+  setCantidad(cantidad: number) {
+    localStorage.setItem(CANTIDAD, cantidad.toString());
+  }
+
+  getPaqueteriaRealizar() {
+    return localStorage.getItem(PAQUETERIA_REALIZAR);
+  }
+
+  setPaqueteriaRealizar(paqueteriaRealizar: string) {
+    localStorage.setItem(PAQUETERIA_REALIZAR, paqueteriaRealizar);
+  }
 }

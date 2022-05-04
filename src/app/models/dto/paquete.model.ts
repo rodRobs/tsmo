@@ -5,6 +5,7 @@ export class PaqueteDto {
         public alto: string,
         public peso: string,
         public valor: string ,
-        public contenido: string
+        public contenido: string,
+        public realizaEnvio: string
     ) {}
 }

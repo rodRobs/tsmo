@@ -6,6 +6,7 @@ export class DetalleDto {
     public identificador: string,
     public contenido: string,
     public valorDeclarado: string,
-    public dimensiones: DimensionesDto
+    public dimensiones: DimensionesDto,
+    public volumen: number
   ) {}
 }

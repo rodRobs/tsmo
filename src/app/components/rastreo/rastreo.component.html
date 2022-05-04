@@ -97,9 +97,9 @@
         </div> -->
 
         <div class="col-12 d-flex justify-content-center">
-          <ng-container *ngIf="envio.rastreos.length>0; else elseTemplate">
+          <ng-container *ngIf="rastreos.length>0; else elseTemplate">
             <ul>
-              <li *ngFor="let rastreo of envio.rastreos, index as i"> <p><strong> {{rastreo['createAt'] | date : 'dd/MM/yyyy, h:mm a'}} - {{rastreo['estado']}}, {{rastreo['pais']}} </strong></p><p> {{rastreo['descripcion']}} </p> </li>
+              <li *ngFor="let rastreo of rastreos, index as i"> <p><strong> {{rastreo['createAt'] | date : 'dd/MM/yyyy, h:mm a'}} - {{rastreo['estado']}}, {{rastreo['pais']}} </strong></p><p> {{rastreo['descripcion']}} </p> </li>
             </ul>
           </ng-container>
           <ng-template #elseTemplate>

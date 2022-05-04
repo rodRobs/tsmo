@@ -12,6 +12,7 @@ import { ResponseActualizacionEtapaModel } from 'src/app/models/response/actuali
 const URL = 'http://localhost:8080/';
 const ACTUALIZAR = '/actualizar/';
 const RASTREO = 'rastreo';
+const ETAPA = 'etapa';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,7 @@ export class RastreoService {
 
   onRastrear(guia: string) {
     console.log(`${HostType.HOST}${RASTREO}/${guia}`);
-    return this.http.get<EnvioMostrar>(`${HostType.HOST}${RASTREO}/${guia}`);
+    return this.http.get<any>(`${HostType.HOST}${RASTREO}/${guia}`);
   }
 
   onRastrearCliente(guia: string, cliente: number) {
@@ -41,7 +42,8 @@ export class RastreoService {
 
   actualizarRastreo(actualizaEtapa: ActualizacionEtapaDtoModel) {
     return this.http.post<ResponseActualizacionEtapaModel>(`${HostType.HOST}${RASTREO}${ACTUALIZAR}etapa`, actualizaEtapa);
-  }
+
+}
 
 
 }

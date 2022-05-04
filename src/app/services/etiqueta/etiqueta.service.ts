@@ -16,6 +16,7 @@ export class EtiquetaService {
   ) { }
 
   imprimirGuiaProveedor(guia: string) {
+    // etiquetas/imprimir/{guia}
     return this.http.get(`${HostType.HOST}${ETIQUETA}${IMPRIMIR}${guia}`, {responseType: 'arraybuffer'});
   }
 }

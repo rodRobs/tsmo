@@ -87,9 +87,9 @@ export class PagoComponent implements OnInit {
   loadingPago: boolean = false;
 
   costo: CostoDto = new CostoDto(null, '','','',null,null,null,null,null,null,null,null,null,null,null,null, null, null, null);
-  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
+  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   clienteDto: ClienteDto = new ClienteDto(null, null, null, null, null);
-  envioDto: EnvioDto = new EnvioDto(null, null, null, new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []), new ClienteDto(null, null, null, null, null), null, null, null, new UsuarioModel(null, null, null, null, null, null));
+  envioDto: EnvioDto = new EnvioDto(null, null, null, new DocumentacionDto(null,'',new OpcionesDto('','','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []), new ClienteDto(null, null, null, null, null), null, null, null, new UsuarioModel(null, null, null, null, null, null));
 
   // form: FormGroup;
 

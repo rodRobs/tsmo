@@ -42,8 +42,8 @@ export class CotizacionComponent implements OnInit {
   parrafo: string = ParrafoType.Cotizar;
   instrucciones: string = InstruccionesType.Cotizacion;
 
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[], new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
-  detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null));
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[], new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null),null);
+  detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null),null);
 
   forma: FormGroup;
 
@@ -264,7 +264,7 @@ export class CotizacionComponent implements OnInit {
   }
 
   asignarACotizacion() {
-    this.cotizacion = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
+    this.cotizacion = new CotizacionDto(0,'',new OpcionesDto('','','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null),null);
     this.cotizacion.detalle = [];
     this.cotizacion.origen.domicilio.codigoPostal = this.forma.get('origen').value;
     this.cotizacion.destino.domicilio.codigoPostal = this.forma.get('destino').value;

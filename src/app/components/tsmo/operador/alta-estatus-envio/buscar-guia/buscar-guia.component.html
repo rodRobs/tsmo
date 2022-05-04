@@ -10,10 +10,13 @@
         <textarea name="guia" id="guia" cols="30" rows="10" class="form-control" formControlName="guia" [class.is-invalid]="guiaNoValido" (keyup)="agregarGuia($event)"></textarea>
         <!-- <input type="text" name="guia" id="guia" class="form-control" formControlName="guia" [class.is-invalid]="guiaNoValido"> -->
         <small class="text-danger" *ngIf="guiaNoValido">Ingrese guia para buscar</small>
-        <small class="text-primary" *ngIf="contadorQR>0"> Se han escaneado {{contadorQR}} paquetes </small>
+        <br>
+        <!-- <small class="text-primary" *ngIf="listaGuias.length>0"> Se han ingresado {{listaGuias.length}} paquetes </small> -->
+        <small class="text-danger" *ngIf="longitudGuiaBool">{{mensajeLongitudGuia}} </small>
       </div>
     </div>
     <br>
+    <!--
     <div class="col d-flex justify-content-center mt-3">
       <qr-scanner
 
@@ -24,10 +27,8 @@
         [debug]="false"
         >
       </qr-scanner>
-      <!-- [updateTime]="500" -->
-      <!-- [debug]="false" -->
-      <!-- *ngIf="this.forma.get('guia').value == ''" -->
     </div>
+    -->
     <br>
 
   </div>

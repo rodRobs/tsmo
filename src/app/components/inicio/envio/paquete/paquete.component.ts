@@ -44,13 +44,13 @@ export class PaqueteComponent implements OnInit {
 
   legend: string = LegendaType.Envio.toString();
 
-  paquete: PaqueteDto = new PaqueteDto('','','','','','');
-  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
-  opciones: OpcionesDto = new OpcionesDto('','','','','');
+  paquete: PaqueteDto = new PaqueteDto('','','','','','', null);
+  cotizacion: CotizacionDto = new CotizacionDto(0,'',new OpcionesDto('','','','','',''),new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','',new Date()),new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','',new Date()),[], new Date(),[],new CostoDto(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null),null);
+  opciones: OpcionesDto = new OpcionesDto('','','','','','');
   origenDto: OrigenDto = new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date());
   destinoDto: DestinoDto = new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date());
-  detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null));
-  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
+  detalle: DetalleDto = new DetalleDto('','','',new DimensionesDto(null,null,null,null),null);
+  documentacionDto: DocumentacionDto = new DocumentacionDto(null,'',new OpcionesDto('','','','','',''), '','','ND',new OrigenDto('',new DomicilioDto('','','','','','','',''),[],'','', new Date()), new DestinoDto('','',new DomicilioDto('','','','','','','',''),[],'','', new Date()), [], []);
   // Para realizar cobertura
   coberturaResponse: CoberturaResponseModel[] = [];
   coberturaDto: CoberturaDto = new CoberturaDto('','');
@@ -131,8 +131,8 @@ export class PaqueteComponent implements OnInit {
       alto: ['', /*Validators.required*/],
       peso: ['', Validators.required],
       valor: [''],
-
-      contenido: ['', Validators.required]
+      contenido: [''],
+      paqueteriaRealizar: ['', Validators.required]
     });
   }
 
@@ -145,6 +145,7 @@ export class PaqueteComponent implements OnInit {
   get valorNoValido() { return this.forma.get('valor').invalid && this.forma.get('valor').touched; }
   get contenidoNoValido() { return this.forma.get('contenido').invalid && this.forma.get('contenido').touched; }
   get tipoRecoleccionNoValido() { return this.forma.get('tipoRecoleccion').invalid && this.forma.get('tipoRecoleccion').touched; }
+  get paqueteriaRealizarNoValido() { return this.forma.get('paqueteriaRealizar').invalid && this.forma.get('paqueteriaRealizar').touched; }
 
   allTouched() {
     if (this.forma.invalid) {
@@ -164,7 +165,7 @@ export class PaqueteComponent implements OnInit {
     this.forma.get('peso').setValue(this.paqueteService.getPeso());
     this.forma.get('valor').setValue(this.paqueteService.getValor());
     this.forma.get('contenido').setValue(this.paqueteService.getContenido());
-
+    this.forma.get('paqueteriaRealizar').setValue(this.paqueteService.getPaqueteriaRealizar());
   }
 
   guardarValoresService() {
@@ -178,6 +179,7 @@ export class PaqueteComponent implements OnInit {
     this.paqueteService.setPeso(this.forma.get('peso').value);
     this.paqueteService.setValor(this.forma.get('valor').value);
     this.paqueteService.setContenido(this.forma.get('contenido').value);
+    this.paqueteService.setPaqueteriaRealizar(this.forma.get('paqueteriaRealizar').value);
   }
 
   onAtras() {
@@ -223,6 +225,7 @@ export class PaqueteComponent implements OnInit {
     this.cotizacion.opciones.tipoEntrega = this.opciones.tipoEntrega;
     this.cotizacion.opciones.tipoEnvio = this.opciones.tipoEnvio;
     this.cotizacion.opciones.tipoServicio = this.opciones.tipoServicio;
+    this.cotizacion.opciones.paqueteriaRealiza = this.opciones.paqueteriaRealiza;
     if (this.forma.get('tipoRecoleccion').value != "O") {
       this.cotizacion.servicios.push(new ServiciosDto(this.forma.get('tipoRecoleccion').value, '0'))
     }
@@ -269,8 +272,8 @@ export class PaqueteComponent implements OnInit {
   // }
 
   onCotizar() {
-    console.log('On Cotizar');
-    console.log(this.forma);
+    //console.log('On Cotizar');
+    //console.log(this.forma);
     this.guardarValoresService();
     this.crearOpciones();
     this.crearOrigen();
@@ -279,7 +282,7 @@ export class PaqueteComponent implements OnInit {
     this.crearDocumentacion();
     this.documentacionService.setCotizacionDto(this.crearObjetoCotizacion());
     this.documentacionService.setDocumentacion(this.documentacionDto);
-    console.log(this.documentacionDto);
+    //console.log(this.documentacionDto);
     // this.router.navigate([Vista.PAGO_CLIENTE]);
     switch(window.location.pathname) {
       case SwitchType.PAQUETE:
@@ -331,6 +334,7 @@ export class PaqueteComponent implements OnInit {
     this.opciones.tipoEntrega = this.forma.get('tipoEntrega').value;
     this.opciones.tipoEnvio = this.forma.get('tipoEnvio').value;
     this.opciones.tipoRecoleccion = this.forma.get('tipoRecoleccion').value;
+    this.opciones.paqueteriaRealiza = this.forma.get('paqueteriaRealizar').value;
     // this.opciones.tipoServicio = '3';
   }
 
@@ -453,8 +457,8 @@ export class PaqueteComponent implements OnInit {
     this.forma.get('peso').setValue(1);
     // this.forma.get('peso').disable();
     this.forma.get('peso').updateValueAndValidity();
-    this.forma.get('contenido').setValidators(Validators.required);
-    this.forma.get('contenido').updateValueAndValidity();
+    //this.forma.get('contenido').setValidators(Validators.required);
+    //this.forma.get('contenido').updateValueAndValidity();
     // this.forma.get('largo').setValidators(Validators.required);
     this.forma.get('largo').setValue(1);
     this.forma.get('largo').updateValueAndValidity();
